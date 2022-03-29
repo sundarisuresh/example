@@ -7,6 +7,8 @@ use Magento\Framework\Controller\Result\RawFactory;
 class Index implements ActionInterface 
 {
 	protected $resultfactory;
+
+	// this is constructor
 	public function __construct(
 		RawFactory $resultfactory
 		)
