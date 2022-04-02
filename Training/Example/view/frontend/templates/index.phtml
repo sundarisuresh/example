@@ -1,1 +1,59 @@
-<h2>Welcome to my unicorn world</h2>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper">Contact Us</span>    </h1>
+    </div>
+    <div class="columns"><div class="column main"><input name="form_key" type="hidden" value="bXZwe9huIrcnUghE"><div id="authenticationPopup" data-bind="scope:'authenticationPopup', style: {display: 'none'}" style="display: none;">
+        <script>window.authenticationPopup = {"autocomplete":"off","customerRegisterUrl":"http:\/\/mysite.mg\/customer\/account\/create\/","customerForgotPasswordUrl":"http:\/\/mysite.mg\/customer\/account\/forgotpassword\/","baseUrl":"http:\/\/mysite.mg\/"}</script>    <!-- ko template: getTemplate() -->
+
+
+<!-- /ko -->
+    
+</div>
+
+
+
+
+
+<form class="form contact" action="http://mysite.mg/example/post" id="contact-form" method="post" data-hasrequired="* Required Fields" novalidate="novalidate">
+    <fieldset class="fieldset">
+        <legend class="legend"><span>Write Us</span></legend><br>
+        <div class="field note no-label">
+            Jot us a note and we’ll get back to you as quickly as possible.        </div>
+        <div class="field name required">
+            <label class="label" for="name"><span>Name</span></label>
+            <div class="control">
+                <input name="name" id="name" title="Name" value="" class="input-text" type="text" data-validate="{required:true}" aria-required="true">
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span>Email</span></label>
+            <div class="control">
+                <input name="email" id="email" title="Email" value="" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" aria-required="true">
+            </div>
+        </div>
+        <div class="field telephone">
+            <label class="label" for="telephone"><span>Phone Number</span></label>
+            <div class="control">
+                <input name="telephone" id="telephone" title="Phone Number" value="" class="input-text" type="tel">
+            </div>
+        </div>
+        <div class="field comment required">
+            <label class="label" for="comment">
+                <span>What’s on your mind?</span>
+            </label>
+            <div class="control">
+                <textarea name="comment" id="comment" title="What’s on your mind?" class="input-text" cols="5" rows="3" data-validate="{required:true}" aria-required="true"></textarea>
+            </div>
+        </div>
+            </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span>Submit</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+</div></div>
