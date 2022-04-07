@@ -1,4 +1,19 @@
-<div class="page-title-wrapper">
+<?php 
+
+$enable = $block->getIsEnable();
+$name= $block->getName();
+$email=$block->getemail();
+$telephone=$block->getTelephone();
+$comment=$block->getComment();
+$enabletel=$block->getenabletel();
+if ($enable!=1)
+{
+    return;
+} 
+ ?>
+
+
+    <div class="page-title-wrapper">
     <h1 class="page-title">
         <span class="base" data-ui-id="page-title-wrapper">Contact Us</span>    </h1>
     </div>
@@ -11,40 +26,69 @@
 </div>
 
 
-
-
-
-<form class="form contact" action="http://mysite.mg/example/post" id="contact-form" method="post" data-hasrequired="* Required Fields" novalidate="novalidate">
+<form class="form contact" action="http://mysite.mg/example/post" id="contact-form" data-mage-init='{"validation": {}}' method="post" data-hasrequired="* Required Fields" novalidate="novalidate">
     <fieldset class="fieldset">
+        <div class="fillform"><span>please fill the form</span></div>
         <legend class="legend"><span>Write Us</span></legend><br>
         <div class="field note no-label">
             Jot us a note and we’ll get back to you as quickly as possible.        </div>
         <div class="field name required">
-            <label class="label" for="name"><span>Name</span></label>
+            <label class="label" for="name"><span>
+                <?php
+                echo $name;
+                ?>
+            </span></label>
             <div class="control">
-                <input name="name" id="name" title="Name" value="" class="input-text" type="text" data-validate="{required:true}" aria-required="true">
+                <input name="name" required id="name" title="Name" value="" class="input-text" type="text" data-validate="{required:true}" aria-required="true">
             </div>
         </div>
         <div class="field email required">
-            <label class="label" for="email"><span>Email</span></label>
+            <label class="label" for="email"><span>
+                <?php
+                echo $email;
+                ?>
+            </span></label>
             <div class="control">
-                <input name="email" id="email" title="Email" value="" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" aria-required="true">
+                <input name="email" required id="email" title="Email" value="" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}" aria-required="true">
             </div>
         </div>
-        <div class="field telephone">
-            <label class="label" for="telephone"><span>Phone Number</span></label>
+        <?php
+        if ($enabletel==1)
+        {?>
+            <div class="field telephone">
+            <label class="label" for="telephone">
+                <span>
+                    telephone
+
+                </span></label>
             <div class="control">
-                <input name="telephone" id="telephone" title="Phone Number" value="" class="input-text" type="tel">
+                <input name="telephone" required id="telephone" title="Phone Number" value="" class="input-text" type="tel">
             </div>
         </div>
-        <div class="field comment required">
+        <?php
+        }
+        ?>
+        <?php 
+        if ($comment==1)
+        {
+            ?>
+
+            <div class="field comment required">
             <label class="label" for="comment">
-                <span>What’s on your mind?</span>
+                <span>
+                    Comment
+                </span>
             </label>
             <div class="control">
-                <textarea name="comment" id="comment" title="What’s on your mind?" class="input-text" cols="5" rows="3" data-validate="{required:true}" aria-required="true"></textarea>
+                <textarea name="comment" required id="comment" title="What’s on your mind?" class="input-text" cols="5" rows="3" data-validate="{required:true}" aria-required="true"></textarea>
             </div>
         </div>
+
+
+    <?php    }
+        ?>
+
+
             </fieldset>
     <div class="actions-toolbar">
         <div class="primary">
@@ -57,3 +101,4 @@
 </form>
 
 </div></div>
+

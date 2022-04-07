@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <referenceContainer name="content">
-        <block class="Training\Example\Block\Index" name="example_index_index" template="Training_Example::index.phtml" />
-    </referenceContainer>
     <referenceContainer name="footer">
         <block class="Training\Example\Block\Header" name="example_header" template="Training_Example::header.phtml" />
     </referenceContainer>
