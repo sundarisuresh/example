@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Sundari\Contactus\Api\FormRepositoryInterface" type="Sundari\Contactus\Model\FormRepository"/>
+	<preference for="Sundari\Contactus\Api\Data\FormInterface" type="Sundari\Contactus\Model\Form"/>
+	<preference for="Sundari\Contactus\Api\Data\FormSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+</config>

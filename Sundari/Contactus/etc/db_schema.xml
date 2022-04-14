@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="sundari_contactus_form" resource="default" engine="innodb" comment="sundari_contactus_form Table">
+		<column xsi:type="int" name="form_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="form_id"/>
+		</constraint>
+		<column name="name" nullable="true" xsi:type="text" comment="name"/>
+		<column name="email" nullable="true" xsi:type="text" comment="email"/>
+		<column name="phone" nullable="true" xsi:type="int" comment="phone" identity="false"/>
+		<column name="comment" nullable="true" xsi:type="text" comment="comment"/>
+	</table>
+</schema>
