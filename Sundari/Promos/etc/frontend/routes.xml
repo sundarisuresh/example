@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
 	<router id="standard">
-		<route id="promo" frontName="promo">
-			<module name="Sundari_Promo"/>
+		<route id="promos" frontName="promos">
+			<module name="Sundari_Promos"/>
 		</route>
 	</router>
 </config>

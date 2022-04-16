@@ -1,16 +1,12 @@
 {
-    "name": "sundari/module-promo",
-    "description": "lkjhgh",
+    "name": "sundari/module-promos",
+    "description": "asf",
     "type": "magento2-module",
     "license": "GPL-3.0",
     "authors": [
         {
             "name": "Mage2Gen",
             "email": "info@mage2gen.com"
-        },
-        {
-            "name": "Sundari Suresh",
-            "email": "sundarisuresh44@gmail.com"
         }
     ],
     "minimum-stability": "dev",
@@ -20,7 +16,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Sundari\\Promo\\": ""
+            "Sundari\\Promos\\": ""
         }
     }
 }

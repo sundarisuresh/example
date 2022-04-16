@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright © free All rights reserved.
+ * Copyright ©  All rights reserved.
  * See COPYING.txt for license details.
  */
 declare(strict_types=1);
 
-namespace Sundari\Promo\Controller\Index;
+namespace Sundari\Promos\Controller\Index;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;

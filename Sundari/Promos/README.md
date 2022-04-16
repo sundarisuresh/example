@@ -1,6 +1,6 @@
-# Mage2 Module Sundari Promo
+# Mage2 Module Sundari Promos
 
-    ``sundari/module-promo``
+    ``sundari/module-promos``
 
  - [Main Functionalities](#markdown-header-main-functionalities)
  - [Installation](#markdown-header-installation)
@@ -10,7 +10,7 @@
 
 
 ## Main Functionalities
-lkjhgh
+asf
 
 ## Installation
 \* = in production please use the `--keep-generated` option
@@ -18,7 +18,7 @@ lkjhgh
 ### Type 1: Zip file
 
  - Unzip the zip file in `app/code/Sundari`
- - Enable the module by running `php bin/magento module:enable Sundari_Promo`
+ - Enable the module by running `php bin/magento module:enable Sundari_Promos`
  - Apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
@@ -29,8 +29,8 @@ lkjhgh
     - public repository `packagist.org`
     - public github repository as vcs
  - Add the composer repository to the configuration by running `composer config repositories.repo.magento.com composer https://repo.magento.com/`
- - Install the module composer by running `composer require sundari/module-promo`
- - enable the module by running `php bin/magento module:enable Sundari_Promo`
+ - Install the module composer by running `composer require sundari/module-promos`
+ - enable the module by running `php bin/magento module:enable Sundari_Promos`
  - apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
@@ -43,7 +43,7 @@ lkjhgh
 ## Specifications
 
  - Controller
-	- frontend > sundari_promo/index/index
+	- frontend > sundari_promos/index/index
 
 
 ## Attributes
