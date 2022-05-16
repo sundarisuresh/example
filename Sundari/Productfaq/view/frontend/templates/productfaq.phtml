@@ -1,0 +1,56 @@
+<?php
+if (!$block->getIsQaEnable()) {
+	return;
+}
+
+/**
+ * @var $block \Sundari\Productfaq\Block\Productfaq
+ */
+?> 
+
+<div style="
+    float: left;
+    width: 100%;
+"> <?php if ($block->getCustomer()) { ?>
+		
+		<h3> Customer questions & answers </h3>
+		<form action="
+		<?php echo $block->getUrl("productfaq/index/post"); ?>">
+			<label for="question">have a question, post here:</label>
+			<br>
+			<input type="textarea" id="question" name="question">
+			<br>
+			<br>
+			<input type="hidden" id="productid" value=<?php echo $block->getCurrentProduct(); ?> name="productid">
+			<br>
+			<br>
+			<input type="submit" value="Submit">
+		</form> <?php
+			} else { ?> <div> to have questions, login first </div> <?php
+																}
+																	?> <div>
+		<div class="list-group w-100" style="float: left;">
+
+			<?php $collection = $block->getCollection();
+			foreach ($collection as $item) { ?>
+
+				<a href="#shortExampleAnswer1collapse" data-mdb-toggle="collapse" aria-expanded="false" aria-controls="shortExampleAnswer1collapse" class="list-group-item list-group-item-action">
+					<div class="d-flex w-100 justify-content-between">
+						<p class="mb-1"> QUESTION: <?php echo	$item->getData("question") . " "; ?></p>
+					</div>
+					<p class="mb-1">
+						ANSWER: <?php echo	$item->getData("answer") . " "; ?>
+					</p>
+					<p class="mb-1">
+						BY CUSTOMER: <?php echo	$block->getCustomerName($item->getData("customerid")); ?> ON <?php echo	$item->getData("dateandtime") . " "; ?>
+					</p>
+
+
+				</a>
+
+
+			<?php	} ?>
+		</div>
+
+	</div>
+	<div id="Ask"></div>

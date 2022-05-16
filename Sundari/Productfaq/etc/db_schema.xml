@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="sundari_productfaq_faq" resource="default" engine="innodb" comment="sundari_productfaq_faq Table">
+		<column xsi:type="int" name="faq_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="faq_id"/>
+		</constraint>
+		<column name="question" nullable="true" xsi:type="text" comment="question"/>
+		<column name="answer" nullable="true" xsi:type="text" comment="answer"/>
+		<column name="productid" nullable="true" xsi:type="text" comment="productid"/>
+		<column name="agree" nullable="true" xsi:type="text" comment="agree"/>
+		<column name="disagree" nullable="true" xsi:type="text" comment="disagree"/>
+		<column name="customerid" nullable="true" xsi:type="text" comment="customerid"/>
+		<column name="dateandtime" nullable="true" xsi:type="text" comment="dateandtime"/>
+	</table>
+</schema>
