@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var $block \Sundari\Customerorders\Block\Customerorders
+ */
+?>
+<div>
+	<?php $orders=$block->getcustomerorders(); 
+	
+	foreach($orders as $value)
+	{
+		echo $value['status'].$value['increment_id'];
+		echo "<br>";
+
+	}
+	
+	?>
+</div>
