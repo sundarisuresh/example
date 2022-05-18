@@ -1,11 +1,17 @@
 <?php
-
 /**
  * @var $block \Sundari\Giftwrap\Block\Giftwrap
  */
 ?>
 <div>
-	<?php if ($block->isGiftwrap() == true) {
-		echo "you are eligible for gift wrap";
-	} ?>
+	<?php 
+	if($block->getLogo())
+	{?>
+<img src="<?php echo $block->getLogo();?>" style="
+    height: 58px;
+" >
+	<?php
+	echo "you are eligible for giftwrap";
+	}
+	?>
 </div>

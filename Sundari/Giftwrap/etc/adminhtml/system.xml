@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="sundari" translate="label" sortOrder="999">
+			<label>sundari</label>
+		</tab>
+		<section id="order" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+			<label>order</label>
+			<tab>sundari</tab>
+			<resource>Sundari_Giftwrap::config_sundari_giftwrap</resource>
+			<group id="items" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>items</label>
+				<field id="giftwrap" type="image" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>giftwrap</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <base_url type="media" scope_info="1">media</base_url>
+                    <upload_dir config="system" scope_info="1">media</upload_dir>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

@@ -10,7 +10,7 @@
 
 
 ## Main Functionalities
-gift wrap
+giftwrap
 
 ## Installation
 \* = in production please use the `--keep-generated` option
@@ -37,7 +37,7 @@ gift wrap
 
 ## Configuration
 
-
+ - giftwrap (order/items/giftwrap)
 
 
 ## Specifications
@@ -45,11 +45,11 @@ gift wrap
  - Block
 	- Giftwrap > giftwrap.phtml
 
- - Observer
-	- sales_order_place_after > Sundari\Giftwrap\Observer\Frontend\Sales\OrderPlaceAfter
+ - Block
+	- Giftwraplist > giftwraplist.phtml
 
 
 ## Attributes
 
- - Sales - GiftWrap (giftwrap)
+
 

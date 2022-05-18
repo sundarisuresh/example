@@ -1,6 +1,6 @@
 {
     "name": "sundari/module-giftwrap",
-    "description": "gift wrap",
+    "description": "giftwrap",
     "type": "magento2-module",
     "license": "GPL-3.0",
     "authors": [
