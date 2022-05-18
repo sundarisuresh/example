@@ -9,12 +9,17 @@ declare(strict_types=1);
 
 namespace Sundari\Productfaq\Controller\Index;
 
-use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\Controller\ResultInterface;
+use Exception;
+use Magento\Customer\Model\Session;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\Controller\Result\RedirectFactory;
-use \Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Message\ManagerInterface;
+use Magento\Framework\Stdlib\DateTime\DateTime;
+use Sundari\Productfaq\Model\FaqFactory;
 
-class Post extends \Magento\Framework\App\Action\Action
+class Post extends Action
 {
     protected $messageManager;
     protected $customerSession;
@@ -29,18 +34,18 @@ class Post extends \Magento\Framework\App\Action\Action
 
     /**
      * Constructor
-     *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(
-        RedirectFactory $resultRedirectFactory,
-        \Sundari\Productfaq\Model\FaqFactory $faq,
-        \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\Message\ManagerInterface $messageManager,
-        \Magento\Customer\Model\Session $customerSession,
-        \Magento\Framework\Stdlib\DateTime\DateTime $date
+    public function __construct (
+        RedirectFactory  $resultRedirectFactory,
+        FaqFactory       $faq,
+        Context          $context,
+        ManagerInterface $messageManager,
+        Session          $customerSession,
+        DateTime         $date
 
-    ) {
+    )
+    {
 
         $this->_messageManager = $messageManager;
         $this->resultRedirectFactory = $resultRedirectFactory;
@@ -53,22 +58,7 @@ class Post extends \Magento\Framework\App\Action\Action
 
     }
 
-    /**
-     * Execute view action
-     *
-     * @return ResultInterface
-     */
-    public function getCustomer()
-    {
-        // echo"nbv";
-
-        //Your block code
-        $customer = $this->customerSession->getCustomer()->getId();
-        return $customer;
-        // exit;
-    }
-
-    public function execute()
+    public function execute ()
 
     {
         $data = $this->getRequest()->getParams();
@@ -89,7 +79,7 @@ class Post extends \Magento\Framework\App\Action\Action
                 $faq->save();
                 $this->_messageManager->addSuccess(__("Submitted"));
                 //code...
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 // $e->getMessage();
                 // print_r($e->getMessage());
                 // exit;
@@ -104,5 +94,19 @@ class Post extends \Magento\Framework\App\Action\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setRefererUrl();
         return $resultRedirect;
+    }
+
+    /**
+     * Execute view action
+     * @return ResultInterface
+     */
+    public function getCustomer ()
+    {
+        // echo"nbv";
+
+        //Your block code
+        $customer = $this->customerSession->getCustomer()->getId();
+        return $customer;
+        // exit;
     }
 }

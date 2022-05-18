@@ -3,6 +3,9 @@
 	<preference for="Sundari\Productfaq\Api\FaqRepositoryInterface" type="Sundari\Productfaq\Model\FaqRepository"/>
 	<preference for="Sundari\Productfaq\Api\Data\FaqInterface" type="Sundari\Productfaq\Model\Faq"/>
 	<preference for="Sundari\Productfaq\Api\Data\FaqSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Sundari\Productfaq\Api\VoteRepositoryInterface" type="Sundari\Productfaq\Model\VoteRepository"/>
+	<preference for="Sundari\Productfaq\Api\Data\VoteInterface" type="Sundari\Productfaq\Model\Vote"/>
+	<preference for="Sundari\Productfaq\Api\Data\VoteSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
 	<virtualType name="Sundari\Productfaq\Model\ResourceModel\Faq\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
 		<arguments>
 			<argument name="mainTable" xsi:type="string">sundari_productfaq_faq</argument>

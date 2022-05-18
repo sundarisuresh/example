@@ -15,6 +15,7 @@ class Productfaq extends \Magento\Framework\View\Element\Template
     protected $faq;
     protected $customer;
     protected $scopeconfig;
+    protected $vote;
 
 
 
@@ -32,6 +33,8 @@ class Productfaq extends \Magento\Framework\View\Element\Template
         \Sundari\Productfaq\Model\FaqFactory $faq,
         \Magento\Customer\Model\Customer $customer,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Sundari\Productfaq\Model\VoteFactory $vote,
+
 
 
 
@@ -46,6 +49,7 @@ class Productfaq extends \Magento\Framework\View\Element\Template
         $this->faq = $faq;
         $this->customer = $customer;
         $this->scopeConfig = $scopeConfig;
+        $this->vote = $vote;
 
 
 
@@ -78,6 +82,24 @@ class Productfaq extends \Magento\Framework\View\Element\Template
         $customer = $this->customerSession->getCustomer()->getId();
         return $customer;
     }
+    public function getCount($qid)
+    {
+
+        $collection =  $this->vote->create()->getCollection();
+        $collection->addFieldToSelect('*')
+            ->addFieldToFilter('questionid', $qid)
+            ->addFieldToFilter('upvote', 1)
+            ->load();
+        $count1 =  $collection->count();
+        $collection1 =  $this->vote->create()->getCollection();
+        $collection1->addFieldToSelect('*')
+            ->addFieldToFilter('questionid', $qid)
+            ->addFieldToFilter('downvote', 1)
+            ->load();
+        $count2 = $collection1->count();
+        $result = $count1 - $count2;
+        return $result;
+    }
     public function getCustomerName($customerID)
     {
         $customerObj = $this->customer->load($customerID);
@@ -87,8 +109,9 @@ class Productfaq extends \Magento\Framework\View\Element\Template
     {
         return  $this->getCollection()->count();
     }
-    public function getIsQaEnable() {
+    public function getIsQaEnable()
+    {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
         return $this->scopeConfig->getValue("product/faq/enable", $storeScope); //you get your value here
-       }
+    }
 }

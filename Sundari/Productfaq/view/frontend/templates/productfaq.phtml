@@ -6,13 +6,14 @@ if (!$block->getIsQaEnable()) {
 /**
  * @var $block \Sundari\Productfaq\Block\Productfaq
  */
-?> 
+?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div style="
     float: left;
     width: 100%;
 "> <?php if ($block->getCustomer()) { ?>
-		
+
 		<h3> Customer questions & answers </h3>
 		<form action="
 		<?php echo $block->getUrl("productfaq/index/post"); ?>">
@@ -30,10 +31,16 @@ if (!$block->getIsQaEnable()) {
 																}
 																	?> <div>
 		<div class="list-group w-100" style="float: left;">
+			<span class="voteresult"></span>
+
 
 			<?php $collection = $block->getCollection();
 			foreach ($collection as $item) { ?>
-
+				<!-- <div class="a-fixed-left-grid-col a-col-left" style="width:65px;margin-left:-65px;float:left;">
+			  </div> -->
+				<i class="fa fa-thumbs-up vote" vote="up" questionid="<?php echo $item->getData("faq_id"); ?>" style="font-size: 255%;"></i>
+				<i class="fa fa-thumbs-down vote" vote="down" questionid="<?php echo $item->getData("faq_id"); ?>" style="font-size: 255%;"></i>
+				<span class="count"><?php echo $block->getCount($item->getData("faq_id")); ?>votes</span>
 				<a href="#shortExampleAnswer1collapse" data-mdb-toggle="collapse" aria-expanded="false" aria-controls="shortExampleAnswer1collapse" class="list-group-item list-group-item-action">
 					<div class="d-flex w-100 justify-content-between">
 						<p class="mb-1"> QUESTION: <?php echo	$item->getData("question") . " "; ?></p>
@@ -54,3 +61,13 @@ if (!$block->getIsQaEnable()) {
 
 	</div>
 	<div id="Ask"></div>
+
+	<script type="text/x-magento-init">
+		{
+            "*": {
+                "Sundari_Productfaq/js/vote": {
+                    "AjaxUrl": "<?php echo $block->getUrl("productfaq/index/vote"); ?>"
+                }
+            }
+        }
+</script>
