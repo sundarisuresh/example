@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="sundari_pqa_qa" resource="default" engine="innodb" comment="sundari_pqa_qa Table">
+		<column xsi:type="int" name="qa_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="qa_id"/>
+		</constraint>
+		<column name="question" nullable="true" xsi:type="text" comment="question"/>
+		<column name="answer" nullable="true" xsi:type="text" comment="answer"/>
+		<column name="customerid" nullable="true" xsi:type="text" comment="customerid"/>
+		<column name="productid" nullable="true" xsi:type="text" comment="productid"/>
+		<column name="date" nullable="true" xsi:type="text" comment="date"/>
+	</table>
+	<table name="sundari_pqa_vote" resource="default" engine="innodb" comment="sundari_pqa_vote Table">
+		<column xsi:type="int" name="vote_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="vote_id"/>
+		</constraint>
+		<column name="questionid" nullable="true" xsi:type="text" comment="questionid"/>
+		<column name="customerid" nullable="true" xsi:type="text" comment="customerid"/>
+		<column name="up" nullable="true" xsi:type="text" comment="up"/>
+		<column name="down" nullable="true" xsi:type="text" comment="down"/>
+	</table>
+</schema>
