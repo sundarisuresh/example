@@ -50,12 +50,18 @@ foreach ($qaCollection as $item) { ?>
         <p><?php echo $item->getData('answer'); ?></p>
         <p>asked by:<?php echo $block->getCustomerName($item->getData('customerid')); ?>
             on:<?php echo $item->getData('date'); ?></p>
-        <div id="ajaxresponse"></div>
-            <p><i class="fa fa-arrow-circle-up vote" type="up" questionid="<?php echo $item->getData('qa_id'); ?>" style="font-size:36px"></i>
-                <i class="fa fa-arrow-circle-down vote" type="down" questionid="<?php echo $item->getData('qa_id'); ?>" style="font-size:36px"></i>
-                <span class="vote-count">7</span> Votes
-            </p>
+        <p><i class="fa fa-arrow-circle-up vote" type="up" questionid="<?php echo $item->getData('qa_id'); ?>"
+              style="font-size:36px"></i>
+            <?php
+            $count = $block->getCount($item->getData('qa_id')); ?>
+            <span class="vote-up"><?php echo $count[0]; ?></span> Votes
+            <i class="fa fa-arrow-circle-down vote" type="down" questionid="<?php echo $item->getData('qa_id'); ?>"
+               style="font-size:36px"></i>
+            <span class="vote-down"><?php echo $count[1]; ?></span> Votes
+        </p>
+        <p class="message">
 
+        </p>
     </details>
     <?php
 } ?>
@@ -67,6 +73,9 @@ foreach ($qaCollection as $item) { ?>
                     "AjaxUrl": "<?php echo $block->getUrl("pqa/index/vote") ?>"                }
             }
         }
+
+
+
 
 
 </script>

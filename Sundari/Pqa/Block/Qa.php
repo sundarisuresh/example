@@ -14,6 +14,8 @@ class Qa extends \Magento\Framework\View\Element\Template
     protected $qa;
     protected $customers;
     protected $scopeConfig;
+    protected $vote;
+
 
 
     /**
@@ -28,6 +30,7 @@ class Qa extends \Magento\Framework\View\Element\Template
         \Sundari\Pqa\Model\QaFactory                       $qa,
         \Magento\Customer\Model\Customer                   $customers,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Sundari\Pqa\Model\VoteFactory      $vote,
 
 
         array                                              $data = []
@@ -38,6 +41,8 @@ class Qa extends \Magento\Framework\View\Element\Template
         $this->qa = $qa;
         $this->customers = $customers;
         $this->scopeConfig = $scopeConfig;
+        $this->vote = $vote;
+
 
 
         parent::__construct($context, $data);
@@ -80,6 +85,24 @@ class Qa extends \Magento\Framework\View\Element\Template
     public function getCurrentProduct ()
     {
         return $this->registry->registry('current_product')->getId();
+    }
+    public
+    function getCount ($question)
+    {
+        $count1 = $this->vote->create()
+            ->getCollection()->addFieldToSelect('*')
+            ->addFieldToFilter('questionid', $question)
+            ->addFieldToFilter('up', 1)
+            ->load()->count();
+
+        $count2 = $this->vote->create()
+            ->getCollection()->addFieldToSelect('*')
+            ->addFieldToFilter('questionid', $question)
+            ->addFieldToFilter('down', 1)
+            ->load()->count();
+        $result = [$count1, $count2];
+
+        return $result;
     }
 
 }

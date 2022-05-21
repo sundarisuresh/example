@@ -11,12 +11,13 @@ define([
             $(".vote").click(function () {
                 var $type = $(this).attr('type');
                 var $qid = $(this).attr('questionid');
+                var $click = $(this);
                 $.ajax({
                     url: AjaxUrl,
                     type: "POST",
                     data: {que_id: $qid, type: $type},
                 }).done(function (data) {
-                    $('#ajaxresponse').html(data.output);
+                    $click.closest('.message').html(data.response);
                     return true;
                 });
             });
