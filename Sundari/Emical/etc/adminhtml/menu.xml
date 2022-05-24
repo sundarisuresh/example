@@ -1,6 +1,0 @@
-<?xml version="1.0" ?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
-	<menu>
-		<add id="Sundari_Emical::sundari_emical_emi" title="emi" module="Sundari_Emical" sortOrder="9999" resource="Magento_Backend::content" parent="Sundari::top_level" action="sundari_emical/emi/index"/>
-	</menu>
-</config>
