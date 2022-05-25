@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Sundari_Productfaq::Pqa" title="Pqa" sortOrder="10">
+					<resource id="Sundari_Productfaq::Pqa_save" title="Save Pqa" sortOrder="10"/>
+					<resource id="Sundari_Productfaq::Pqa_delete" title="Delete Pqa" sortOrder="20"/>
+					<resource id="Sundari_Productfaq::Pqa_update" title="Update Pqa" sortOrder="30"/>
+					<resource id="Sundari_Productfaq::Pqa_view" title="View Pqa" sortOrder="40"/>
+				</resource>
+				<resource id="Sundari_Productfaq::Vote" title="Vote" sortOrder="10">
+					<resource id="Sundari_Productfaq::Vote_save" title="Save Vote" sortOrder="10"/>
+					<resource id="Sundari_Productfaq::Vote_delete" title="Delete Vote" sortOrder="20"/>
+					<resource id="Sundari_Productfaq::Vote_update" title="Update Vote" sortOrder="30"/>
+					<resource id="Sundari_Productfaq::Vote_view" title="View Vote" sortOrder="40"/>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Sundari_Productfaq::config_sundari_productfaq" title="product"/>
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

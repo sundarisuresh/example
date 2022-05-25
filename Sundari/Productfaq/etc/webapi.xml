@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/sundari-productfaq/pqa" method="POST">
+		<service class="Sundari\Productfaq\Api\PqaRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Pqa_save"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/pqa/search" method="GET">
+		<service class="Sundari\Productfaq\Api\PqaRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Pqa_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/pqa/:pqaId" method="GET">
+		<service class="Sundari\Productfaq\Api\PqaRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Pqa_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/pqa/:pqaId" method="PUT">
+		<service class="Sundari\Productfaq\Api\PqaRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Pqa_update"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/pqa/:pqaId" method="DELETE">
+		<service class="Sundari\Productfaq\Api\PqaRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Pqa_delete"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/vote" method="POST">
+		<service class="Sundari\Productfaq\Api\VoteRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Vote_save"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/vote/search" method="GET">
+		<service class="Sundari\Productfaq\Api\VoteRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Vote_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/vote/:voteId" method="GET">
+		<service class="Sundari\Productfaq\Api\VoteRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Vote_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/vote/:voteId" method="PUT">
+		<service class="Sundari\Productfaq\Api\VoteRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Vote_update"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-productfaq/vote/:voteId" method="DELETE">
+		<service class="Sundari\Productfaq\Api\VoteRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Sundari_Productfaq::Vote_delete"/>
+		</resources>
+	</route>
+</routes>
