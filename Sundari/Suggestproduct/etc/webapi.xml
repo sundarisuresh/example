@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/sundari-suggestproduct/questionans" method="POST">
+		<service class="Sundari\Suggestproduct\Api\QuestionansRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::questionans_save"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/questionans/search" method="GET">
+		<service class="Sundari\Suggestproduct\Api\QuestionansRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::questionans_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/questionans/:questionansId" method="GET">
+		<service class="Sundari\Suggestproduct\Api\QuestionansRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::questionans_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/questionans/:questionansId" method="PUT">
+		<service class="Sundari\Suggestproduct\Api\QuestionansRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::questionans_update"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/questionans/:questionansId" method="DELETE">
+		<service class="Sundari\Suggestproduct\Api\QuestionansRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::questionans_delete"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/rule" method="POST">
+		<service class="Sundari\Suggestproduct\Api\RuleRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::rule_save"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/rule/search" method="GET">
+		<service class="Sundari\Suggestproduct\Api\RuleRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::rule_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/rule/:ruleId" method="GET">
+		<service class="Sundari\Suggestproduct\Api\RuleRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::rule_view"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/rule/:ruleId" method="PUT">
+		<service class="Sundari\Suggestproduct\Api\RuleRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::rule_update"/>
+		</resources>
+	</route>
+	<route url="/V1/sundari-suggestproduct/rule/:ruleId" method="DELETE">
+		<service class="Sundari\Suggestproduct\Api\RuleRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Sundari_Suggestproduct::rule_delete"/>
+		</resources>
+	</route>
+</routes>
