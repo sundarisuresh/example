@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Sundari\Suggestionbox\Api\SuggestionRepositoryInterface" type="Sundari\Suggestionbox\Model\SuggestionRepository"/>
+	<preference for="Sundari\Suggestionbox\Api\Data\SuggestionInterface" type="Sundari\Suggestionbox\Model\Suggestion"/>
+	<preference for="Sundari\Suggestionbox\Api\Data\SuggestionSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Sundari\Suggestionbox\Model\ResourceModel\Suggestion\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">sundari_suggestionbox_suggestion</argument>
+			<argument name="resourceModel" xsi:type="string">Sundari\Suggestionbox\Model\ResourceModel\Suggestion\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="sundari_suggestionbox_suggestion_listing_data_source" xsi:type="string">Sundari\Suggestionbox\Model\ResourceModel\Suggestion\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>
