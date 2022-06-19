@@ -1,0 +1,30 @@
+<div>
+    <?php $qa = $block->getqaCollection();
+    $count = 1; ?>
+    <form action="<?php echo $block->getUrl("suggestproduct/index/index");?>" method="post">
+        <?php
+        foreach ($qa as $item) {
+            ?>
+            <?php echo $count; ?>.<?php echo $item->getData('question'); ?> <br>
+
+            <input type="radio" id="optiona" name="<?php echo $item->getData('questionans_id'); ?>" value="a">
+            <label for="optiona"><?php echo $item->getData('optiona'); ?></label><br>
+            <input type="radio" id="optionb" name="<?php echo $item->getData('questionans_id'); ?>" value="b">
+            <label for="optionb"><?php echo $item->getData('optionb'); ?></label><br>
+            <input type="radio" id="optionc" name="<?php echo $item->getData('questionans_id'); ?>" value="c">
+            <label for="optionc"><?php echo $item->getData('optionc'); ?></label><br>
+            <input type="radio" id="optiond" name="<?php echo $item->getData('questionans_id'); ?>" value="d">
+            <label for="optiond"><?php echo $item->getData('optiond'); ?></label><br>
+            <br>
+
+            <?php
+            $count = $count + 1;
+
+        }
+        ?>
+        <input type="submit" value="Submit">
+    </form>
+
+
+</div>
+

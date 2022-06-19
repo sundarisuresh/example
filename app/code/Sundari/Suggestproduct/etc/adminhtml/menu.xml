@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+<!--		<add id="Sundari::top_level" title="Sundari" module="Sundari_Suggestproduct" sortOrder="9999" resource="Magento_Backend::content"/>-->
+		<add id="Sundari_Suggestproduct::sundari_suggestproduct_questionans" title="questionans" module="Sundari_Suggestproduct" sortOrder="9999" resource="Magento_Backend::content" parent="Sundari::top_level" action="sundari_suggestproduct/questionans/index"/>
+		<add id="Sundari_Suggestproduct::sundari_suggestproduct_rule" title="rule" module="Sundari_Suggestproduct" sortOrder="9999" resource="Magento_Backend::content" parent="Sundari::top_level" action="sundari_suggestproduct/rule/index"/>
+	</menu>
+</config>

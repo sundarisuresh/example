@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="sundari" translate="label" sortOrder="999">
+			<label>sundari</label>
+		</tab>
+		<section id="product" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+			<label>product</label>
+			<tab>sundari</tab>
+			<resource>Sundari_Registration::config_sundari_registration</resource>
+			<group id="registration" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>registration</label>
+				<field id="enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>enable</label>
+					<comment/>
+					<source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

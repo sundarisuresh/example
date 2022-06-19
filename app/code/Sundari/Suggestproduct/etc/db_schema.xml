@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="sundari_suggestproduct_questionans" resource="default" engine="innodb" comment="sundari_suggestproduct_questionans Table">
+		<column xsi:type="int" name="questionans_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="questionans_id"/>
+		</constraint>
+		<column name="question" nullable="true" xsi:type="text" comment="question"/>
+		<column name="optiona" nullable="true" xsi:type="text" comment="optiona"/>
+		<column name="optionb" nullable="true" xsi:type="text" comment="optionb"/>
+		<column name="optionc" nullable="true" xsi:type="text" comment="optionc"/>
+		<column name="optiond" nullable="true" xsi:type="text" comment="optiond"/>
+	</table>
+	<table name="sundari_suggestproduct_rule" resource="default" engine="innodb" comment="sundari_suggestproduct_rule Table">
+		<column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="rule_id"/>
+		</constraint>
+		<column name="answer1" nullable="true" xsi:type="text" comment="answer1"/>
+		<column name="answer2" nullable="true" xsi:type="text" comment="answer2"/>
+		<column name="product" nullable="true" xsi:type="text" comment="product"/>
+	</table>
+</schema>
