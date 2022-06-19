@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-	<body>
-		<referenceContainer name="page.messages">
-			<block class="Sundari\Salesdeal\Block\Sales" name="sales" as="sales" template="Sundari_Salesdeal::sales.phtml"/>
-		</referenceContainer>
-	</body>
-</page>

@@ -1,9 +1,0 @@
-<?xml version="1.0" ?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-	<body>
-		<referenceContainer name="content">
-			<block name="catalog.topnav" class="Magento\Theme\Block\Html\Topmenu" template="Sundari_Registration::index/menu.phtml"/>
-		</referenceContainer>
-	</body>
-</page>
-<!--<block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav" template="Magento_Theme::html/topmenu.phtml" ttl="3600" before="-"/>-->
