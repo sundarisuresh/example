@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Sundari\Registration\Api\RegistrationRepositoryInterface" type="Sundari\Registration\Model\RegistrationRepository"/>
+	<preference for="Sundari\Registration\Api\Data\RegistrationInterface" type="Sundari\Registration\Model\Registration"/>
+	<preference for="Sundari\Registration\Api\Data\RegistrationSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Sundari\Registration\Model\ResourceModel\Registration\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">sundari_registration_registration</argument>
+			<argument name="resourceModel" xsi:type="string">Sundari\Registration\Model\ResourceModel\Registration\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="sundari_registration_registration_listing_data_source" xsi:type="string">Sundari\Registration\Model\ResourceModel\Registration\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

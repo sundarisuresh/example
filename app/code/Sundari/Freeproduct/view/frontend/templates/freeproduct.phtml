@@ -1,0 +1,11 @@
+
+<?php
+
+if(!$block->getCurrentProduct())
+{
+    return;
+}
+?>
+<div>
+    Buy this product to get this <?php echo $block->getProductBySku();?> free!
+</div>
