@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="StageBit_SignupSheet::stagebit_signupsheet_signupsheet" title="Signup Sheet" module="StageBit_SignupSheet" sortOrder="9999" resource="Magento_Backend::content" parent="Magento_Customer::customer" action="stagebit_signupsheet/signupsheet/index"/>
+	</menu>
+</config>

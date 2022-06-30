@@ -55,9 +55,9 @@ class Qa extends \Magento\Framework\App\Action\Action
         if($this->getCustomer()) {
             try {
                 $qa = $this->qa->create();
-                $qa->setData('question', $qus);
                 $qa->setData('customerid', $customerid);
                 $qa->setData('date', $date);
+                $qa->setData('question', $qus);
                 $qa->setData('productid', $productid);
                 $qa->save();
                 $this->messageManager->addSuccess(__("your question has been submitted successfully"));
