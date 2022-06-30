@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="stagebit_signupsheet_signupsheet" resource="default" engine="innodb" comment="stagebit_signupsheet_signupsheet Table">
+		<column xsi:type="int" name="signupsheet_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="signupsheet_id"/>
+		</constraint>
+		<column name="name" nullable="true" xsi:type="text" comment="name"/>
+		<column name="date" nullable="true" xsi:type="date" comment="date"/>
+	</table>
+</schema>

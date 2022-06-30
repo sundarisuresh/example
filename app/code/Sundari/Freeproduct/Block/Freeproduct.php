@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Sundari\Freeproduct\Block;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Framework\View\Element\Template\Context;
 
 class Freeproduct extends \Magento\Framework\View\Element\Template
 {
@@ -17,11 +18,11 @@ class Freeproduct extends \Magento\Framework\View\Element\Template
 
     /**
      * Constructor
-     * @param \Magento\Framework\View\Element\Template\Context $context
+     * @param Context $context
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        Context $context,
         ProductRepositoryInterface                       $productRepository,
         \Magento\Framework\Registry                      $registry,
         array                                            $data = []

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/stagebit-signupsheet/signupsheet" method="POST">
+		<service class="StageBit\SignupSheet\Api\SignupSheetRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="StageBit_SignupSheet::SignupSheet_save"/>
+		</resources>
+	</route>
+	<route url="/V1/stagebit-signupsheet/signupsheet/search" method="GET">
+		<service class="StageBit\SignupSheet\Api\SignupSheetRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="StageBit_SignupSheet::SignupSheet_view"/>
+		</resources>
+	</route>
+	<route url="/V1/stagebit-signupsheet/signupsheet/:signupsheetId" method="GET">
+		<service class="StageBit\SignupSheet\Api\SignupSheetRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="StageBit_SignupSheet::SignupSheet_view"/>
+		</resources>
+	</route>
+	<route url="/V1/stagebit-signupsheet/signupsheet/:signupsheetId" method="PUT">
+		<service class="StageBit\SignupSheet\Api\SignupSheetRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="StageBit_SignupSheet::SignupSheet_update"/>
+		</resources>
+	</route>
+	<route url="/V1/stagebit-signupsheet/signupsheet/:signupsheetId" method="DELETE">
+		<service class="StageBit\SignupSheet\Api\SignupSheetRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="StageBit_SignupSheet::SignupSheet_delete"/>
+		</resources>
+	</route>
+</routes>

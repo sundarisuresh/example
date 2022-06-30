@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="StageBit_SignupSheet::SignupSheet" title="Signup Sheet" sortOrder="10">
+					<resource id="StageBit_SignupSheet::SignupSheet_save" title="Save SignupSheet" sortOrder="10"/>
+					<resource id="StageBit_SignupSheet::SignupSheet_delete" title="Delete SignupSheet" sortOrder="20"/>
+					<resource id="StageBit_SignupSheet::SignupSheet_update" title="Update SignupSheet" sortOrder="30"/>
+					<resource id="StageBit_SignupSheet::SignupSheet_view" title="View SignupSheet" sortOrder="40"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>
