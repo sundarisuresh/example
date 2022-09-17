@@ -11,22 +11,22 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class Index implements HttpGetActionInterface
+class Index extends \Magento\Framework\App\Action\Action
 {
 
-    /**
-     * @var PageFactory
-     */
-    protected $resultPageFactory;
+    public function __construct(PageFactory $resultPageFactory,
+                                \Magento\Framework\App\Action\Context       $context,
 
-    /**
-     * Constructor
-     *
-     * @param PageFactory $resultPageFactory
-     */
-    public function __construct(PageFactory $resultPageFactory)
-    {
+                                \Magento\Framework\App\Request\Http         $request,
+                                \Magento\Catalog\Model\Session $catalogSession
+    )
+    {        $this->request = $request;
+
         $this->resultPageFactory = $resultPageFactory;
+        $this->catalogSession = $catalogSession;
+
+        parent::__construct($context);
+
     }
 
     /**
@@ -36,7 +36,14 @@ class Index implements HttpGetActionInterface
      */
     public function execute()
     {
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+        if(!$customerSession->isLoggedIn()) {
+            $this->_redirect('login/');
+        }
+        
         return $this->resultPageFactory->create();
+
     }
 }
 

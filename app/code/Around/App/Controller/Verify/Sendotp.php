@@ -51,36 +51,24 @@ class Sendotp extends \Magento\Framework\App\Action\Action
         if (!$phone){
                     $phone = $this->catalogSession->getPhone();
         }
-//        echo $phone; exit;
         $digits = 4;
         $otp= rand(pow(10, $digits-1), pow(10, $digits)-1);
         $sid    = "AC478d735f436986f7d2b6487aa9a977da";
-        $token  = "7bbe05dc74d98d63ce57bda7ff3e964d";
+        $token  = "ea859e1dfbb7c29ae56ddf5be11ae01c";
         $twilio = new Client($sid, $token);
-
         $this->catalogSession->setPhone($phone);
         $this->catalogSession->setOtp($otp);
-//        $phone = $this->catalogSession->getPhone();
-//        $test = $this->catalogSession->getOtp();
-
 
         $message = $twilio->messages
             ->create("+91".$phone, // to
                 array(
                     "from" => "+18158699964",
                     "messagingServiceSid" => "MG04f723e194d7568e19027238e7e18ee1",
-                    "body" => "otp is".$otp
+                    "body" => "otp is ".$otp
                 )
             );
         $this->_redirect('login/verify');
-
-//        print($message->sid);
         return $this->resultPageFactory->create();
-    }
-
-
-    public function sendSms(){
-//
     }
 }
 

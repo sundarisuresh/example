@@ -47,30 +47,16 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-//        $phone = $this->request->getParam("phone");
-////        echo $phone; exit;
-//        $digits = 4;
-//        $otp= rand(pow(10, $digits-1), pow(10, $digits)-1);
-//        $sid    = "AC478d735f436986f7d2b6487aa9a977da";
-//        $token  = "7bbe05dc74d98d63ce57bda7ff3e964d";
-//        $twilio = new Client($sid, $token);
-//
-//        $this->catalogSession->setPhone($phone);
-//        $this->catalogSession->setOtp($otp);
-//        $phone = $this->catalogSession->getPhone();
-//        $test = $this->catalogSession->getOtp();
-//
-//
-//        $message = $twilio->messages
-//            ->create("+91".$phone, // to
-//                array(
-//                    "from" => "+18158699964",
-//                    "messagingServiceSid" => "MG04f723e194d7568e19027238e7e18ee1",
-//                    "body" => "otp is".$otp
-//                )
-//            );
-
-//        print($message->sid);
+        $phone = $this->catalogSession->getPhone();
+        $test = $this->catalogSession->getOtp();
+if(!$phone || !$test){
+    $this->_redirect('login/');
+}
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+        if($customerSession->isLoggedIn()) {
+            $this->_redirect('login/validate');
+        }
         return $this->resultPageFactory->create();
     }
 
