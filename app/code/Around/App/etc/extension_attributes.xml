@@ -7,4 +7,7 @@
         <attribute code="hide_address" type="int"/>
         <attribute code="plot_no" type="string"/>
     </extension_attributes>
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="default_delivery_add" type="string"/>
+    </extension_attributes>
 </config>

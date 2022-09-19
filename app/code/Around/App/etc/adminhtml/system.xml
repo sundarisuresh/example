@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="around" translate="label" sortOrder="999">
+            <label>around</label>
+        </tab>
+        <section id="location" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>location</label>
+            <tab>around</tab>
+            <resource>Around_App::config_around_app</resource>
+            <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>general</label>
+                <field id="location" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>location</label>
+                    <comment/>
+                </field>
+                <field id="distance" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Distance</label>
+                    <comment/>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
