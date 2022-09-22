@@ -26,10 +26,10 @@
                         <?php
                         if($block->showError()){ ?>
                             <p>Invalid OTP. Please try again</p>
-                       <?php } 
+                       <?php }
                         ?>
 
-                        <p class="login-card-description">Please enter the OTP sent on <?php echo $block->getPhone();?></p>
+                        <p class="login-card-description">Your OTP was sent to <?php echo $block->getPhone();?></p>
                         <form action="<?php echo $block->getUrl("login/verify/otp");?>" method="post"">
                         <div class="form-group mb-4">
                             <label for="mobile" class="sr-only"></label>
@@ -37,26 +37,80 @@
                         </div>
 
                         <input name="continue" id="continue" class="btn btn-block login-btn mb-4" type="submit" value="Submit">
+
+
+
+
+
                         <div class="otp-form__actions">
-<!--                            <div>-->
-<!--                        	<span id="resending_otp" class="hide">-->
-<!--                                Resending OTP-->
-<!--                                <span class="ic-dots"></span>-->
-<!--                            </span>-->
-<!--                                <span id="sent_otp" class="hide">-->
-<!--                                <span class="ic-checkmark"></span>-->
-<!--                                Sent new OTP-->
-<!--                            </span>-->
-<!--                            </div>-->
-                            <a class="pipe-sep" style="font-size: 14px" id="resend_otp" href="<?php echo $block->getUrl("login/verify/sendotp");?>" >Resend OTP</a> | 
+
+
+                            <div class="text-center mt-5">
+                                <span class="d-block mobile-text" id="countdown"></span>
+                                <span class="d-block mobile-text" id="resend"></span>
+                            </div>
+                            <script>let timerOn = true;
+                                function timer(remaining) {
+                                    var m = Math.floor(remaining / 60);
+                                    var s = remaining % 60;
+                                    m = m < 10 ? "0" + m : m;
+                                    s = s < 10 ? "0" + s : s;
+                                    document.getElementById("countdown").innerHTML = `Time left: ${m} : ${s}`;
+                                    remaining -= 1;
+                                    if (remaining >= 0 && timerOn) {
+                                        setTimeout(function () {
+                                            timer(remaining);
+                                        }, 1000);
+                                        document.getElementById("resend").innerHTML = `
+    `;
+                                        return;
+                                    }
+                                    if (!timerOn) {
+                                        return;
+                                    }
+                                    document.getElementById("resend").innerHTML = `Don't receive the code?
+  <span class="font-weight-bold text-color cursor" onclick="timer(60)">Resend
+  </span>`;
+                                }
+                                timer(60);
+                            </script>
+<!--                            <input class="btn btn-secondary" id="submitButton" type="button" style="-->
+<!--    padding-top: 10px;-->
+<!--    padding-bottom: 10px; font-size: 14px;"  disabled="disabled"  value="Resend" onclick="--><?php //echo $block->getUrl("login/verify/sendotp");?><!--" />-->
+
+<!--                            <script type="text/javascript">-->
+<!--                                setTimeout (function(){-->
+<!--                                    document.getElementById('submitButton').disabled = null;-->
+<!--                                },5000);-->
+<!---->
+<!--                                var countdownNum = 5;-->
+<!--                                incTimer();-->
+<!---->
+<!--                                function incTimer(){-->
+<!--                                    setTimeout (function(){-->
+<!--                                        if(countdownNum != 0){-->
+<!--                                            countdownNum--;-->
+<!--                                            document.getElementById('timeLeft').innerHTML = 'Time left: ' + countdownNum + ' seconds';-->
+<!--                                            incTimer();-->
+<!--                                        } else {-->
+<!--                                            pass;-->
+<!---->
+<!--                                        }-->
+<!--                                    },1000);-->
+<!--                                }-->
+<!--                            </script>-->
+
+
+
+<!--                            <p id="timeLeft" style="margin-left: 210px; font-size: 12px">Time Left: 2 seconds</p>-->
+<!--                            <a class="pipe-sep" id="submitButton" style="font-size: 14px; pointer-events: none" href="--><?php //echo $block->getUrl("login/verify/sendotp");?><!--" >Resend OTP</a> |-->
                             <a id="wrong-number" style="font-size: 14px" class="otp-toggle" href="<?php echo $block->getUrl("login/");?>">Entered wrong number?</a>
+
                         </div>
                         </form>
 
-                        <nav class="login-card-footer-nav">
-                            <a href="#!">Terms of use.</a>
-                            <a href="#!">Privacy policy</a>
-                        </nav>
+
+
                     </div>
                 </div>
             </div>

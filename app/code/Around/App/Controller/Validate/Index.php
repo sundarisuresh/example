@@ -3,23 +3,26 @@
  * Copyright © free All rights reserved.
  * See COPYING.txt for license details.
  */
-declare(strict_types=1);
 
 namespace Around\App\Controller\Validate;
 
+use Magento\Customer\Model\Session;
+use Magento\Framework\App\Action\Action;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Store\Model\ScopeInterface;
+use Magento\Customer\Api\AddressRepositoryInterface;
+use Exception;
 
-class Index extends \Magento\Framework\App\Action\Action
+class Index extends Action
 {    protected $request;
     protected $catalogSession;
-
-
     /**
      * @var PageFactory
      */
     protected $resultPageFactory;
     protected $scopeConfig;
+    private Session $customerSession;
 
 
     /**
@@ -32,14 +35,17 @@ class Index extends \Magento\Framework\App\Action\Action
 
                                 \Magento\Framework\App\Request\Http         $request,
                                 \Magento\Catalog\Model\Session $catalogSession,
-                                \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
-)
-    {        $this->request = $request;
+                                Session $customerSession,
+                                \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+                                AddressRepositoryInterface $addressRepository
 
+    )
+    {        $this->request = $request;
+        $this->addressRepository = $addressRepository;
         $this->resultPageFactory = $resultPageFactory;
         $this->catalogSession = $catalogSession;
         $this->scopeConfig = $scopeConfig;
-
+        $this->customerSession = $customerSession;
         parent::__construct($context);
 
     }
@@ -51,22 +57,20 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-
+        $storeScope = ScopeInterface::SCOPE_STORE;
         $storeLocation= $this->scopeConfig->getValue('location/general/location', $storeScope);
         $storeDistance= $this->scopeConfig->getValue('location/general/distance', $storeScope);
-
         $array = explode(',', $storeLocation);
-        echo $array[0];
-
-        exit;
-        echo $this->distance($array[0], $array[1], -98.53506, "K") . " Kilometers<br>";
-
-        exit();
-        $this->_redirect('/');
-
-
-
+        $defaultAddress = $this->customerSession->getCustomer()->getDefaultDeliveryAdd();
+        $addressInfo = $this->getAddressData($defaultAddress);
+        $customerLocation =  $addressInfo->getCustomAttribute('location')->getValue();
+        $customerLocation = explode(',', $customerLocation);
+        $distance =  $this->distance((float) $array[0], (float) $array[1], (float) $customerLocation[0], $customerLocation[1], 'K');
+        if($distance < $storeDistance){
+            $this->_redirect('/');
+        }else{
+            $this->_redirect('login/location/error');
+        }
 
     }
 
@@ -87,7 +91,20 @@ class Index extends \Magento\Framework\App\Action\Action
             return $miles;
         }
     }
-
+    /**
+     * @param $addressId
+     *
+     * @return \Magento\Customer\Api\Data\AddressInterface
+     */
+    public function getAddressData($addressId)
+    {
+        try {
+            $addressData = $this->addressRepository->getById($addressId);
+        } catch (Exception $exception) {
+            echo "Error";
+        }
+            return $addressData;
+        }
 }
 
 

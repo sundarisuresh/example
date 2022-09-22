@@ -1,92 +1,47 @@
-
 <div class="brand-wrapper">
-    <img src="<?php echo $block->getLogoSrc();?>" alt="logo" ><br>
+    <img src="
+		<?php echo $block->getLogoSrc();?>" alt="logo">
+    <br>
 </div>
 <head>
     <title>Address form</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/main.js" defer></script>
-    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
     <script type="text/javascript" src="https://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
-<!--    <script src="script.js"></script>-->
 </head>
-
-<!--Location: <input type="text" id="location" style="width: 200px"/>-->
-<!--Lat <input type="text" id="lat" style="width: 200px"/>-->
-<!--Long: <input type="text" id="lng" style="width: 200px"/>-->
-<div id="us2" style="width: 1400px; height: 700px;margin-top: 3%;border-radius: 25px;">
-
-</div>
-<!--<button onclick="getLocation()">get loc</button>-->
-
-<form action="<?php echo $block->getUrl("login/location/submit");?>" method="post"">
-<input type="hidden" id="lat1" name="lat" value="">
-<input type="hidden" id="lng1" name="lng" value="">
-<button class="location-submit">Submit</button>
-
+<div id="us2" style="width: 1400px; height: 700px;margin-top: 3%;border-radius: 25px;"></div>
+<button class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Confirm Location</button>
 <p id="demo"></p>
-</form>
-<form action="<?php echo $block->getUrl("login/location/submit");?>" method="post">
-
-    <h1>Address form</h1>
-
-    <section>
-        <label for="name">Name</label>
-        <input id="name" name="name" autocomplete="name" maxlength="100" pattern="[\p{L} \-\.]+" required>
-    </section>
-
-    <section>
-        <label for="address">Plot No</label>
-        <input id="address" name="plot no" autocomplete="address" maxlength="50" required></input>
-    </section>
-    <section>
-        <label for="address">Apartment name</label>
-        <input id="address" name="apartment name" autocomplete="address" maxlength="50" required></input>
-    </section>
-    <section>
-        <label for="postal-code">ZIP or postal code (optional)</label>
-        <input id="postal-code" name="postal-code" autocomplete="postal-code" maxlength="20">
-    </section>
-    <a id="save-address" class="btn btn-primary" type="submit" href="<?php echo $block->getUrl("login/validate/");?>"> Save address</a>
-
-
-    <script>
+<script>
     var x = document.getElementById("demo");
-
-    $(".location-submit").on("click",function(){
+    $(".location-submit").on("click", function() {
         $("#lat1").val(lat);
         $("#lng1").val(lng);
     });
 
-
     function showPosition(position) {
-        x.innerHTML="Latitude: " + position.coords.latitude +
-            "<br>Longitude: " + position.coords.longitude;
+        x.innerHTML = "Latitude: " + position.coords.latitude + " < br > Longitude: " + position.coords.longitude;
     }
 </script>
-
-
 <script>
     var lat;
     var lng;
     $(function() {
         if (navigator.geolocation) {
             var location_timeout = setTimeout("geolocFail()", 10000);
-
             navigator.geolocation.getCurrentPosition(function(position) {
                 clearTimeout(location_timeout);
-
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;
                 console.log(position.coords.latitude)
                 $('#us2').locationpicker({
-
-                    location: {latitude: lat, longitude: lng},
+                    location: {
+                        latitude: lat,
+                        longitude: lng
+                    },
                     radius: 0,
                     inputBinding: {
                         latitudeInput: $('#lat'),
@@ -107,12 +62,59 @@
             // Fallback for no geolocation
             geolocFail();
         }
-
-
-
     });
-
 </script>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add your address</h5>
+            </div>
+            <div class="modal-body">
+                <form action="<?php echo $block->getUrl("login/location/submit");?>" method="post">
+                    <input type="hidden" id="lat1" name="lat" value="">
+                    <input type="hidden" id="lng1" name="lng" value="">
+                    <section>
+                        <label for="name">Name</label>
+                        <input id="name" name="name" autocomplete="name" maxlength="100" pattern="[\p{L} \-\.]+" required>
+                    </section>
+                    <section>
+                        <label for="address">Plot No</label>
+                        <input id="address" name="plot_no" autocomplete="address" maxlength="50" required />
+                    </section>
+                    <section>
+                        <label for="address">Apartment name (If applicable)</label>
+                        <input id="address" name="apartment_name" autocomplete="address" maxlength="50" />
+                    </section>
+                    Save as:
 
+            </div>
+            <div class="btn-group">
+                <input class="btn-check" type="radio" name="type" value="home" id="dolores_ck">
+                <label class="btn btn-outline-info" for="dolores_ck">
+                    Home
+                </label>
 
+                <input class="btn-check" type="radio" name="type" value="office" id="bubbles_ck">
+                <label class="btn btn-outline-info" for="bubbles_ck">
+                    Office
+                </label>
 
+                <input class="btn-check" type="radio" name="type" value="others" id="cosmo_ck">
+                <label class="btn btn-outline-info" for="cosmo_ck">
+                    Others
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="
+				<?php echo $block->getUrl("login/location/submit/");?>"> Save address </button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

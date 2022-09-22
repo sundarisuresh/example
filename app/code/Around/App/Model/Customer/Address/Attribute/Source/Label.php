@@ -19,10 +19,10 @@ class Label extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
     {
         if ($this->_options === null) {
             $this->_options = [
-                ['value' => '1', 'label' => __('Home')],
-                ['value' => '2', 'label' => __('Others')],
-                ['value' => '3', 'label' => __('Office')],
-
+                ['value' => '', 'label' => __('Select Save as')],
+                ['value' => 'home', 'label' => __('Home')],
+                ['value' => 'others', 'label' => __('Others')],
+                ['value' => 'office', 'label' => __('Office')],
             ];
         }
         return $this->_options;
