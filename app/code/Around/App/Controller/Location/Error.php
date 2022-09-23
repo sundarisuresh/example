@@ -7,20 +7,25 @@ declare(strict_types=1);
 
 namespace Around\App\Controller\Location;
 
+use Magento\Catalog\Model\Session;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
-class Error extends \Magento\Framework\App\Action\Action
+class Error extends Action
 {
 
     public function __construct(PageFactory $resultPageFactory,
-                                \Magento\Framework\App\Action\Context       $context,
+                                Context     $context,
 
-                                \Magento\Framework\App\Request\Http         $request,
-                                \Magento\Catalog\Model\Session $catalogSession
+                                Http        $request,
+                                Session     $catalogSession
     )
-    {        $this->request = $request;
+    {
+        $this->request = $request;
 
         $this->resultPageFactory = $resultPageFactory;
         $this->catalogSession = $catalogSession;

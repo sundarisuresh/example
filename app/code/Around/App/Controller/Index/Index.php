@@ -7,12 +7,16 @@ declare(strict_types=1);
 
 namespace Around\App\Controller\Index;
 
+use Magento\Catalog\Model\Session;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\App\ObjectManager;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
-use Magento\Customer\Model\Session;
 
-class Index extends \Magento\Framework\App\Action\Action
+class Index extends Action
 {
 
     /**
@@ -27,12 +31,13 @@ class Index extends \Magento\Framework\App\Action\Action
      * @param PageFactory $resultPageFactory
      */
     public function __construct(PageFactory $resultPageFactory,
-                                \Magento\Framework\App\Action\Context       $context,
+                                Context     $context,
 
-                                \Magento\Framework\App\Request\Http         $request,
-                                \Magento\Catalog\Model\Session $catalogSession
+                                Http        $request,
+                                Session     $catalogSession
     )
-    {        $this->request = $request;
+    {
+        $this->request = $request;
 
         $this->resultPageFactory = $resultPageFactory;
         $this->catalogSession = $catalogSession;
@@ -47,9 +52,9 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $objectManager = ObjectManager::getInstance();
         $customerSession = $objectManager->get('Magento\Customer\Model\Session');
-        if($customerSession->isLoggedIn()) {
+        if ($customerSession->isLoggedIn()) {
             $this->_redirect('login/validate');
         }
         return $this->resultPageFactory->create();

@@ -7,21 +7,23 @@ declare(strict_types=1);
 
 namespace Around\App\Controller\Verify;
 
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Model\CustomerFactory;
+use Magento\Customer\Model\Session;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
-use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Model\Session;
+use Magento\Store\Model\StoreManagerInterface;
 
 
-use Twilio\Rest\Client;
-
-class Otp extends \Magento\Framework\App\Action\Action
-{    protected $request;
+class Otp extends Action
+{
+    protected $request;
     protected $storeManager;
     protected $customerFactory;
-
-
 
 
     /**
@@ -29,29 +31,31 @@ class Otp extends \Magento\Framework\App\Action\Action
      */
     protected $resultPageFactory;
     protected $catalogSession;
-    private $customerRepository;
     protected $session;
+    private $customerRepository;
+
     /**
      * Constructor
      *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(PageFactory $resultPageFactory,
-                                \Magento\Framework\App\Action\Context       $context,
+    public function __construct(PageFactory                    $resultPageFactory,
+                                Context                        $context,
                                 \Magento\Catalog\Model\Session $catalogSession,
-                                \Magento\Framework\App\Request\Http         $request,
-                                \Magento\Store\Model\StoreManagerInterface $storeManager,
-                                \Magento\Customer\Model\CustomerFactory $customerFactory,
-                                CustomerRepositoryInterface $customerRepository,
-                                Session $session
+                                Http                           $request,
+                                StoreManagerInterface          $storeManager,
+                                CustomerFactory                $customerFactory,
+                                CustomerRepositoryInterface    $customerRepository,
+                                Session                        $session
 
 
-)
-    {        $this->request = $request;
+    )
+    {
+        $this->request = $request;
         $this->catalogSession = $catalogSession;
         $this->customerRepository = $customerRepository;
-        $this->storeManager     = $storeManager;
-        $this->customerFactory  = $customerFactory;
+        $this->storeManager = $storeManager;
+        $this->customerFactory = $customerFactory;
         $this->resultPageFactory = $resultPageFactory;
         $this->session = $session;
         parent::__construct($context);
@@ -67,25 +71,25 @@ class Otp extends \Magento\Framework\App\Action\Action
     {
         $otp = $this->request->getParam("otp");
 
-       $phone= $this->catalogSession->getPhone();
-       $email=$phone."@gmail.com";
+        $phone = $this->catalogSession->getPhone();
+        $email = $phone . "@gmail.com";
         $test = $this->catalogSession->getOtp();
-        if ($otp==$test){
+        if ($otp == $test) {
 //            echo "logged in";
             try {
                 $customerData = $this->customerRepository->get($email);
                 $customerId = (int)$customerData->getId();
 //                echo "You are already signed up";
                 $customer = $this->customerFactory->create();
-                $websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
+                $websiteId = $this->storeManager->getWebsite()->getWebsiteId();
                 $loadCustomer = $customer->setWebsiteId($websiteId)->loadByEmail($email);
                 $this->session->setCustomerAsLoggedIn($loadCustomer);
 
                 $this->_redirect('login/location');
 
-            }catch (NoSuchEntityException $noSuchEntityException){
-                $websiteId  = $this->storeManager->getWebsite()->getWebsiteId();
-                $customer   = $this->customerFactory->create();
+            } catch (NoSuchEntityException $noSuchEntityException) {
+                $websiteId = $this->storeManager->getWebsite()->getWebsiteId();
+                $customer = $this->customerFactory->create();
                 $customer->setWebsiteId($websiteId);
                 $customer->setEmail($email);
                 $customer->setFirstname("Dummy");
@@ -101,7 +105,7 @@ class Otp extends \Magento\Framework\App\Action\Action
             }
 
 
-        }else{
+        } else {
             $this->catalogSession->setOtpError(true);
             $this->_redirect('login/verify/');
         }
@@ -110,7 +114,8 @@ class Otp extends \Magento\Framework\App\Action\Action
     }
 
 
-    public function sendSms(){
+    public function sendSms()
+    {
 //
     }
 }

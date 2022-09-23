@@ -7,12 +7,18 @@
 namespace Around\App\Controller\Location;
 
 use Exception;
+use Magento\Customer\Api\AddressRepositoryInterface;
+use Magento\Customer\Api\Data\AddressExtensionFactory;
+use Magento\Customer\Api\Data\AddressInterfaceFactory;
+use Magento\Customer\Model\CustomerFactory;
+use Magento\Customer\Model\Session;
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
-use Magento\Customer\Api\AddressRepositoryInterface;
-use Magento\Customer\Api\Data\AddressInterfaceFactory;
 
-class Submit extends \Magento\Framework\App\Action\Action
+class Submit extends Action
 {
     protected $request;
     protected $dataAddressFactory;
@@ -31,7 +37,7 @@ class Submit extends \Magento\Framework\App\Action\Action
      *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(PageFactory $resultPageFactory, \Magento\Framework\App\Request\Http $request, AddressInterfaceFactory $dataAddressFactory, AddressRepositoryInterface $addressRepository, \Magento\Framework\App\Action\Context $context, \Magento\Customer\Model\CustomerFactory $customerFactory, \Magento\Customer\Model\Session $customer, \Magento\Customer\Api\Data\AddressExtensionFactory $addressExtensionFactory)
+    public function __construct(PageFactory $resultPageFactory, Http $request, AddressInterfaceFactory $dataAddressFactory, AddressRepositoryInterface $addressRepository, Context $context, CustomerFactory $customerFactory, Session $customer, AddressExtensionFactory $addressExtensionFactory)
     {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
@@ -94,17 +100,14 @@ class Submit extends \Magento\Framework\App\Action\Action
         $address->setIsDefaultBilling(1);
         $address->setCustomerId($customer->getId());
         $address->setTelephone($customer->getPhoneNumber());
-        try
-        {
+        try {
             $savedAddress = $this
                 ->addressRepository
                 ->save($address);
-                        $customer->setDefaultDeliveryAdd($savedAddress->getId());
-                        $customer->save();
+            $customer->setDefaultDeliveryAdd($savedAddress->getId());
+            $customer->save();
             $this->_redirect('login/validate');
-        }
-        catch(Exception $exception)
-        {
+        } catch (Exception $exception) {
             echo $exception->getMessage();
             exit();
         }
