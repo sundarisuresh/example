@@ -79,7 +79,7 @@ class Otp extends Action
                 $websiteId = $this->storeManager->getWebsite()->getWebsiteId();
                 $loadCustomer = $customer->setWebsiteId($websiteId)->loadByEmail($email);
                 $this->session->setCustomerAsLoggedIn($loadCustomer);
-                if($customer->getDefaultDeliveryAdd()){
+                if($loadCustomer->getDefaultDeliveryAdd()){
                     $this->_redirect('/');
                 }else{
                     $this->_redirect('login/location');

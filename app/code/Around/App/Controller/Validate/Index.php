@@ -68,6 +68,10 @@ class Index extends Action
         $storeDistance = $this->scopeConfig->getValue('location/general/distance', $storeScope);
         $array = explode(',', $storeLocation);
         $defaultAddress = $this->customerSession->getCustomer()->getDefaultDeliveryAdd();
+        if(!$defaultAddress){
+            $this->_redirect('login/location');
+            return true;
+        }
         $addressInfo = $this->getAddressData($defaultAddress);
         $customerLocation = $addressInfo->getCustomAttribute('location')->getValue();
         $customerLocation = explode(',', $customerLocation);
@@ -90,6 +94,7 @@ class Index extends Action
         try {
             $addressData = $this->addressRepository->getById($addressId);
         } catch (Exception $exception) {
+            echo $exception->getMessage().$addressId;
             echo "Error";
         }
         return $addressData;
