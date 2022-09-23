@@ -93,6 +93,7 @@ class Otp extends Action
                 $customer->setLastname("Dummy");
                 $customer->setPassword("password");
                 $customer->setPhoneNumber($phone);
+                $customer->setPhoneNumber($phone);
                 $customer->save();
                 $customer = $this->customerFactory->create();
                 $loadCustomer = $customer->setWebsiteId($websiteId)->loadByEmail($email);

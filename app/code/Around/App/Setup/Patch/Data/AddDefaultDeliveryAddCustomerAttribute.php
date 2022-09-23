@@ -72,7 +72,7 @@ class AddDefaultDeliveryAddCustomerAttribute implements DataPatchInterface, Patc
                 'input' => 'text',
                 'type' => 'varchar',
                 'source' => '',
-                'required' => true,
+                'required' => false,
                 'position' => 333,
                 'visible' => true,
                 'system' => false,
