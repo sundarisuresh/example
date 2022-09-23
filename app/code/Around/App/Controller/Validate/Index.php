@@ -53,7 +53,6 @@ class Index extends Action
         $this->scopeConfig = $scopeConfig;
         $this->customerSession = $customerSession;
         parent::__construct($context);
-
     }
 
     /**
