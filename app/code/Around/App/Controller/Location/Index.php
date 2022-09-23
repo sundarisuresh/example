@@ -19,9 +19,9 @@ use Magento\Framework\View\Result\PageFactory;
 class Index extends Action
 {
 
-    private PageFactory $resultPageFactory;
-    private Http $request;
-    private Session $catalogSession;
+    private $resultPageFactory;
+    private $request;
+    private $catalogSession;
 
     public function __construct(PageFactory $resultPageFactory,
                                 Context     $context,

@@ -20,7 +20,6 @@ class Sendotp extends Action
     protected $request;
     protected $catalogSession;
 
-
     /**
      * @var PageFactory
      */
@@ -30,16 +29,17 @@ class Sendotp extends Action
      * Constructor
      *
      * @param PageFactory $resultPageFactory
+     * @param Context $context
+     * @param Http $request
+     * @param Session $catalogSession
      */
     public function __construct(PageFactory $resultPageFactory,
                                 Context     $context,
-
                                 Http        $request,
                                 Session     $catalogSession
     )
     {
         $this->request = $request;
-
         $this->resultPageFactory = $resultPageFactory;
         $this->catalogSession = $catalogSession;
         parent::__construct($context);
@@ -64,7 +64,6 @@ class Sendotp extends Action
         $twilio = new Client($sid, $token);
         $this->catalogSession->setPhone($phone);
         $this->catalogSession->setOtp($otp);
-
         $message = $twilio->messages
             ->create("+91" . $phone, // to
                 array(

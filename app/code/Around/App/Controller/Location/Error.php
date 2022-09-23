@@ -15,21 +15,40 @@ use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
+/**
+ *
+ */
 class Error extends Action
 {
 
+    /**
+     * @var Http
+     */
+    private $request;
+    /**
+     * @var PageFactory
+     */
+    private $resultPageFactory;
+    /**
+     * @var Session
+     */
+    private $catalogSession;
+
+    /**
+     * @param PageFactory $resultPageFactory
+     * @param Context $context
+     * @param Http $request
+     * @param Session $catalogSession
+     */
     public function __construct(PageFactory $resultPageFactory,
                                 Context     $context,
-
                                 Http        $request,
                                 Session     $catalogSession
     )
     {
         $this->request = $request;
-
         $this->resultPageFactory = $resultPageFactory;
         $this->catalogSession = $catalogSession;
-
         parent::__construct($context);
 
     }

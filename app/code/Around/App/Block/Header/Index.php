@@ -22,15 +22,15 @@ class Index extends Template
     /**
      * @var Logo
      */
-    protected Logo $logo;
+    protected $logo;
     /**
      * @var Session
      */
-    protected Session $customerSession;
+    protected $customerSession;
     /**
      * @var AddressRepositoryInterface
      */
-    private AddressRepositoryInterface $addressRepository;
+    private $addressRepository;
 
     /**
      * Constructor

@@ -27,8 +27,8 @@ class Index extends Action
      */
     protected $resultPageFactory;
     protected $scopeConfig;
-    private Session $customerSession;
-    private AddressRepositoryInterface $addressRepository;
+    private $customerSession;
+    private $addressRepository;
 
 
     /**

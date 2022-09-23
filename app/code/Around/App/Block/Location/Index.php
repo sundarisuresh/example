@@ -18,7 +18,7 @@ class Index extends Template
     /**
      * @var Logo
      */
-    protected Logo $logo;
+    protected $logo;
 
     /**
      * Constructor

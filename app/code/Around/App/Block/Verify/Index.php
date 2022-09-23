@@ -20,12 +20,12 @@ class Index extends Template
     /**
      * @var Logo
      */
-    protected Logo $logo;
+    protected $logo;
 
     /**
      * @var Session
      */
-    private Session $catalogSession;
+    private $catalogSession;
 
     /**
      * Constructor

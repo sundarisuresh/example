@@ -23,7 +23,6 @@ class Submit extends Action
     protected $request;
     protected $dataAddressFactory;
     protected $addressRepository;
-
     protected $addressExtensionFactory;
     protected $customerFactory;
     protected $customer;

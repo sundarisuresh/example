@@ -20,13 +20,13 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Otp extends Action
 {
-    protected Http $request;
-    protected StoreManagerInterface $storeManager;
-    protected CustomerFactory $customerFactory;
-    protected PageFactory $resultPageFactory;
-    protected \Magento\Catalog\Model\Session $catalogSession;
-    protected Session $session;
-    private CustomerRepositoryInterface $customerRepository;
+    protected $request;
+    protected $storeManager;
+    protected $customerFactory;
+    protected $resultPageFactory;
+    protected $catalogSession;
+    protected $session;
+    private $customerRepository;
 
     /**
      * Constructor
