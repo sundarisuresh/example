@@ -51,7 +51,7 @@ class Index extends Template
     /**
      * @return string
      */
-    public function getLogoSrc(): string
+    public function getLogoSrc()
     {
         return $this->logo->getLogoSrc();
     }
@@ -59,7 +59,7 @@ class Index extends Template
     /**
      * @return mixed
      */
-    public function showError(): mixed
+    public function showError()
     {
         $result = $this->catalogSession->getOtpError();
         $this->catalogSession->unsOtpError();
@@ -69,7 +69,7 @@ class Index extends Template
     /**
      * @return mixed
      */
-    public function getPhone(): mixed
+    public function getPhone()
     {
         return $this->catalogSession->getPhone();
     }
