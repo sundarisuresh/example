@@ -3,23 +3,25 @@
  * Copyright © free All rights reserved.
  * See COPYING.txt for license details.
  */
-declare(strict_types=1);
 
 namespace Around\App\Block\Submit;
 
-class Index extends \Magento\Framework\View\Element\Template
-{
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
 
+class Index extends Template
+{
     /**
      * Constructor
      *
-     * @param \Magento\Framework\View\Element\Template\Context  $context
+     * @param Context $context
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        Context $context,
         array $data = []
-    ) {
+    )
+    {
         parent::__construct($context, $data);
     }
 }

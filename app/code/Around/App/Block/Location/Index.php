@@ -3,28 +3,43 @@
  * Copyright © free All rights reserved.
  * See COPYING.txt for license details.
  */
-declare(strict_types=1);
 
 namespace Around\App\Block\Location;
 
-class Index extends \Magento\Framework\View\Element\Template
-{    protected $logo;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
+use Magento\Theme\Block\Html\Header\Logo;
 
+/**
+ *
+ */
+class Index extends Template
+{
+    /**
+     * @var Logo
+     */
+    protected Logo $logo;
 
     /**
      * Constructor
      *
-     * @param \Magento\Framework\View\Element\Template\Context  $context
+     * @param Context $context
+     * @param Logo $logo
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Theme\Block\Html\Header\Logo $logo,
-
+        Context $context,
+        Logo $logo,
         array $data = []
-    ) {$this->logo = $logo;
+    )
+    {
+        $this->logo = $logo;
         parent::__construct($context, $data);
     }
+
+    /**
+     * @return string
+     */
     public function getLogoSrc()
     {
         return $this->logo->getLogoSrc();

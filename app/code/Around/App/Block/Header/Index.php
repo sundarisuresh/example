@@ -6,61 +6,83 @@
 declare(strict_types=1);
 
 namespace Around\App\Block\Header;
+
 use Exception;
 use Magento\Customer\Api\AddressRepositoryInterface;
+use Magento\Customer\Model\Session;
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Element\Template\Context;
+use Magento\Theme\Block\Html\Header\Logo;
 
-class Index extends \Magento\Framework\View\Element\Template
+/**
+ *
+ */
+class Index extends Template
 {
-    protected $logo;
-    protected $customerSession;
-    private $addressRepository;
-
-
+    /**
+     * @var Logo
+     */
+    protected Logo $logo;
+    /**
+     * @var Session
+     */
+    protected Session $customerSession;
+    /**
+     * @var AddressRepositoryInterface
+     */
+    private AddressRepositoryInterface $addressRepository;
 
     /**
      * Constructor
      *
-     * @param \Magento\Framework\View\Element\Template\Context  $context
+     * @param Context $context
+     * @param Session $customerSession
+     * @param AddressRepositoryInterface $addressRepository
+     * @param Logo $logo
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Customer\Model\Session $customerSession,
+        Context                    $context,
+        Session                    $customerSession,
         AddressRepositoryInterface $addressRepository,
-
-
-        \Magento\Theme\Block\Html\Header\Logo $logo,
-
-        array $data = []
-    ) {         $this->logo = $logo;
+        Logo                       $logo,
+        array                      $data = []
+    )
+    {
+        $this->logo = $logo;
         $this->addressRepository = $addressRepository;
-
         $this->customerSession = $customerSession;
-
-
         parent::__construct($context, $data);
     }
-    public function getLogoSrc()
+
+    /**
+     * @return string
+     */
+    public function getLogoSrc(): string
     {
         return $this->logo->getLogoSrc();
     }
+
+    /**
+     * @throws Exception
+     */
     public function getDefaultAddress()
     {
         $customerData = $this->customerSession->getCustomer();
-        $addressId= $customerData->getDefaultDeliveryAdd();
-        $address=$this->getAddressData($addressId);
-        $plot= $address->getCustomAttribute('plot_no')->getValue();
-        if($address->getCustomAttribute('apartment_name')){
-            $appartment= $address->getCustomAttribute('apartment_name')->getValue();
+        $addressId = $customerData->getDefaultDeliveryAdd();
+        $address = $this->getAddressData($addressId);
+        $plot = $address->getCustomAttribute('plot_no')->getValue();
+        if ($address->getCustomAttribute('apartment_name')) {
+            $appartment = $address->getCustomAttribute('apartment_name')->getValue();
         }
         $street = $address->getStreet()[0];
-        $city=$address->getCity();
-         if(isset($appartment)) {
-          return   $plot . ', ' . $appartment . ', ' . $street . ', ' . $city;
-         } else {
-             return   $plot . ', ' . $street . ', ' . $city;
+        $city = $address->getCity();
+        if (isset($appartment)) {
+            return $plot . ', ' . $appartment . ', ' . $street . ', ' . $city;
+        } else {
+            return $plot . ', ' . $street . ', ' . $city;
 
-         }
+        }
     }
 
     /**

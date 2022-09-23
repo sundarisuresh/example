@@ -9,7 +9,6 @@ namespace Around\App\Model\Customer\Address\Attribute\Source;
 
 class Label extends \Magento\Eav\Model\Entity\Attribute\Source\AbstractSource
 {
-
     /**
      * getAllOptions
      *
