@@ -11,7 +11,7 @@
     </head>
     <body>
 		<referenceContainer name="content">
-            <block name="header12" class="Around\App\Block\Header\Index" template="Around_App::homepage/header.phtml"/>
+            <block name="header12" class="Around\App\Block\Header\Index" cacheable="false" template="Around_App::homepage/header.phtml"/>
             <block name="categories" class="Around\App\Block\Categories\Index" template="Around_App::homepage/categories.phtml"/>
         </referenceContainer>
 

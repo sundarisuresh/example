@@ -42,7 +42,7 @@ class Index extends Action
                                 \Magento\Catalog\Model\Session $catalogSession,
                                 Session                        $customerSession,
                                 ScopeConfigInterface           $scopeConfig,
-                                AddressRepositoryInterface     $addressRepositorysss
+                                AddressRepositoryInterface     $addressRepository
     )
     {
         $this->request = $request;
