@@ -114,7 +114,8 @@ a:hover {
 
 .section-products .single-product .part-1 ul li {
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 5px;
+    float: left;
 }
 
 .section-products .single-product .part-1 ul li a {
@@ -158,4 +159,21 @@ a:hover {
     height: 1px;
     background-color: #444444;
     transform: translateY(-50%);
+}
+
+.home-cat {
+    position: relative;
+    top: 276px;
+    left: 125px;
+    width: 1529px;
+}
+
+.home-cat-row{
+    width: 106%;
+}
+
+.home-cat-container{
+    max-width: 1542px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }

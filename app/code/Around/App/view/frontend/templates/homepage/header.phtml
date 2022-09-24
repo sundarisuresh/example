@@ -87,13 +87,13 @@ Website: www.cupcom.com.br
     </div>
 </header>
 
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
+<div id="carouselExampleControls" class="carousel slide" data-interval="1000" data-ride="carousel">
+    <div class="carousel-inner" >
 <?php $banners = $block->getBanners();
 $flag = 0;
 foreach($banners as $value){ ?>
 <div class="carousel-item item <?php if($flag == 0){ echo "active"; } ?> ">
-    <img class="d-block w-100" src="<?php echo $value->getImage(); ?>" alt="First slide">
+    <img class="d-block w-100" src="<?php echo $value->getImage(); ?>" alt="<?php echo $value->getAlttext(); ?>">
 </div>
   <?php
     $flag = $flag +1;
