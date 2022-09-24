@@ -87,7 +87,6 @@ class Index extends Template
             return $plot . ', ' . $appartment . ', ' . $street . ', ' . $city;
         } else {
             return $plot . ', ' . $street . ', ' . $city;
-
         }
     }
 
