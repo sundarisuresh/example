@@ -42,8 +42,7 @@ class Index extends Action
                                 \Magento\Catalog\Model\Session $catalogSession,
                                 Session                        $customerSession,
                                 ScopeConfigInterface           $scopeConfig,
-                                AddressRepositoryInterface     $addressRepository
-
+                                AddressRepositoryInterface     $addressRepositorysss
     )
     {
         $this->request = $request;
@@ -67,6 +66,7 @@ class Index extends Action
         $storeDistance = $this->scopeConfig->getValue('location/general/distance', $storeScope);
         $array = explode(',', $storeLocation);
         $defaultAddress = $this->customerSession->getCustomer()->getDefaultDeliveryAdd();
+//        print_r($defaultAddress); exit();
         if(!$defaultAddress){
             $this->_redirect('login/location');
             return true;

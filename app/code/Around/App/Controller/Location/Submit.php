@@ -73,8 +73,8 @@ class Submit extends Action
         $type = $this
             ->request
             ->getParam("type");
-        echo $lat;
-        echo $long;
+//        echo $lat;
+//        echo $long;
         $address = $this
             ->dataAddressFactory
             ->create();
@@ -94,7 +94,7 @@ class Submit extends Action
         $address->setCity('Chennai');
         $address->setCountryId('IN');
         $address->setPostcode('60606');
-        $address->setRegionId(599);
+        $address->setRegionId(563);
         $address->setIsDefaultShipping(1);
         $address->setIsDefaultBilling(1);
         $address->setCustomerId($customer->getId());
@@ -108,6 +108,7 @@ class Submit extends Action
             $this->_redirect('login/validate');
         } catch (Exception $exception) {
             echo $exception->getMessage();
+            print_r($exception->getTraceAsString());
             exit();
         }
 
