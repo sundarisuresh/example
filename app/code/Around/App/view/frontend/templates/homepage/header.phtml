@@ -11,7 +11,7 @@ Website: www.cupcom.com.br
 
 
 
-<header>
+<header style="width: 1700px"
     <!-- contact content -->
 
     <!-- / contact content -->
@@ -86,17 +86,19 @@ Website: www.cupcom.com.br
         </nav>
     </div>
 </header>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item item active">
-                    <img class="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/844/140/image/2035528d955a85ea.jpg?q=50" alt="First slide">
-                </div>
-                <div class="carousel-item item">
-                    <img class="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/844/1400/image/8091c39cf49a3044.jpg?q=50" alt="Second slide">
-                </div>
-                <div class="carousel-item item">
-                    <img class="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/844/140/image/2035528d955a85ea.jpg?q=50" alt="Third slide">
-                </div>
+
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+<?php $banners = $block->getBanners();
+$flag = 0;
+foreach($banners as $value){ ?>
+<div class="carousel-item item <?php if($flag == 0){ echo "active"; } ?> ">
+    <img class="d-block w-100" src="<?php echo $value->getImage(); ?>" alt="First slide">
+</div>
+  <?php
+    $flag = $flag +1;
+}
+?>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -110,4 +112,5 @@ Website: www.cupcom.com.br
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-
+<!--        margin-left: 52px;-->
+<!--        margin-top: -65px;-->

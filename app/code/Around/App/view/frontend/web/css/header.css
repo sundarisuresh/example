@@ -452,4 +452,22 @@ header {
     pointer-events: none;
     color: #aaa;
 }
+#carouselExampleControls{
+    margin-top: 20px;
+}
+
+main#maincontent {
+margin-left: 0px;
+ margin-right: 0px;
+}
+
+header {
+    width: 146%;
+    margin-top: -5%;
+    margin-left: 4%;
+}
+#carouselExampleControls {
+    width: 121%;
+    margin-left: 11%;
+}
 

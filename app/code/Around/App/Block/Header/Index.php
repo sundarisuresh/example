@@ -13,6 +13,9 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
+use Around\Banner\Model\BannerFactory;
+
+
 
 /**
  *
@@ -23,6 +26,7 @@ class Index extends Template
      * @var Logo
      */
     protected $logo;
+    protected $banner;
     /**
      * @var Session
      */
@@ -45,6 +49,7 @@ class Index extends Template
         Context                    $context,
         Session                    $customerSession,
         AddressRepositoryInterface $addressRepository,
+        BannerFactory $banner,
         Logo                       $logo,
         array                      $data = []
     )
@@ -52,6 +57,7 @@ class Index extends Template
         $this->logo = $logo;
         $this->addressRepository = $addressRepository;
         $this->customerSession = $customerSession;
+        $this->banner=$banner;
         parent::__construct($context, $data);
     }
 
@@ -97,6 +103,17 @@ class Index extends Template
             throw new Exception($exception->getMessage());
 
         }
+    }
+    public function getBanners()
+    {
+       $banners= $this->banner->create()->getCollection();
+       return $banners;
+//       echo "<pre>";
+//       foreach ($banners as $value){
+//           print_r($value->getData());
+//
+//       }
+//       exit;
     }
 
 }
