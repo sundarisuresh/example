@@ -52,18 +52,22 @@ Website: www.cupcom.com.br
     </div>
 </header>
 
-<div id="carouselExampleControls" class="carousel slide" data-interval="1000" data-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide" data-interval="<?php echo $block->getBannerInterval() ?>" data-ride="carousel">
+
     <div class="carousel-inner" >
 <?php $banners = $block->getBanners();
 $flag = 0;
 foreach($banners as $value){ ?>
 <div class="carousel-item item <?php if($flag == 0){ echo "active"; } ?> ">
-    <img class="d-block w-100" src="<?php echo $value->getImage(); ?>" alt="<?php echo $value->getAlttext(); ?>">
+    <a href="<?php echo $value->getLink(); ?>">
+        <img class="d-block w-100" href="#" src="<?php echo $value->getImage(); ?>" alt="<?php echo $value->getAlttext(); ?>">
+    </a>
 </div>
   <?php
     $flag = $flag +1;
 }
 ?>
+
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

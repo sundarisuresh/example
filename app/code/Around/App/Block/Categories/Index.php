@@ -10,6 +10,7 @@ namespace Around\App\Block\Categories;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
+use Around\Itemcategory\Model\ItemcategoryFactory;
 
 /**
  *
@@ -20,6 +21,7 @@ class Index extends Template
      * @var Logo
      */
     protected $logo;
+    protected $itemcategory;
 
     /**
      * Constructor
@@ -30,11 +32,15 @@ class Index extends Template
     public function __construct(
         Context $context,
         Logo    $logo,
+        ItemcategoryFactory $itemcategory,
+
 
         array   $data = []
     )
     {
         $this->logo = $logo;
+        $this->itemcategory = $itemcategory;
+
 
         parent::__construct($context, $data);
     }
@@ -45,6 +51,12 @@ class Index extends Template
     public function getLogoSrc()
     {
         return $this->logo->getLogoSrc();
+    }
+
+    public function getItemcategory()
+    {
+        $item= $this->itemcategory->create()->getCollection();
+        return $item;
     }
 }
 

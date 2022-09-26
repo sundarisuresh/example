@@ -10,6 +10,7 @@ namespace Around\App\Block\Header;
 use Exception;
 use Magento\Customer\Api\AddressRepositoryInterface;
 use Magento\Customer\Model\Session;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
@@ -26,6 +27,7 @@ class Index extends Template
      * @var Logo
      */
     protected $logo;
+    protected $scopeConfig;
     protected $banner;
     /**
      * @var Session
@@ -51,6 +53,7 @@ class Index extends Template
         AddressRepositoryInterface $addressRepository,
         BannerFactory $banner,
         Logo                       $logo,
+        ScopeConfigInterface           $scopeConfig,
         array                      $data = []
     )
     {
@@ -58,6 +61,8 @@ class Index extends Template
         $this->addressRepository = $addressRepository;
         $this->customerSession = $customerSession;
         $this->banner=$banner;
+        $this->scopeConfig = $scopeConfig;
+
         parent::__construct($context, $data);
     }
 
@@ -103,9 +108,20 @@ class Index extends Template
 
         }
     }
+
+    public function getBannerInterval(){
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+        $time = $this->scopeConfig->getValue('banner/interval/time',$storeScope );
+//        echo $time; exit();
+        return $time;
+    }
+
+
+
     public function getBanners()
     {
        $banners= $this->banner->create()->getCollection();
+        $banners->setOrder('sortorder','ASC');
        return $banners;
 //       echo "<pre>";
 //       foreach ($banners as $value){
