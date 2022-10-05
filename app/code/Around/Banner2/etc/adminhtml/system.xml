@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="banner" translate="label" sortOrder="999">
+			<label>banner</label>
+		</tab>
+		<section id="banner2" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+			<label>banner2</label>
+			<tab>banner</tab>
+			<resource>Around_Banner2::config_around_banner2</resource>
+			<group id="interval" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>interval</label>
+				<field id="time" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>time</label>
+					<comment/>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

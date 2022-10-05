@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Around\Banner2\Api\Banner2RepositoryInterface" type="Around\Banner2\Model\Banner2Repository"/>
+	<preference for="Around\Banner2\Api\Data\Banner2Interface" type="Around\Banner2\Model\Banner2"/>
+	<preference for="Around\Banner2\Api\Data\Banner2SearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Around\Banner2\Model\ResourceModel\Banner2\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">around_banner2_banner2</argument>
+			<argument name="resourceModel" xsi:type="string">Around\Banner2\Model\ResourceModel\Banner2\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="around_banner2_banner2_listing_data_source" xsi:type="string">Around\Banner2\Model\ResourceModel\Banner2\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

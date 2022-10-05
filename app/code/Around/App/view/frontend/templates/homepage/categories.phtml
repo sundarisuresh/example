@@ -11,107 +11,28 @@
 
             </div>
         </div>
-        <div class="row home-cat-row">
+        <div class="row home-cat-row" style="margin-bottom: 9%">
             <!-- Single Product -->
+            <?php $item = $block->getItemcategory();
+            //                    $flag = 0;
+            foreach($item as $value){
+                if($value->getEnable())
+                {?>
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div id="product-1" class="single-product">
-                    <div class="part-1">
-
-                    </div>
+                    <span class="discount"><?php if($value->getOffer()) {echo $value->getOffer() . " off"; }?>  </span>
+                    <a href="<?php echo $value->getLink(); ?>" ><img src="<?php echo $value->getImage(); ?>"></a>
                     <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
+                        <h3 class="product-title"><?php echo $value->getName(); ?></h3>
                     </div>
                 </div>
             </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-2" class="single-product">
-                    <div class="part-1">
-                        <span class="discount">15% off</span>
 
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-3" class="single-product">
-                    <div class="part-1">
-
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-4" class="single-product">
-                    <div class="part-1">
-                        <span class="new">new</span>
-
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-1" class="single-product">
-                    <div class="part-1">
-
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-2" class="single-product">
-                    <div class="part-1">
-                        <span class="discount">15% off</span>
-
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-3" class="single-product">
-                    <div class="part-1">
-
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <div id="product-4" class="single-product">
-                    <div class="part-1">
-                        <span class="new">new</span>
-
-                    </div>
-                    <div class="part-2">
-                        <h3 class="product-title">Here Product Title</h3>
-
-                    </div>
-                </div>
-            </div>
+            <?php }
+            }
+            ?>
         </div>
     </div>
 </section>
+</div>
 </div>

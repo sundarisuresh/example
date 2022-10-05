@@ -6,6 +6,7 @@
         <css src="https://www.bootstrapdash.com/demo/login-template-free-2/assets/css/login.css" src_type="url"/>
         <css src="Around_App::css/header.css" />
         <css src="Around_App::css/categories.css" />
+        <css src="Around_App::css/listing1.css" />
 
 
     </head>
@@ -13,6 +14,11 @@
 		<referenceContainer name="content">
             <block name="header12" class="Around\App\Block\Header\Index" cacheable="false" template="Around_App::homepage/header.phtml"/>
             <block name="categories" class="Around\App\Block\Categories\Index" template="Around_App::homepage/categories.phtml"/>
+            <block name="banner2" class="Around\App\Block\Banner2\Index" template="Around_App::homepage/banner2.phtml"/>
+            <block name="listing1" class="Around\App\Block\Listing1\Index" template="Around_App::homepage/listing1.phtml"/>
+            <block name="banner3" class="Around\App\Block\Banner3\Index" template="Around_App::homepage/banner3.phtml"/>
+            <block name="listing2" class="Around\App\Block\Listing2\Index" template="Around_App::homepage/listing2.phtml"/>
+
         </referenceContainer>
 
         <referenceBlock name="quickcart" remove="true"/>

@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="around_productlist1_list1" resource="default" engine="innodb" comment="around_productlist1_list1 Table">
+		<column xsi:type="int" name="list1_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="list1_id"/>
+		</constraint>
+		<column name="productid" nullable="true" xsi:type="text" comment="productid"/>
+		<column name="sortorder" nullable="true" xsi:type="text" comment="sortorder"/>
+		<column name="enable" nullable="true" xsi:type="text" comment="enable"/>
+	</table>
+</schema>

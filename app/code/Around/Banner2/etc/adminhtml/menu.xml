@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+<!--		<add id="Around::top_level" title="Around" module="Around_Banner2" sortOrder="9999" resource="Magento_Backend::content"/>-->
+		<add id="Around_Banner2::around_banner2_banner2" title="Banner2" module="Around_Banner2" sortOrder="9999" resource="Magento_Backend::content" parent="Around::top_level" action="around_banner2/banner2/index"/>
+	</menu>
+</config>

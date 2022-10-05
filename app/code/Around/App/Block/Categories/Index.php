@@ -56,6 +56,8 @@ class Index extends Template
     public function getItemcategory()
     {
         $item= $this->itemcategory->create()->getCollection();
+        $item->setOrder('sortorder','ASC');
+
         return $item;
     }
 }

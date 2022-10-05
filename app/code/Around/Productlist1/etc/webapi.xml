@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/around-productlist1/list1" method="POST">
+		<service class="Around\Productlist1\Api\List1RepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_Productlist1::List1_save"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productlist1/list1/search" method="GET">
+		<service class="Around\Productlist1\Api\List1RepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Around_Productlist1::List1_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productlist1/list1/:list1Id" method="GET">
+		<service class="Around\Productlist1\Api\List1RepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Around_Productlist1::List1_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productlist1/list1/:list1Id" method="PUT">
+		<service class="Around\Productlist1\Api\List1RepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_Productlist1::List1_update"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productlist1/list1/:list1Id" method="DELETE">
+		<service class="Around\Productlist1\Api\List1RepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Around_Productlist1::List1_delete"/>
+		</resources>
+	</route>
+</routes>

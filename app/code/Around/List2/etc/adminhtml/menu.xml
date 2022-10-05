@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Around_List2::around_list2_list2" title="List2" module="Around_List2" sortOrder="9999" resource="Magento_Backend::content" parent="Around::top_level" action="around_list2/list2/index"/>
+	</menu>
+</config>
