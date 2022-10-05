@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Around\Category2\Api\Category2RepositoryInterface" type="Around\Category2\Model\Category2Repository"/>
+	<preference for="Around\Category2\Api\Data\Category2Interface" type="Around\Category2\Model\Category2"/>
+	<preference for="Around\Category2\Api\Data\Category2SearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Around\Category2\Model\ResourceModel\Category2\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">around_category2_category2</argument>
+			<argument name="resourceModel" xsi:type="string">Around\Category2\Model\ResourceModel\Category2\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="around_category2_category2_listing_data_source" xsi:type="string">Around\Category2\Model\ResourceModel\Category2\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>
