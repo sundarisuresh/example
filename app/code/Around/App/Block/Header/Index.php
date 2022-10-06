@@ -15,6 +15,10 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
 use Around\Banner\Model\BannerFactory;
+use Psr\Log\LoggerInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+
+
 
 
 
@@ -29,6 +33,8 @@ class Index extends Template
     protected $logo;
     protected $scopeConfig;
     protected $banner;
+    protected $searchCriteriaBuilder;
+
     /**
      * @var Session
      */
@@ -37,6 +43,8 @@ class Index extends Template
      * @var AddressRepositoryInterface
      */
     private $addressRepository;
+    private $logger;
+
 
     /**
      * Constructor
@@ -54,6 +62,8 @@ class Index extends Template
         BannerFactory $banner,
         Logo                       $logo,
         ScopeConfigInterface           $scopeConfig,
+        LoggerInterface $logger,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
         array                      $data = []
     )
     {
@@ -62,6 +72,8 @@ class Index extends Template
         $this->customerSession = $customerSession;
         $this->banner=$banner;
         $this->scopeConfig = $scopeConfig;
+        $this->logger = $logger;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
 
         parent::__construct($context, $data);
     }
@@ -72,6 +84,12 @@ class Index extends Template
     public function getLogoSrc(): string
     {
         return $this->logo->getLogoSrc();
+    }
+
+    public function getCustomerId()
+    {
+       $customerid= $this->customerSession->getCustomer()->getId();
+       return $customerid;
     }
 
     /**
@@ -114,6 +132,24 @@ class Index extends Template
         $time = $this->scopeConfig->getValue('banner/interval/time',$storeScope );
 //        echo $time; exit();
         return $time;
+    }
+
+    public function getCustomerAddresses()
+    {
+        $customerId=$this->getCustomerId();
+        $addressesList = [];
+        try {
+            $searchCriteria = $this->searchCriteriaBuilder->addFilter(
+                'parent_id',$customerId)->create();
+            $addressRepository = $this->addressRepository->getList($searchCriteria);
+            foreach($addressRepository->getItems() as $address) {
+                $addressesList[] = $address;
+            }
+        } catch (Exception $exception) {
+            $this->logger->error($exception->getMessage());
+        }
+
+        return $addressesList;
     }
 
 

@@ -21,7 +21,7 @@
                         <div class="col-md-6 col-lg-4 col-xl-3">
                             <div id="product-1" class="single-product">
                                 <span class="discount"><?php if($value->getOffer()) {echo $value->getOffer() . " off"; }?>  </span>
-                                <a href="<?php echo $value->getLink(); ?>" ><img src="<?php echo $value->getImage(); ?>"></a>
+                                <a href="<?php echo $value->getLink(); ?>" ><img src="<?php if ($value->getImage()) {echo $value->getImage() ;} else{echo $value->getAltname() ;} ?>"></a>
                                 <div class="part-2">
                                     <h3 class="product-title"><?php echo $value->getName(); ?></h3>
                                 </div>
