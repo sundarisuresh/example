@@ -9,6 +9,7 @@ namespace Around\App\Block\Location;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
+use Magento\Framework\Data\Form\FormKey;
 
 /**
  *
@@ -20,6 +21,8 @@ class Index extends Template
      */
     protected $logo;
 
+    protected $formKey;
+
     /**
      * Constructor
      *
@@ -30,10 +33,13 @@ class Index extends Template
     public function __construct(
         Context $context,
         Logo $logo,
+        FormKey $formKey,
         array $data = []
     )
     {
         $this->logo = $logo;
+        $this->formKey = $formKey;
+
         parent::__construct($context, $data);
     }
 
@@ -43,6 +49,11 @@ class Index extends Template
     public function getLogoSrc()
     {
         return $this->logo->getLogoSrc();
+    }
+
+    public function getFormKey()
+    {
+        return $this->formKey->getFormKey();
     }
 }
 

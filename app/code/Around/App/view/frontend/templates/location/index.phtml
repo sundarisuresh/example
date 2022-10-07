@@ -46,7 +46,7 @@
             <i class="fa fa-map-marker fa-6" aria-hidden="true" style="
     padding-right: 7px;"></i>
 
-            </i>Locate Me</span>
+            </i>Click here to locate me</span>
     </div>
     <input type="text" class="form-control form-control-xl" id="searchmap" name ="Location" placeholder="Search your location" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="height: 52px;">
 </div>
@@ -59,15 +59,24 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label for="">Latitude</label>
-    <input type="text" class="form-control input-sm col-md-4" name="lat" id="lat">
-</div>
+<!--<div class="form-group">-->
+<!--    <label for="">Plot No:</label>-->
+<!--    <input type="text" required="required" class="form-control input-sm col-md-4" name="plot" id="plot">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--    <label for="">Appartment/Building Name: Optional</label>-->
+<!--    <input type="text" class="form-control input-sm col-md-4" name="apartment">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--    <label for="">Landmark: Optional</label>-->
+<!--    <input type="text" class="form-control input-sm col-md-4" name="landmark">-->
+<!--</div>-->
+<!---->
+<!--<div class="form-group">-->
+<!--    <label for="">label</label>-->
+<!--    <input type="text" class="form-control input-sm col-md-4" name="label">-->
+<!--</div>-->
 
-<div class="form-group">
-    <label for="">Longitude</label>
-    <input type="text" class="form-control input-sm col-md-4" name="lng" id="lng">
-</div>
 
 
 
@@ -81,9 +90,10 @@
                 <h5 class="modal-title" id="exampleModalLongTitle">Add your address</h5>
             </div>
             <div class="modal-body">
-                <form action="<?php echo $block->getUrl("login/location/submit");?>" method="post">
-                    <input type="hidden" id="lat1" name="lat" value="">
-                    <input type="hidden" id="lng1" name="lng" value="">
+                <form action="<?php echo $block->getUrl("login/location/submit");?>" method="POST">
+                    <input type="hidden" id="lat" name="lat" value="">
+                    <input type="hidden" id="lng" name="lng" value="">
+                    <input name="form_key" type="hidden" value="<?php echo $block->getFormKey();?>">
                     <section>
                         <label for="name">Name</label>
                         <input id="name" name="name" autocomplete="name" maxlength="100" pattern="[\p{L} \-\.]+" required>
@@ -97,31 +107,27 @@
                         <input id="address" name="apartment_name" autocomplete="address" maxlength="50" />
                     </section>
                     Save as:
+                    <div class="btn-group">
+                        <input class="btn-check" type="radio" name="type" value="home" id="dolores_ck">
+                        <label class="btn btn-outline-info" for="dolores_ck">
+                            Home
+                        </label>
 
-            </div>
-            <div class="btn-group">
-                <input class="btn-check" type="radio" name="type" value="home" id="dolores_ck">
-                <label class="btn btn-outline-info" for="dolores_ck">
-                    Home
-                </label>
+                        <input class="btn-check" type="radio" name="type" value="office" id="bubbles_ck">
+                        <label class="btn btn-outline-info" for="bubbles_ck">
+                            Office
+                        </label>
 
-                <input class="btn-check" type="radio" name="type" value="office" id="bubbles_ck">
-                <label class="btn btn-outline-info" for="bubbles_ck">
-                    Office
-                </label>
-
-                <input class="btn-check" type="radio" name="type" value="others" id="cosmo_ck">
-                <label class="btn btn-outline-info" for="cosmo_ck">
-                    Others
-                </label>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" onclick="
-				<?php echo $block->getUrl("login/location/submit/");?>"> Save address </button>
-            </div>
-
-            </form>
+                        <input class="btn-check" type="radio" name="type" value="others" id="cosmo_ck">
+                        <label class="btn btn-outline-info" for="cosmo_ck">
+                            Others
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"> Save address </button>
+                    </div>
+                </form>
         </div>
     </div>
 </div>
@@ -207,7 +213,7 @@
                 url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
                 $.get(url, function(data) {
                     if (data.status == 'OK') {
-                            $('#searchmap').val(data.results[0].formatted_address);
+                            // $('#searchmap').val(data.results[0].formatted_address);
                             $('#lat').val(data.results[0].geometry.location.lat);
                             $('#lng').val(data.results[0].geometry.location.lng);
                     }
@@ -240,3 +246,6 @@
 
 
 </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>

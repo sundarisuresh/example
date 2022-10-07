@@ -17,6 +17,9 @@ use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Directory\Model\ResourceModel\Region\Collection;
+use Magento\Directory\Model\ResourceModel\Region\CollectionFactory;
+use Magento\Customer\Api\Data\RegionInterface;
 
 class Submit extends Action
 {
@@ -30,15 +33,29 @@ class Submit extends Action
      * @var PageFactory
      */
     protected $resultPageFactory;
+    private $regionInterface;
 
     /**
      * Constructor
      *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(PageFactory $resultPageFactory, Http $request, AddressInterfaceFactory $dataAddressFactory, AddressRepositoryInterface $addressRepository, Context $context, CustomerFactory $customerFactory, Session $customer, AddressExtensionFactory $addressExtensionFactory)
+    public function __construct(
+        PageFactory $resultPageFactory,
+        Http $request,
+        AddressInterfaceFactory $dataAddressFactory,
+        AddressRepositoryInterface $addressRepository,
+        Context $context,
+        CustomerFactory $customerFactory,
+        Session $customer,
+        AddressExtensionFactory $addressExtensionFactory,
+        RegionInterface $regionInterface,
+        CollectionFactory $collectionFactory
+
+    )
     {
         parent::__construct($context);
+        $this->collectionFactory = $collectionFactory;
         $this->resultPageFactory = $resultPageFactory;
         $this->dataAddressFactory = $dataAddressFactory;
         $this->addressRepository = $addressRepository;
@@ -46,6 +63,7 @@ class Submit extends Action
         $this->customerFactory = $customerFactory;
         $this->customer = $customer;
         $this->addressExtensionFactory = $addressExtensionFactory;
+        $this->regionInterface = $regionInterface;
     }
 
     /**
@@ -73,8 +91,7 @@ class Submit extends Action
         $type = $this
             ->request
             ->getParam("type");
-//        echo $lat;
-//        echo $long;
+
         $address = $this
             ->dataAddressFactory
             ->create();
@@ -94,7 +111,8 @@ class Submit extends Action
         $address->setCity('Chennai');
         $address->setCountryId('IN');
         $address->setPostcode('60606');
-        $address->setRegionId(599);
+        $region = $this->getRegionCode('Tamil Nadu');
+        $address->setRegionId($region['region_id']);
         $address->setIsDefaultShipping(1);
         $address->setIsDefaultBilling(1);
         $address->setCustomerId($customer->getId());
@@ -112,5 +130,18 @@ class Submit extends Action
             exit();
         }
 
+    }
+
+    /**
+     * @param string $region
+     * @return string[]
+     */
+    public function getRegionCode(string $region)
+    {
+        $regionCode = $this->collectionFactory->create()
+            ->addRegionNameFilter($region)
+            ->getFirstItem()
+            ->toArray();
+        return $regionCode;
     }
 }
