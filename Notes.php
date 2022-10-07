@@ -101,12 +101,18 @@ Private Key: d1748ca36f96e6251f0f9da69eb63468
 
 $customerData = $this->customersession->getCustomer()->getId();
 
+// GIT Commands
+
 eval `ssh-agent -s` && ssh-add .ssh/id_rsa
+git pull origin develop && git add app/code/ && git add Notes.php && git commit -m "banner" && git push origin develop
+
+// GIT Commands
+
 git pull origin develop
 git add app/code/
 git commit -m "banner"
 git push origin develop
-git pull origin develop && git add app/code/ && git commit -m "banner" && git push origin develop
+
 13.0172114,80.1566885
 
 
@@ -132,5 +138,21 @@ set adress id in defdeladrss  in cus
 
 
 
+
+Public Key: c2e9ca4e2694a1706e4139ff8eb535b0
+Private Key: d1748ca36f96e6251f0f9da69eb63468
+
+$customerData = $this->customersession->getCustomer()->getId();
+
+
+
+
+Google API key: AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k
+AIzaSyCh0qDXpKwtRpHKZq7OxU2z3YBWbAFRM7w
+
+
+
+13.0172114,80.1566885
+https://maps.googleapis.com/maps/api/geocode/json?latlng=13.0150868,80.1582994&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k
 
 
