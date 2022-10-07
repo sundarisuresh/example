@@ -156,3 +156,6 @@ AIzaSyCh0qDXpKwtRpHKZq7OxU2z3YBWbAFRM7w
 https://maps.googleapis.com/maps/api/geocode/json?latlng=13.0150868,80.1582994&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k
 
 
+bin/magento module:disable Magento_Csp
+
+
