@@ -101,10 +101,36 @@ Private Key: d1748ca36f96e6251f0f9da69eb63468
 
 $customerData = $this->customersession->getCustomer()->getId();
 
-
-
-
-
-
-
+eval `ssh-agent -s` && ssh-add .ssh/id_rsa
+git pull origin develop
+git add app/code/
+git commit -m "banner"
+git push origin develop
+git pull origin develop && git add app/code/ && git commit -m "banner" && git push origin develop
 13.0172114,80.1566885
+
+
+"<?php $list= $block->getCustomerAddresses();?>
+
+        <ul class="list-group">
+            <?php
+            foreach ($list as $value)
+            {?>
+                <li class="list-group-item">
+                    <?php echo $value->getCustomAttribute('plot_no')->getValue(); ?>
+                </li>
+                <?php
+            }
+            ?>
+
+        </ul>
+
+        ">
+
+get adress using id and set that adress ass default address
+set adress id in defdeladrss  in cus
+
+
+
+
+
