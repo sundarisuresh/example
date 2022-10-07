@@ -9,13 +9,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<!--    <script src="https://kit.fontawesome.com/af562a2a63.js" crossorigin="anonymous"></script>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 </head>
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 
 
@@ -24,7 +25,6 @@
 
 
 <style>
-
 
     #map{
         height:400px;
@@ -35,12 +35,23 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh0qDXpKwtRpHKZq7OxU2z3YBWbAFRM7w&callback=initMap&libraries=places" async defer>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k&callback=initMap&libraries=places" async defer>
 </script>
 
+
+<div class="input-group input-group-xl">
+    <div class="input-group-prepend" id="locate" onclick="">
+
+        <span class="input-group-text" id="inputGroup-sizing-xl" style="font-size: initial;">
+            <i class="fa fa-map-marker fa-6" aria-hidden="true" style="
+    padding-right: 7px;"></i>
+
+            </i>Locate Me</span>
+    </div>
+    <input type="text" class="form-control form-control-xl" id="searchmap" name ="Location" placeholder="Search your location" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="height: 52px;">
+</div>
+
 <div class="form-group">
-    <button id ="btn" onclick="">Current Location</button>
-    <input type="text" id="searchmap" name ="Location" placeholder="Enter the Location">
     <br>
     <br>
     <div id="map">
@@ -150,7 +161,7 @@
 
             });
 
-            google.maps.event.addDomListener(btn, 'click', function(){
+            google.maps.event.addDomListener(locate, 'click', function(){
                 navigator.geolocation.getCurrentPosition(function(position) {
                     var pos = {
                         lat: position.coords.latitude,
@@ -159,7 +170,7 @@
                     marker.setPosition(pos);
                     map.setCenter(pos);
 
-                    currentloc(marker);
+                    // currentloc(marker);
 
                 }, function() {
                     handleLocationError(true, infoWindow, map.getCenter());
@@ -188,36 +199,34 @@
         google.maps.event.addListener(map, 'drag', function () {
             marker.setPosition(map.getCenter());
         });
+        google.maps.event.addListener(map,'idle',function(){
+
+            if(!this.get('dragging') && this.get('oldCenter') && this.get('oldCenter')!==this.getCenter()) {
+                console.log('weds');
+                latlng = marker.getPosition();
+                url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
+                $.get(url, function(data) {
+                    if (data.status == 'OK') {
+                            $('#searchmap').val(data.results[0].formatted_address);
+                            $('#lat').val(data.results[0].geometry.location.lat);
+                            $('#lng').val(data.results[0].geometry.location.lng);
+                    }
+                });
+            }
+            if(!this.get('dragging')){
+                this.set('oldCenter',this.getCenter())
+            }
+
+
+
+        });
         google.maps.event.addListener(marker, 'dragend', function() {
 
-            latlng = marker.getPosition();
-            url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng.lat() + ',' + latlng.lng() + '&sensor=false';
-            $.get(url, function(data) {
-                if (data.status == 'OK') {
-                    map.setCenter(data.results[0].geometry.location);
-                    if (confirm('Do you also want to change location text to ' + data.results[0].formatted_address) === true) {
-                        $('#searchmap').val(data.results[0].formatted_address);
-                        $('#lat').val(data.results[0].geometry.location.lat);
-                        $('#lng').val(data.results[0].geometry.location.lng);
-                    }
-                }
-            });
         });
     }
 
     function currentloc(marker){
-        latlng = marker.getPosition();
-        url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng.lat() + ',' + latlng.lng() + '&sensor=false';
-        $.get(url, function(data) {
-            if (data.status == 'OK') {
-                map.setCenter(data.results[0].geometry.location);
-                if (confirm('Do you also want to change location text to ' + data.results[0].formatted_address) === true) {
-                    $('#searchmap').val(data.results[0].formatted_address);
-                    $('#lat').val(data.results[0].geometry.location.lat);
-                    $('#lng').val(data.results[0].geometry.location.lng);
-                }
-            }
-        });
+
     }
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {

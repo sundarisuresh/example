@@ -159,3 +159,32 @@ https://maps.googleapis.com/maps/api/geocode/json?latlng=13.0150868,80.1582994&r
 bin/magento module:disable Magento_Csp
 
 
+
+            // console.log("Ds");
+
+            // latlng = marker.getPosition();
+            // url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
+            // $.get(url, function(data) {
+            //     if (data.status == 'OK') {
+            //         map.setCenter(data.results[0].geometry.location);
+            //         if (confirm('Do you also want to change location text to ' + data.results[0].formatted_address) === true) {
+            //             $('#searchmap').val(data.results[0].formatted_address);
+            //             $('#lat').val(data.results[0].geometry.location.lat);
+            //             $('#lng').val(data.results[0].geometry.location.lng);
+            //         }
+            //     }
+            // });
+
+
+        // latlng = marker.getPosition();
+        // url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+ latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
+        // $.get(url, function(data) {
+        //     if (data.status == 'OK') {
+        //         map.setCenter(data.results[0].geometry.location);
+        //         if (confirm('Do you also want to change location text to ' + data.results[0].formatted_address) === true) {
+        //             $('#searchmap').val(data.results[0].formatted_address);
+        //             $('#lat').val(data.results[0].geometry.location.lat);
+        //             $('#lng').val(data.results[0].geometry.location.lng);
+        //         }
+        //     }
+        // });
