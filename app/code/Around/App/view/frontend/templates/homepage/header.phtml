@@ -33,7 +33,29 @@ Website: www.cupcom.com.br
                             <h4 class="modal-title">Modal Header</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
+                            <p>
+                                <?php $list= $block->getCustomerAddresses();?>
+
+                            <ul class="list-group">
+                                <?php
+                                foreach ($list as $value)
+                                {?>
+                                    <li class="list-group-item">
+                                        <a href="<?php echo $block->getUrl("login/address").'?adressid='.$value->getId();?>">
+                                        <?php echo $value->getCustomAttribute('plot_no')->getValue() ;
+                                        if ($value->getCustomAttribute('apartment_name')){
+                                            echo  ',' . $value->getCustomAttribute('apartment_name')->getValue();
+                                        }
+
+                                    echo     ',' . $value->getStreet()[0] . ',' . $value->getStreet()[1] . ',' . $value->getCity(); ?>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
+
+                            </ul>
+
+                            </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -74,6 +96,7 @@ Website: www.cupcom.com.br
             <!-- call to action -->
             </ul>
         </nav>
+    </div>
     </div>
 </header>
 
