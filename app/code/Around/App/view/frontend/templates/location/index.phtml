@@ -24,7 +24,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k&callback=initMap&libraries=places" async defer></script>
 <div class="input-group input-group-xl">
-    <div class="input-group-prepend" id="locate" onclick="">
+    <div class="input-group-prepend" id="locate" onclick="" style="cursor: pointer;">
     <span class="input-group-text" id="inputGroup-sizing-xl" style="font-size: initial;">
       <i class="fa fa-map-marker fa-6" aria-hidden="true" style="
     padding-right: 7px;"></i>
@@ -38,9 +38,9 @@
     <div id="map"></div>
     <div class="card" style="">
         <div class="card-body">
-            <h5 class="card-title">Selected Address</h5>
-            <p class="card-text" id="selected-address"></p>
-            <a href="#" class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Confirm Location</a>
+            <h5 class="card-title" style="font-size: 19px;">Selected Address</h5>
+            <p class="card-text" id="selected-address" style="font-size: 19px;"></p>
+            <a href="#" class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="font-size: 18px;">Confirm Location</a>
         </div>
     </div>
 </div>
@@ -56,8 +56,13 @@
 														<?php echo $block->getUrl("login/location/submit"); ?>" method="POST">
                     <input type="hidden" id="lat" name="lat" value="">
                     <input type="hidden" id="lng" name="lng" value="">
-                    <input name="form_key" type="hidden" value="
-																	<?php echo $block->getFormKey(); ?>"> <?php if (!$block->getCustomerName()) { ?> <section>
+                    <input type="hidden" id="street1" name="street1" value="">
+                    <input type="hidden" id="street2" name="street2" value="">
+                    <input type="hidden" id="city" name="city" value="">
+                    <input type="hidden" id="state" name="state" value="">
+                    <input type="hidden" id="country" name="country" value="">
+                    <input type="hidden" id="pin" name="pin" value="">
+                    <input name="form_key" type="hidden" value="<?php echo $block->getFormKey(); ?>"> <?php if (!$block->getCustomerName()) { ?> <section>
                         <label for="name">Name</label>
                         <input id="name" name="name" autocomplete="name" maxlength="100" pattern="[\p{L} \-\.]+" required>
                     </section> <?php } ?> <section>
@@ -87,6 +92,36 @@
         var map, infoWindow;
 
         function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    marker.setPosition(pos);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+                google.maps.event.addDomListener(locate, 'click', function() {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        marker.setPosition(pos);
+                        map.setCenter(pos);
+                        // currentloc(marker);
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {
                     lat: 12.971599,
@@ -154,9 +189,42 @@
                     url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
                     $.get(url, function(data) {
                         if (data.status == 'OK') {
+                            var searchAddressComponents = data.results[0].address_components,
+                                searchPostalCode="";
+                            searchCountry="";
+                            searchState="";
+                            searchCity="";
+                            searchAdd2="";
+                            searchAdd1="";
+                            $.each(searchAddressComponents, function(){
+                                if(this.types[0]=="postal_code"){
+                                    searchPostalCode=this.short_name;
+                                }
+                                if(this.types[0]=="country"){
+                                    searchCountry=this.short_name;
+                                }
+                                if(this.types[0]=="administrative_area_level_1"){
+                                    searchState=this.long_name;
+                                }
+                                if(this.types[0]=="locality"){
+                                    searchCity=this.long_name;
+                                }
+                                if(this.types[2]=="sublocality_level_1"){
+                                    searchAdd2=this.short_name;
+                                }
+                                if(this.types[2]=="sublocality_level_2"){
+                                    searchAdd1=this.short_name;
+                                }
+                            });
+                            // console.log(searchCountry);
                             // $('#searchmap').val(data.results[0].formatted_address);
                             $('#selected-address').text(data.results[0].formatted_address);
-
+                            $('#street1').val(searchAdd1);
+                            $('#street2').val(searchAdd2);
+                            $('#city').val(searchCity);
+                            $('#state').val(searchState);
+                            $('#country').val(searchCountry);
+                            $('#pin').val(searchPostalCode);
                             $('#lat').val(data.results[0].geometry.location.lat);
                             $('#lng').val(data.results[0].geometry.location.lng);
                         }

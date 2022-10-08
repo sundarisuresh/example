@@ -18,6 +18,7 @@ use Magento\Framework\View\Result\PageFactory;
 
 class Index extends Action
 {
+
     private $resultPageFactory;
     private $request;
     private $catalogSession;

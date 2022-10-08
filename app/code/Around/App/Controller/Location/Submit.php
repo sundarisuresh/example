@@ -88,18 +88,38 @@ class Submit extends Action
         $apartment = $this
             ->request
             ->getParam("apartment_name");
-        $type = $this
+        $street1 = $this
             ->request
-            ->getParam("type");
+            ->getParam("street1");
+        $street2 = $this
+            ->request
+            ->getParam("street2");
+        $city = $this
+            ->request
+            ->getParam("city");
+        $state = $this
+            ->request
+            ->getParam("state");
+        $country = $this
+            ->request
+            ->getParam("country");
+        $pin = $this
+            ->request
+            ->getParam("pin");
 
         $address = $this
             ->dataAddressFactory
             ->create();
+        if($name){
+            $address->setFirstname($name);
+            $address->setLastname($name);
+        }else{
+            $address->setFirstname($this->customer->getFirstname());
+            $address->setLastname($this->customer->getFirstname());
+        }
 
-        $address->setFirstname($name);
-        $address->setLastname($name);
-        $street[] = 'street 1';
-        $street[] = 'street 2';
+        $street[] = $street1;
+        $street[] = $street2;
         $address->setStreet($street);
         $address->setCustomAttribute('location', $lat . ',' . $long);
         $address->setCustomAttribute('plot_no', $plot);
@@ -108,10 +128,10 @@ class Submit extends Action
         $customer = $this
             ->customer
             ->getCustomer();
-        $address->setCity('Chennai');
-        $address->setCountryId('IN');
-        $address->setPostcode('60606');
-        $region = $this->getRegionCode('Tamil Nadu');
+        $address->setCity($city);
+        $address->setCountryId($country);
+        $address->setPostcode($pin);
+        $region = $this->getRegionCode($state);
         $address->setRegionId($region['region_id']);
         $address->setIsDefaultShipping(1);
         $address->setIsDefaultBilling(1);
@@ -122,6 +142,10 @@ class Submit extends Action
                 ->addressRepository
                 ->save($address);
             $customer->setDefaultDeliveryAdd($savedAddress->getId());
+            if($name) {
+                $customer->setFirstname($name);
+                $customer->setLastname($name);
+            }
             $customer->save();
             $this->_redirect('login/validate');
         } catch (Exception $exception) {
