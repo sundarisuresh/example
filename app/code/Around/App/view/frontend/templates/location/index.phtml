@@ -36,8 +36,15 @@
     <br>
     <br>
     <div id="map"></div>
+    <div class="card" style="">
+        <div class="card-body">
+            <h5 class="card-title">Selected Address</h5>
+            <p class="card-text" id="selected-address"></p>
+            <a href="#" class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Confirm Location</a>
+        </div>
+    </div>
 </div>
-<button class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Confirm Location </button>
+<!--<button class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Confirm Location </button>-->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -148,6 +155,8 @@
                     $.get(url, function(data) {
                         if (data.status == 'OK') {
                             // $('#searchmap').val(data.results[0].formatted_address);
+                            $('#selected-address').text(data.results[0].formatted_address);
+
                             $('#lat').val(data.results[0].geometry.location.lat);
                             $('#lng').val(data.results[0].geometry.location.lng);
                         }
