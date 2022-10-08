@@ -6,6 +6,7 @@
 
 namespace Around\App\Block\Location;
 
+use Magento\Customer\Model\Session;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
@@ -22,6 +23,7 @@ class Index extends Template
     protected $logo;
 
     protected $formKey;
+    private $customerSession;
 
     /**
      * Constructor
@@ -34,12 +36,13 @@ class Index extends Template
         Context $context,
         Logo $logo,
         FormKey $formKey,
+        Session                    $customerSession,
         array $data = []
     )
     {
         $this->logo = $logo;
         $this->formKey = $formKey;
-
+        $this->customerSession = $customerSession;
         parent::__construct($context, $data);
     }
 
@@ -49,6 +52,15 @@ class Index extends Template
     public function getLogoSrc()
     {
         return $this->logo->getLogoSrc();
+    }
+
+    public function getCustomerName()
+    {
+        $customerName= $this->customerSession->getCustomer()->getFirstname();
+        if($customerName == "Dummy"){
+            return false;
+        }
+        return true;
     }
 
     public function getFormKey()

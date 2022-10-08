@@ -59,7 +59,7 @@ class Sendotp extends Action
         }
         $digits = 4;
         $otp = rand(pow(10, $digits - 1), pow(10, $digits) - 1);
-        $otp = 0000;
+        $otp = 1234;
         $sid = "AC478d735f436986f7d2b6487aa9a977da";
         $token = "ea859e1dfbb7c29ae56ddf5be11ae01c";
         $twilio = new Client($sid, $token);

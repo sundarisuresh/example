@@ -14,7 +14,6 @@
     <body>
 		<referenceContainer name="content">
 			<block name="location.index" class="Around\App\Block\Location\Index" cacheable="false" template="Around_App::location/index.phtml"/>
-
 		</referenceContainer>
         <referenceContainer name="header.container" remove="true"/>
         <referenceBlock name="catalog.topnav" remove="true"/>
