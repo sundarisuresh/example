@@ -10,7 +10,7 @@ namespace Around\App\Controller\Address;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\PageFactory;
+use  Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\App\Action\Context;
 
 
@@ -20,8 +20,10 @@ class Index extends Action
     /**
      * @var PageFactory
      */
-    protected $resultPageFactory;
+    protected $resultRedirectFactory;
     protected $request;
+    protected $customerSession;
+
 
 
     /**
@@ -29,13 +31,20 @@ class Index extends Action
      *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(PageFactory $resultPageFactory,
+    public function __construct(
+                                RedirectFactory $resultRedirectFactory,
+                                \Magento\Customer\Model\Session $customerSession,
                                 Context $context,
                                 Http $request)
     {  parent::__construct($context);
         $this->request = $request;
+        $this->resultRedirectFactory = $resultRedirectFactory;
+        $this->customerSession = $customerSession;
 
-        $this->resultPageFactory = $resultPageFactory;
+
+
+
+//        $this->resultPageFactory = $resultPageFactory;
     }
 
     /**
@@ -44,11 +53,19 @@ class Index extends Action
      * @return ResultInterface
      */
     public function execute()
-    {
-       $adressid= $this->request->getParam("adressid");
-echo $adressid;
-exit;
-        return $this->resultPageFactory->create();
+    {  $adressid= $this->request->getParam("adressid");
+        $customer=$this->customerSession->getCustomer();
+        $customer->setDefaultDeliveryAdd($adressid);
+        $customer->save();
+
+//        $customerData = $customer->getDataModel();
+//        $customerData->setCustomAttribute('default_delivery_add',$adressid);
+//        $customer->updateData($customerData);
+//echo $adressid;
+
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setPath('/');
+        return $resultRedirect;
     }
 }
 

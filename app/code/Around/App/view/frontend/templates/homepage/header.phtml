@@ -34,8 +34,8 @@ Website: www.cupcom.com.br
                         </div>
                         <div class="modal-body">
                             <p>
+                                <a href="<?php echo $block->getUrl("login/location"); ?>">Add new address</a>
                                 <?php $list= $block->getCustomerAddresses();?>
-
                             <ul class="list-group">
                                 <?php
                                 foreach ($list as $value)
