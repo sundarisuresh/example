@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="content">
+			<block name="orderslist.index" class="Around\Account\Block\Orderslist\Index" template="Around_Account::index/orderslist.phtml"/>
+		</referenceContainer>
+        <referenceBlock name="quickcart" remove="true"/>
+        <referenceBlock name="suggestproduct" remove="true"/>
+        <referenceContainer name="header.container" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+
+        <referenceContainer name="footer-container" remove="true"/>
+
+    </body>
+</page>

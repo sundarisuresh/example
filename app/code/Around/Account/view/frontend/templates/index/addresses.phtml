@@ -49,13 +49,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <img src="<?php echo $block->getLogoSrc();?>"><br>
-
     </i>
 </head>
 <body>
 <section class="py-5 my-5">
     <div class="container">
-        <h1 class="mb-5">Account Settings</h1>
+<!--        <h1 class="mb-5">Account Settings</h1>-->
         <a class="btn btn-outline-dark" href="<?php echo $block->getUrl("account/logout");?>" role="button">Logout</a>
         <div class="bg-white shadow rounded-lg d-block d-sm-flex">
             <div class="profile-tab-nav border-right">
@@ -67,15 +66,15 @@
                     <h4 class="text-center"><?php echo $list->getFirstname() . $list->getLastname();?></h4>
                 </div>
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="account-tab" data-toggle="pill" href="#account" role="tab" aria-controls="account" aria-selected="true">
+                    <a class="nav-link" id="account-tab" data-toggle="pill" href="<?php echo $block->getUrl("account");?>" role="tab" aria-controls="account" aria-selected="true">
                         <i class="fa fa-home text-center mr-1"></i>
                         Account
                     </a>
-                    <a class="nav-link" id="password-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/addresses");?>" role="tab" aria-controls="password" aria-selected="false">
+                    <a class="nav-link active" id="password-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/addresses");?>" role="tab" aria-controls="password" aria-selected="false">
                         <i class="fa fa-key text-center mr-1"></i>
                         Adresses
                     </a>
-                    <a class="nav-link" id="security-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/orderslist");?>" role="tab" aria-controls="security" aria-selected="false">
+                    <a class="nav-link" id="security-tab" data-toggle="pill" href="#orders" role="tab" aria-controls="security" aria-selected="false">
                         <i class="fa fa-user text-center mr-1"></i>
                         Orders List
                     </a>
@@ -91,31 +90,35 @@
             </div>
             <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
-                    <h3 class="mb-4">Personal Information</h3> <span class="edit-info">Edit</span>
                     <form action="<?php echo $block->getUrl("account/index/post");?> " method="post">
+                        <h3 class="mb-4">Manage Address</h3>
+                        <div class="row123">
+<!--                        --><?php //$list= $block->getCustomer();?>
+                        <ul class="list-group">
+                            <li class="list-group-item">
 
-                    <div class="row">
-                        <?php $list= $block->getCustomer();?>
+                            <a href="<?php echo $block->getUrl("login/location"); ?>">Add new address</a>
+                                <?php $list= $block->getCustomerAddresses();?>
+                            </li>
+                        </ul> <br>
+                            <ul class="list-group">
+                                <?php
+                                foreach ($list as $value)
+                                {?>
+                                    <li class="list-group-item">
+                                        <a href="<?php echo $block->getUrl("login/address").'?adressid='.$value->getId();?>">
+                                            <?php echo $value->getCustomAttribute('plot_no')->getValue() ;
+                                            if ($value->getCustomAttribute('apartment_name')){
+                                                echo  ',' . $value->getCustomAttribute('apartment_name')->getValue();
+                                            }
 
+                                            echo     ',' . $value->getStreet()[0] . ',' . $value->getStreet()[1] . ',' . $value->getCity(); ?>
+                                    </li>
+                                    <?php
+                                }
+                                ?>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text"  name="firstname" class="form-control first-name" value="<?php echo $list->getFirstname();?>" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" name="lastname" class="form-control last-name" value="<?php echo $list->getLastname();?>" disabled>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Phone number</label>
-                                <input type="text" name="phonenumber" class="form-control phone-number" value="<?php echo $list->getPhone_number();?>" disabled>
-                            </div>
-                     </div>
+                            </ul>
 
                     </div>
                     <div class="save-action"
