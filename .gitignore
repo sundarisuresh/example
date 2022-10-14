@@ -27,6 +27,9 @@ app/functions.php
 .php_cs.dist
 .travis.yml
 .user.ini
+generated
+var
+
 CHANGELOG.md
 COPYING.txt
 Gruntfile.js.sample
