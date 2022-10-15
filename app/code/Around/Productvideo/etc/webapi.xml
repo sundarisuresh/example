@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/around-productvideo/productvideo" method="POST">
+		<service class="Around\Productvideo\Api\ProductvideoRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_Productvideo::Productvideo_save"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productvideo/productvideo/search" method="GET">
+		<service class="Around\Productvideo\Api\ProductvideoRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Around_Productvideo::Productvideo_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productvideo/productvideo/:productvideoId" method="GET">
+		<service class="Around\Productvideo\Api\ProductvideoRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Around_Productvideo::Productvideo_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productvideo/productvideo/:productvideoId" method="PUT">
+		<service class="Around\Productvideo\Api\ProductvideoRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_Productvideo::Productvideo_update"/>
+		</resources>
+	</route>
+	<route url="/V1/around-productvideo/productvideo/:productvideoId" method="DELETE">
+		<service class="Around\Productvideo\Api\ProductvideoRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Around_Productvideo::Productvideo_delete"/>
+		</resources>
+	</route>
+</routes>
