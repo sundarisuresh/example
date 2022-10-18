@@ -22,6 +22,9 @@ class Index extends Action
     protected $resultPageFactory;
     protected $cart;
     protected $quoteManagement;
+    protected $resultRedirectFactory;
+    protected $checkoutSession;
+
 
     /**
      * Constructor
@@ -35,11 +38,15 @@ class Index extends Action
                                 \Magento\Customer\Model\AddressFactory $addressFactory,
                                 \Magento\Customer\Model\SessionFactory $customerSessionFactory,
                                 \Magento\Quote\Model\QuoteManagement $quoteManagement,
+                                \Magento\Checkout\Model\Session $checkoutSession,
+                                \Magento\Framework\Controller\Result\RedirectFactory $resultRedirectFactory,
                                 Context                        $context
 
     )
     {
         $this->cart= $cart;
+        $this->checkoutSession = $checkoutSession;
+        $this->resultRedirectFactory = $resultRedirectFactory;
         $this->resultPageFactory = $resultPageFactory;
         $this->quoteManagement=$quoteManagement;
         $this->quoteRepository = $quoteRepository;
@@ -54,21 +61,11 @@ class Index extends Action
      *
      * @return ResultInterface
      */
-    public function execute()
-    {
-        $quote = $this->cart->getQuote();
-        $this->setBillingAddressToQuote($quote->getId());
 
-      try {
-          $orderid = $this->quoteManagement->placeOrder($quote->getId());
-      }
-      catch(Exception $e) {
-          echo 'Message: ' .$e->getMessage();
-          exit;
-      }
 
-        return $this->resultPageFactory->create();
-    }
+//        return $this->resultPageFactory->create();
+
+
 
     public function setBillingAddressToQuote($cartId) {
         $quote = $this->quoteRepository->getActive($cartId);
@@ -87,6 +84,53 @@ class Index extends Action
         $quote->getBillingAddress()->setTelephone($address['telephone']);
         $quote->getBillingAddress()->setPostcode($address['postcode']);
         $quote->getBillingAddress()->setCountryId($address['country_id']);
+        $quote->getBillingAddress()->setRegionId($address['region_id']);
+        $quote->getShippingAddress()->setFirstname($address['firstname']);
+        $quote->getShippingAddress()->setLastname($address['lastname']);
+        $quote->getShippingAddress()->setStreet($address['street']);
+        $quote->getShippingAddress()->setCity($address['city']);
+        $quote->getShippingAddress()->setTelephone($address['telephone']);
+        $quote->getShippingAddress()->setPostcode($address['postcode']);
+        $quote->getShippingAddress()->setCountryId($address['country_id']);
+        $quote->getShippingAddress()->setRegionId($address['region_id']);
+        $quote->setPaymentMethod('checkmo');
+        $quote->getPayment()->importData(['method' => 'checkmo']);
+        $quote->getShippingAddress()->setCollectShippingRates(true)
+            ->collectShippingRates()
+            ->setShippingMethod('flatrate_flatrate');
+
+//        $quote->setInventoryProcessed (false);
+        $quote->collectTotals ();
+        $quote->save ();
+
+
     }
+
+    public function execute()
+    {
+        $quote = $this->cart->getQuote();
+        $this->setBillingAddressToQuote($quote->getId());
+
+        try {
+            $orderid = $this->quoteManagement->placeOrder($quote->getId());
+
+            $this->checkoutSession->setOrderId($orderid);
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath('cart/success');
+            return $resultRedirect;
+
+
+
+        } catch (Exception $e) {
+            echo 'Message: ' . $e->getMessage();
+
+            $this->checkoutSession->setErrorMessage('Error, place your order again.');
+
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath('cart');
+            return $resultRedirect;
+        }
+    }
+
 }
 

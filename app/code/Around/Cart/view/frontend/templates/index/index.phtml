@@ -1,5 +1,9 @@
 <div class="container">
     <img src="<?php echo $block->getLogoSrc();?>"><br>
+
+  <?php  echo $block->getCheckoutSession()->getErrorMessage(); ?>
+ <?php $block->getCheckoutSession()->unsErrorMessage();
+  ?>
     <div>
         <div>
         <h3>Delivery Address</h3>

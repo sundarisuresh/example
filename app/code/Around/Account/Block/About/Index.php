@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Around\Account\Block\About;
+namespace Around\Account\Block\Trackorder;
 use Magento\Theme\Block\Html\Header\Logo;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Api\AddressRepositoryInterface;

@@ -101,6 +101,10 @@ class Index extends Template
             return $plot . ', ' . $street . ', ' . $city;
         }
     }
+    public function getCheckoutSession()
+    {
+        return $this->checkoutSession;
+    }
 
     public function getQuoteData()
     {

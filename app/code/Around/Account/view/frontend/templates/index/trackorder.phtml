@@ -1,0 +1,37 @@
+<img src="<?php echo $block->getLogoSrc();?>"><br>
+</i>
+<?php $list= $block->getOrder(); ?>
+<h3>Delivery Address</h3>
+<span>
+    <?php echo $list->getCustomerFirstname(). ' '. $list->getCustomerLastname();?>
+</span><br>
+<?php $shippingaddress= $list->getShippingAddress(); ?>
+<span>
+                                <?php
+                                if( $shippingaddress->getCustomAttribute('plot_no')) {
+                                    echo $shippingaddress->getCustomAttribute('plot_no')->getValue();
+                                }
+                                if ($shippingaddress->getCustomAttribute('apartment_name')) {
+                                    echo ',' . $shippingaddress->getCustomAttribute('apartment_name')->getValue();
+                                }
+
+                                echo ',' . $shippingaddress->getStreet()[0] . ',' . $shippingaddress->getStreet()[1] . ',' . $shippingaddress->getCity();
+
+                                ?>
+                            </span><br>
+<span>
+    Phone number:
+
+    <?php echo $list->getBillingAddress()->getTelephone();?>
+</span><br><br>
+
+<?php $items= $list->getAllItems();
+foreach($items as $item)
+{
+    echo $item->getName(); ?><br>
+<?php
+    echo $item->getPrice();
+
+}
+
+?>
