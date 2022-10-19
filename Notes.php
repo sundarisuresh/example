@@ -188,3 +188,11 @@ bin/magento module:disable Magento_Csp
         //         }
         //     }
         // });
+
+status list
+pending approval-pending
+    approved/confirmed-processing
+    processing
+shiped-processing
+complete-complete
+ approved/pro/shipped
