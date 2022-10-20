@@ -196,3 +196,10 @@ pending approval-pending
 shiped-processing
 complete-complete
  approved/pro/shipped
+
+ protected $orderRepository;
+    \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
+    $this->orderRepository = $orderRepository;
+       $order = $this->orderRepository->get($orderId);
+
+
