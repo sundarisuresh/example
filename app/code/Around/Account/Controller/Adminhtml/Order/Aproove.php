@@ -13,7 +13,7 @@ use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Controller\ResultFactory;
 
 
-class Aproove implements HttpGetActionInterface
+class Aproove extends \Magento\Backend\App\Action
 {
     protected $request;
     protected $orderRepository;
@@ -23,14 +23,14 @@ class Aproove implements HttpGetActionInterface
      * @var PageFactory
      */
     protected $resultRedirectFactory;
+    protected $resultFactory;
 
     /**
      * Constructor
      *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(PageFactory $resultPageFactory,
-                                RedirectFactory $resultRedirectFactory,
+    public function __construct(\Magento\Backend\App\Action\Context $context,
                                 \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
                                 \Magento\Framework\App\Request\Http $request
 
@@ -38,7 +38,7 @@ class Aproove implements HttpGetActionInterface
     {
         $this->request = $request;
         $this->orderRepository = $orderRepository;
-        $this->resultRedirectFactory = $resultRedirectFactory;
+        parent::__construct($context);
     }
 
     /**
@@ -49,14 +49,16 @@ class Aproove implements HttpGetActionInterface
     public function execute()
     {
         $orderId= $this->request->getParam('order_id');
+
         $order = $this->orderRepository->get($orderId);
         if ($order->getState() == 'pending') {
             $order->setState('processing')->setStatus('approved');
             $order->save();        }
 
-        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $resultRedirect->setUrl($this->_redirect->getRefererUrl());
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setPath('sales/order/view', ['order_id' => $order->getId()]);
         return $resultRedirect;
     }
 }
+
 

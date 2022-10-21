@@ -9,24 +9,32 @@ namespace Around\Account\Controller\Adminhtml\Order;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\Result\RedirectFactory;
+use Magento\Framework\Controller\ResultFactory;
 
-class Process implements HttpGetActionInterface
+class Process extends \Magento\Backend\App\Action
 {
 
+    protected $request;
+    protected $orderRepository;
     /**
      * @var PageFactory
      */
-    protected $resultPageFactory;
+    protected $resultRedirectFactory;
+    protected $resultFactory;
 
     /**
      * Constructor
      *
      * @param PageFactory $resultPageFactory
      */
-    public function __construct(PageFactory $resultPageFactory)
+    public function __construct(\Magento\Backend\App\Action\Context $context,
+                                \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+                                \Magento\Framework\App\Request\Http $request)
     {
-        $this->resultPageFactory = $resultPageFactory;
+        $this->request = $request;
+        $this->orderRepository = $orderRepository;
+        parent::__construct($context);
     }
 
     /**
@@ -36,9 +44,16 @@ class Process implements HttpGetActionInterface
      */
     public function execute()
     {
-        echo "qw";
-        exit;
-        return $this->resultPageFactory->create();
+        $orderId= $this->request->getParam('order_id');
+
+        $order = $this->orderRepository->get($orderId);
+        if ($order->getState() == 'processing') {
+            $order->setState('processing')->setStatus('processing');
+            $order->save();        }
+
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setPath('sales/order/view', ['order_id' => $order->getId()]);
+        return $resultRedirect;
     }
 }
 

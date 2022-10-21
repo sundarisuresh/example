@@ -2,41 +2,65 @@
 
 namespace Around\Account\Plugin;
 
+
 class PluginBefore
 {
+    protected $request;
+    protected $orderRepository;
+
+    public function __construct(
+                                \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
+                                \Magento\Framework\App\Request\Http $request
+
+    )
+    {
+        $this->request = $request;
+        $this->orderRepository = $orderRepository;
+
+    }
     public function beforeSetLayout(\Magento\Sales\Block\Adminhtml\Order\View $view)
+
 {
-    $message ='Are you sure you want to do this?';
-    $url = $view->getUrl('account/order/aproove').$view->getOrderId();
+    $orderId = $this->request->getParam('order_id');
+    $order =$this->orderRepository->get($orderId);
 
 
-    $view->addButton(
-        'aprove',
-        [
-            'label' => __('Aprove'),
-            'class' => 'myclass',
-            'onclick' => "confirmSetLocation('{$message}', '{$url}')"
-        ]
-    );
+    $message = 'Are you sure you want to do this?';
+    $url = $view->getUrl('account/order/aproove') . $view->getOrderId();
+//   echo $order->getStatus();
+//   exit;
+    if ($order->getStatus() == 'pending_approval') {
+        $view->addButton(
+            'aprove',
+            [
+                'label' => __('Aprove'),
+                'class' => 'myclass',
+                'onclick' => "confirmSetLocation('{$message}', '{$url}')"
+            ]
+        );
+    } elseif ($order->getStatus() == 'approved') {
 
-    $url = $view->getUrl('account/order/process').$view->getOrderId();
-    $view->addButton(
-        'process',
-        [
-            'label' => __('On Process'),
-            'class' => 'myclass',
-            'onclick' => "confirmSetLocation('{$message}', '{$url}')"
-        ]
-    );
-    $url = $view->getUrl('account/order/shipped').$view->getOrderId();
-    $view->addButton(
-        'shipped',
-        [
-            'label' => __('Shipped'),
-            'class' => 'myclass',
-            'onclick' => "confirmSetLocation('{$message}', '{$url}')"
-        ]
-    );
+        $url = $view->getUrl('account/order/process') . $view->getOrderId();
+        $view->addButton(
+            'process',
+            [
+                'label' => __('On Process'),
+                'class' => 'myclass',
+                'onclick' => "confirmSetLocation('{$message}', '{$url}')"
+            ]
+        );
+    } elseif ($order->getStatus() == 'processing') {
+        $url = $view->getUrl('account/order/shipped') . $view->getOrderId();
+        $view->addButton(
+            'shipped',
+            [
+                'label' => __('Shipped'),
+                'class' => 'myclass',
+                'onclick' => "confirmSetLocation('{$message}', '{$url}')"
+            ]
+        );
+    }
+
 
 }
 public function beforePushButtons(
