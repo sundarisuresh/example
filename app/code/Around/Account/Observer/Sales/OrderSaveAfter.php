@@ -25,6 +25,12 @@ class OrderSaveAfter implements \Magento\Framework\Event\ObserverInterface
         if ($order->getState() == 'new') {
             $order->setState('pending')->setStatus('pending_approval');
             $order->save();        }
+        if ($order->getStatus() == 'complete' && !$order->getCompletedTime())
+        {
+            $currenttime = date('Y-m-d H:i:s');
+            $order->setCompletedTime($currenttime);
+            $order->save();
+        }
         //Your observer code
     }
 }

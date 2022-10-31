@@ -202,4 +202,59 @@ complete-complete
     $this->orderRepository = $orderRepository;
        $order = $this->orderRepository->get($orderId);
 
+       $order->getCreatedAt();
+
+
+
+       VA0169887439
+       728498022242
+       9786630679
+           dineshrossi132@gmail.com
+N005642029
+
+
+
+VA0169887596
+N005642049
+
+
+FOS001823201902
+
+29/10-
+href="<?php echo $block->getUrl('account/trackorder')."?orderid=". $id;?>"
+
+*
+    protected $resultRedirectFactory;
+    $this->resultRedirectFactory = $resultRedirectFactory;
+    $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setRefererUrl();
+                    return $resultRedirect;
+
+*
+    protected $messageManager;
+\Magento\Framework\Message\ManagerInterface          $messageManager,
+        $this->messageManager = $messageManager;
+            $this->messageManager->addSuccess(__("your order canceled sucessfully"));
+            $this->messageManager->addError(__("try again later"));
+
+
+ *
+    protected $request;
+                                \Magento\Framework\App\Request\Http $request,
+        $this->request = $request;
+                                $this->request->getParam('orderid');
+
+
+*
+    protected $orderManagement;
+                                \Magento\Sales\Api\OrderManagementInterface $orderManagement,
+            $this->orderManagement->cancel($orderId);
+
+
+*
+    protected $productRepository;
+        \Magento\Catalog\Model\ProductRepository $productRepository,
+        $this->productRepository = $productRepository;
+$product=$this->productRepository->getById($productid);
+
 

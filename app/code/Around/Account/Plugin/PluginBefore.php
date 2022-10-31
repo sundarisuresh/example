@@ -60,7 +60,17 @@ class PluginBefore
             ]
         );
     }
-
+    elseif ($order->getStatus() == 'shipped') {
+        $url = $view->getUrl('account/order/complete') . $view->getOrderId();
+        $view->addButton(
+            'shipped',
+            [
+                'label' => __('Complete'),
+                'class' => 'myclass',
+                'onclick' => "confirmSetLocation('{$message}', '{$url}')"
+            ]
+        );
+    }
 
 }
 public function beforePushButtons(

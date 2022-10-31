@@ -18,6 +18,26 @@
                     <label>Distance</label>
                     <comment/>
                 </field>
+                <field id="shopname" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Shop Name</label>
+                    <comment/>
+                </field>
+                <field id="street" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Street</label>
+                    <comment/>
+                </field>
+                <field id="city" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>City</label>
+                    <comment/>
+                </field>
+                <field id="pincode" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Pincode</label>
+                    <comment/>
+                </field>
+                <field id="delivery" type="text" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Delivery Time</label>
+                    <comment/>
+                </field>
             </group>
         </section>
     </system>

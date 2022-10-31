@@ -98,8 +98,10 @@ class Index extends \Magento\Framework\View\Element\Template
     public function getCustomerOrder()
     {
         $customerId = $this->getCustomer()->getId(); // pass customer id
-        return $this->orderCollectionFactory->create()
+        $orderCollection=$this->orderCollectionFactory->create()
             ->addFieldToFilter('customer_id', $customerId);
+        return $orderCollection->setOrder('entity_id','DESC');
+
     }
     public function getShippingAddress($orderShippingId)
     {

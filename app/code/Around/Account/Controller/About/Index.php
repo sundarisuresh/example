@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Around\Account\Controller\Trackorder;
+namespace Around\Account\Controller\About;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;

@@ -20,6 +20,7 @@
             <block name="category2" class="Around\App\Block\Category2\Index" template="Around_App::homepage/category2.phtml"/>
             <block name="listing2" class="Around\App\Block\Listing2\Index" template="Around_App::homepage/listing2.phtml"/>
             <block name="listing3" class="Around\App\Block\Listing3\Index" template="Around_App::homepage/listing3.phtml"/>
+            <block name="order" class="Around\App\Block\Order\Index" template="Around_App::homepage/order.phtml"/>
 
 
         </referenceContainer>

@@ -104,7 +104,8 @@
 
                             ?>
                         <li class="list-group-item">
-                            <span>Order Id: <?php echo $value->getId(); ?></span><br>
+                           <?php $id=$value->getId();?>
+                            <span>Order Id: <?php echo $id; ?></span><br>
                             <span>Order Status: <?php echo $value->getStatusLabel(); ?></span><br>
 
                             <?php
@@ -124,6 +125,17 @@
 
                             ?>
                             </span>
+                            <?php
+                            if ($value->getStatusLabel()=="Pending Approval"||$value->getStatusLabel()=="Approved"||$value->getStatusLabel()=="Processing")
+                            {?>
+                                <a href="<?php echo $block->getUrl('account/cancel')."?orderid=". $id;?>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Cancel</a>
+                                <?php
+                            }elseif ($value->getStatusLabel()=="Complete")
+                            { ?>
+                                <a href="<?php echo $block->getUrl('account/cart')."?orderid=". $id;?>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Reorder</a>
+                          <?php
+                            }
+                            ?>
                             <ul class="list-group">
                                 <?php
                                 foreach ($items as $item)
@@ -132,6 +144,8 @@
 
                                    <span>Item:<?php echo $item->getName();?></span><br>
                                     <span>No:<?php echo $item->getQtyOrdered() ;?></span>
+                                    <a href="<?php echo $block->getUrl('account/trackorder')."?orderid=". $id;?>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Track Order</a>
+
                                 </li>
                                     <?php
                                 }
