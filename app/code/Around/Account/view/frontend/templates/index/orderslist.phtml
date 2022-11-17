@@ -48,8 +48,10 @@
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <a href="<?php echo $block->getUrl('/');?>">
     <img src="<?php echo $block->getLogoSrc();?>"><br>
     </i>
+    </a>
 </head>
 <body>
 <section class="py-5 my-5">
@@ -128,7 +130,44 @@
                             <?php
                             if ($value->getStatusLabel()=="Pending Approval"||$value->getStatusLabel()=="Approved"||$value->getStatusLabel()=="Processing")
                             {?>
-                                <a href="<?php echo $block->getUrl('account/cancel')."?orderid=". $id;?>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Cancel</a>
+<!--                                <a href="--><?php //echo $block->getUrl('account/cancel')."?orderid=". $id;?><!--" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Cancel</a>-->
+
+                                <!-- Modal -->
+                                <div>
+                                <button type="button" class="btn btn-primary" href="#" data-dismiss="modal" data-backdrop="false" aria-hidden="true"data-toggle="modal" data-target="#myModal">Cancel
+                                </button>
+
+                                    <div class="modal" id="myModal" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Reason for cancellation?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action="<?php echo $block->getUrl("account/cancel")."?orderid=". $id; ?>">
+<!--                                                        <p><label for="w3review">Review of W3Schools:</label></p>-->
+                                                        <textarea id="w3review" name="w3review" rows="4" cols="50"></textarea>
+                                                        <br>
+                                                        <input type="submit" value="Submit">
+                                                    </form>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <p class="header-address">  <?php echo $block->getDefaultAddress(); ?> </p>
+                                </div>
+
                                 <?php
                             }elseif ($value->getStatusLabel()=="Complete")
                             { ?>
@@ -294,6 +333,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 <script>
@@ -306,3 +348,5 @@
 
     });
 </script>
+
+

@@ -224,10 +224,14 @@ FOS001823201902
 href="<?php echo $block->getUrl('account/trackorder')."?orderid=". $id;?>"
 
 *
+    use Magento\Framework\Controller\Result\RedirectFactory;
+
     protected $resultRedirectFactory;
+                                    RedirectFactory $resultRedirectFactory,
+
     $this->resultRedirectFactory = $resultRedirectFactory;
     $resultRedirect = $this->resultRedirectFactory->create();
-        $resultRedirect->setRefererUrl();
+        $resultRedirect->setRefererUrl();/$resultRedirect->setPath('login');
                     return $resultRedirect;
 
 *
@@ -257,4 +261,33 @@ href="<?php echo $block->getUrl('account/trackorder')."?orderid=". $id;?>"
         $this->productRepository = $productRepository;
 $product=$this->productRepository->getById($productid);
 
+*
+ protected $formKey;
+    protected $cart;
+    protected $product;
+ \Magento\Framework\Data\Form\FormKey $formKey,
+                                \Magento\Checkout\Model\Cart $cart,
+                                \Magento\Catalog\Model\Product $product,
+ $this->formKey = $formKey;
+        $this->cart = $cart;
+        $this->product = $product;
+ $params = array(
+     'form_key' => $this->formKey->getFormKey(),
+     'product' => $productId, //product Id
+     'qty'   =>$qty//quantity of product
+ );
+            $this->cart->addProduct($product, $params);
+            $this->cart->save();
 
+
+*
+use Magento\Framework\App\Action\Action;
+class Index extends Action
+sContext $context,
+ parent::__construct($context);
+
+
+
+
+php -d memory_limit=-1 bin/magento setup:install --search-engine=elasticsearch7 --elasticsearch-host=172.24.0.2 --elasticsearch-port=9200 --elasticsearch-enable-auth=0
+php bin/magento setup:install --search-engine=elasticsearch7 --elasticsearch-host="localhost" --elasticsearch-port=9200

@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Around\App\Block\Header;
+namespace Around\App\Block\Search;
 
 use Exception;
 use Magento\Customer\Api\AddressRepositoryInterface;
@@ -17,9 +17,6 @@ use Magento\Theme\Block\Html\Header\Logo;
 use Around\Banner\Model\BannerFactory;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
-
-
-
 
 
 /**
@@ -88,8 +85,8 @@ class Index extends Template
 
     public function getCustomerId()
     {
-       $customerid= $this->customerSession->getCustomer()->getId();
-       return $customerid;
+        $customerid= $this->customerSession->getCustomer()->getId();
+        return $customerid;
     }
 
     /**
@@ -98,7 +95,7 @@ class Index extends Template
     public function getDefaultAddress()
     {
         $customerData = $this->customerSession->getCustomer();
-//        print_r($customerData->getId());
+        print_r($customerData->getId());
 //        exit;
         $addressId = $customerData->getDefaultDeliveryAdd();
         $address = $this->getAddressData($addressId);
@@ -158,9 +155,9 @@ class Index extends Template
 
     public function getBanners()
     {
-       $banners= $this->banner->create()->getCollection();
+        $banners= $this->banner->create()->getCollection();
         $banners->setOrder('sortorder','ASC');
-       return $banners;
+        return $banners;
 //       echo "<pre>";
 //       foreach ($banners as $value){
 //           print_r($value->getData());

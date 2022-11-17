@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" src_type="url"></script>
+        <css src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" src_type="url"/>
+        <css src="https://www.bootstrapdash.com/demo/login-template-free-2/assets/css/login.css" src_type="url"/>
+        <css src="Around_App::css/header.css" />
+        <css src="Around_App::css/categories.css" />
+        <css src="Around_App::css/listing1.css" />
+
+
+    </head>
+    <body>
+		<referenceContainer name="content">
+<!--            <block name="header12" class="Around\App\Block\Header\Index" cacheable="false" template="Around_App::homepage/header.phtml"/>-->
+            <block name="search" class="Around\App\Block\Search\Index" template="Around_App::search/index.phtml"/>
+<!--            <block name="banner2" class="Around\App\Block\Banner2\Index" template="Around_App::homepage/banner2.phtml"/>-->
+<!--            <block name="listing1" class="Around\App\Block\Listing1\Index" template="Around_App::homepage/listing1.phtml"/>-->
+<!--            <block name="banner3" class="Around\App\Block\Banner3\Index" template="Around_App::homepage/banner3.phtml"/>-->
+<!--            <block name="category2" class="Around\App\Block\Category2\Index" template="Around_App::homepage/category2.phtml"/>-->
+<!--            <block name="listing2" class="Around\App\Block\Listing2\Index" template="Around_App::homepage/listing2.phtml"/>-->
+<!--            <block name="listing3" class="Around\App\Block\Listing3\Index" template="Around_App::homepage/listing3.phtml"/>-->
+<!--            <block name="order" class="Around\App\Block\Order\Index" template="Around_App::homepage/order.phtml"/>-->
+
+
+        </referenceContainer>
+
+        <referenceBlock name="quickcart" remove="true"/>
+        <referenceBlock name="suggestproduct" remove="true"/>
+        <referenceContainer name="header.container" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+
+        <referenceContainer name="footer-container" remove="true"/>
+
+	</body>
+</page>

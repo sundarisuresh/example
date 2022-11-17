@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 namespace Around\Account\Block\Index;
+use Magento\Framework\View\Element\Template\Context;
 use Magento\Theme\Block\Html\Header\Logo;
 use Magento\Customer\Model\Session;
 
@@ -19,11 +20,11 @@ class Index extends \Magento\Framework\View\Element\Template
     /**
      * Constructor
      *
-     * @param \Magento\Framework\View\Element\Template\Context  $context
+     * @param Context  $context
      * @param array $data
      */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        Context $context,
         Session                    $customerSession,
 
         Logo                       $logo,

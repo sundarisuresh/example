@@ -10,6 +10,8 @@ namespace Around\Account\Controller\Cart;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Controller\Result\RedirectFactory;
+
 
 class Index implements HttpGetActionInterface
 {
@@ -19,6 +21,10 @@ class Index implements HttpGetActionInterface
     protected $formKey;
     protected $cart;
     protected $product;
+    protected $messageManager;
+    protected $resultRedirectFactory;
+
+
 
 
 
@@ -39,6 +45,8 @@ class Index implements HttpGetActionInterface
                                 \Magento\Framework\Data\Form\FormKey $formKey,
                                 \Magento\Checkout\Model\Cart $cart,
                                 \Magento\Catalog\Model\Product $product,
+                                RedirectFactory $resultRedirectFactory,
+                                \Magento\Framework\Message\ManagerInterface          $messageManager,
                                 \Magento\Framework\App\Request\Http $request
 )
     {
@@ -49,6 +57,10 @@ class Index implements HttpGetActionInterface
         $this->formKey = $formKey;
         $this->cart = $cart;
         $this->product = $product;
+        $this->messageManager = $messageManager;
+        $this->resultRedirectFactory = $resultRedirectFactory;
+
+
 
 
     }
@@ -78,11 +90,15 @@ class Index implements HttpGetActionInterface
             );
             $this->cart->addProduct($product, $params);
             $this->cart->save();
+            $this->messageManager->addSuccess(__("your order created sucessfully"));
+
 
         }
 
 
-        return $this->resultPageFactory->create();
+        $resultRedirect = $this->resultRedirectFactory->create();
+        $resultRedirect->setPath('cart');
+        return $resultRedirect;
     }
 }
 
