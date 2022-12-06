@@ -126,12 +126,7 @@ class Index extends Template
         }
     }
 
-    public function getBannerInterval(){
-        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        $time = $this->scopeConfig->getValue('banner/interval/time',$storeScope );
-//        echo $time; exit();
-        return $time;
-    }
+
 
     public function getCustomerAddresses()
     {
@@ -153,18 +148,7 @@ class Index extends Template
 
 
 
-    public function getBanners()
-    {
-        $banners= $this->banner->create()->getCollection();
-        $banners->setOrder('sortorder','ASC');
-        return $banners;
-//       echo "<pre>";
-//       foreach ($banners as $value){
-//           print_r($value->getData());
-//
-//       }
-//       exit;
-    }
+
 
 }
 
