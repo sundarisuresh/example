@@ -231,7 +231,7 @@ href="<?php echo $block->getUrl('account/trackorder')."?orderid=". $id;?>"
 
     $this->resultRedirectFactory = $resultRedirectFactory;
     $resultRedirect = $this->resultRedirectFactory->create();
-        $resultRedirect->setRefererUrl();/$resultRedirect->setPath('login');
+        $resultRedirect->setRefererUrl();  /$resultRedirect->setPath('login');
                     return $resultRedirect;
 
 *
@@ -291,3 +291,269 @@ sContext $context,
 
 php -d memory_limit=-1 bin/magento setup:install --search-engine=elasticsearch7 --elasticsearch-host=172.24.0.2 --elasticsearch-port=9200 --elasticsearch-enable-auth=0
 php bin/magento setup:install --search-engine=elasticsearch7 --elasticsearch-host="localhost" --elasticsearch-port=9200
+
+1342836026
+
+LAYOUT NAMES
+catalog_productt_view.xml for product page
+
+TO ADD CHILD IN PARENT
+                              $block->getChildHtml('', true)
+
+USE THIS TO OVERRIDE A TEMPLATE
+<referenceBlock name="product.info.description">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Training_Engrave::engrave.phtml</argument>
+            </action>
+        </referenceBlock>
+
+to create custom log
+$writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
+        $logger = new \Zend_Log();
+        $logger->addWriter($writer);
+        $logger->info('text message');
+//        $logger->info(print_r($parentItem->getName(), true));
+        $parentItem->setEngrave('asd');
+//echo "hgfd";
+//        print_r($parentItem->getName());
+//        exit;
+
+<form action="<?php echo $block->getUrl("registration/index/post");?> " method="post"">
+
+
+    <?php $productCollection = $block->getSaleProducts();
+ if ($productCollection->getSize()):?>
+    <div class="products-list">
+        <?php foreach ($productCollection as $product): ?>
+            <?php echo $product->getName() ?>
+            <?php // Display other product information here as needed ?>
+        <?php endforeach ?>
+    </div>
+<?php endif ?>
+
+
+    protected $collectionFactory;
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $collectionFactory,
+        $this->collectionFactory = $collectionFactory;
+
+public function getSaleProducts()
+    {
+        $attributeCode = 'sales';
+        $attributeValue = 1;
+        $productCollection = $this->collectionFactory->create()
+            ->addAttributeToSelect('*')
+           ->addAttributeToFilter($attributeCode, $attributeValue)
+            ->load();
+        return $productCollection;
+    }
+
+
+
+    <?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php
+$_productCollection = $block->getSaleProducts();
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $block->getData('outputHelper');
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty">
+        <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+<?php else: ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() === 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+        <ol class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <li class="item product product-item">
+                    <div class="product-item-info"
+                         id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
+                         data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                        <?php
+                        $productImage = $block->getImage($_product, $imageDisplayArea);
+                        if ($pos != null) {
+                            $position = 'left:' . $productImage->getWidth() . 'px;'
+                                . 'top:' . $productImage->getHeight() . 'px;';
+                        }
+                        ?>
+                        <?php // Product Image ?>
+                        <a href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>"
+                           class="product photo product-item-photo"
+                           tabindex="-1">
+                            <?= $productImage->toHtml() ?>
+                        </a>
+                        <div class="product details product-item-details">
+                            <?php $_productNameStripped = $block->stripTags($_product->getName(), null, true); ?>
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link"
+                                   href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>">
+                                    <?=/* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name')?>
+                                </a>
+                            </strong>
+                            <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                            <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+
+                            <?= $block->getProductDetailsHtml($_product) ?>
+
+                            <div class="product-item-inner">
+                                <div class="product actions product-item-actions">
+                                    <div class="actions-primary">
+                                        <?php if ($_product->isSaleable()):?>
+                                            <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                            <form data-role="tocart-form"
+                                                  data-product-sku="<?= $escaper->escapeHtml($_product->getSku()) ?>"
+                                                  action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+                                                  method="post">
+<!--                                                --><?php //$options = $block->getData('viewModel')->getOptionsData($_product); ?>
+<!--                                                --><?php //foreach ($options as $optionItem): ?>
+<!--                                                    <input type="hidden"-->
+<!--                                                           name="--><?php //= $escaper->escapeHtml($optionItem['name']) ?><!--"-->
+<!--                                                           value="--><?php //= $escaper->escapeHtml($optionItem['value']) ?><!--">-->
+<!--                                                --><?php //endforeach; ?>
+                                                <input type="hidden"
+                                                       name="product"
+                                                       value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                                <input type="hidden"
+                                                       name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                       value="<?=
+                                                       /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
+                                                       ?>">
+                                                <?= $block->getBlockHtml('formkey') ?>
+                                                <button type="submit"
+                                                        title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                        class="action tocart primary"
+                                                        disabled>
+                                                    <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                                </button>
+                                            </form>
+                                        <?php else:?>
+                                            <?php if ($_product->isAvailable()):?>
+                                                <div class="stock available">
+                                                    <span><?= $escaper->escapeHtml(__('In stock')) ?></span></div>
+                                            <?php else:?>
+                                                <div class="stock unavailable">
+                                                    <span><?= $escaper->escapeHtml(__('Out of stock')) ?></span></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?= ($pos && strpos($pos, $viewMode . '-primary')) ?
+                                        /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                                            $position,
+                                            'product-item-info_' . $_product->getId() . ' div.actions-primary'
+                                        ) : '' ?>
+                                    <div data-role="add-to-links" class="actions-secondary">
+                                        <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                            <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?= ($pos && strpos($pos, $viewMode . '-secondary')) ?
+                                        /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                                            $position,
+                                            'product-item-info_' . $_product->getId() . ' div.actions-secondary'
+                                        ) : '' ?>
+                                </div>
+                                <?php if ($showDescription): ?>
+                                    <div class="product description product-item-description">
+                                        <?= /* @noEscape */ $_helper->productAttribute(
+                                            $_product,
+                                            $_product->getShortDescription(),
+                                            'short_description'
+                                        ) ?>
+                                        <a href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>"
+                                           title="<?= /* @noEscape */ $_productNameStripped ?>"
+                                           class="action more"><?= $escaper->escapeHtml(__('Learn More')) ?></a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?= ($pos && strpos($pos, $viewMode . '-actions')) ?
+                        /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                            $position,
+                            'product-item-info_' . $_product->getId() . ' div.product-item-actions'
+                        ) : '' ?>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+<!--    --><?php //= $block->getChildBlock('toolbar')->setIsBottom(true)->toHtml() ?>
+    <?php // phpcs:ignore Magento2.Legacy.PhtmlTemplate ?>
+    <script type="text/x-magento-init">
+    {
+        "[data-role=tocart-form], .form.map.checkout": {
+            "catalogAddToCart": {
+                "product_sku": "<?= $escaper->escapeJs($_product->getSku()) ?>"
+            }
+        }
+    }
+    </script>
+<?php endif; ?>
+
+SPLIT $items = explode(",", $hashtag);
+foreach ($items as $item) {
+    echo $item . "<br>";
+
+
+EMPTY ATTRIBUTE VALUE
+            ->addAttributeToFilter('hashtag', array('notnull' => true))
+
+
+LIKE ATTRIBUTE VALUE
+                ->addAttributeToFilter('hashtag', array('like' => '%' . $request . '%'))
+
+CONVERT AN ARRAY TO STRING
+
+$hash= implode(', ', $array);
+
+TO CALL CHILD HTML IN PARENT BLOCK
+<?= $block->getChildHtml('sales.products', true) ?>
+
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** @var \Magento\Theme\Block\Html\Breadcrumbs $block */
+/** @var \Magento\Catalog\ViewModel\Product\Breadcrumbs $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+<div class="breadcrumbs"></div>
+<?php
+$widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($viewModel->getJsonConfigurationHtmlEscaped());
+$widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['breadcrumbs']);
+?>
+

@@ -106,7 +106,7 @@ class AddFreeproductProductAttribute implements DataPatchInterface, PatchReverta
     public static function getDependencies()
     {
         return [
-        
+
         ];
     }
 }

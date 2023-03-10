@@ -65,14 +65,14 @@ class Sendotp extends Action
         $twilio = new Client($sid, $token);
         $this->catalogSession->setPhone($phone);
         $this->catalogSession->setOtp($otp);
-        $message = $twilio->messages
-            ->create("+91" . $phone, // to
-                array(
-                    "from" => "+18158699964",
-                    "messagingServiceSid" => "MG04f723e194d7568e19027238e7e18ee1",
-                    "body" => "otp is " . $otp
-                )
-            );
+//        $message = $twilio->messages
+//            ->create("+91" . $phone, // to
+//                array(
+//                    "from" => "+18158699964",
+//                    "messagingServiceSid" => "MG04f723e194d7568e19027238e7e18ee1",
+////                    "body" => "otp is " . $otp
+//                )
+//            );
         $this->_redirect('login/verify');
         return $this->resultPageFactory->create();
     }

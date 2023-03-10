@@ -1,0 +1,26 @@
+{
+    "name": "training/module-facebookshare",
+    "description": "to add share on fb",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        },
+        {
+            "name": "Sundari Suresh",
+            "email": "sundarisuresh44@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Training\\FacebookShare\\": ""
+        }
+    }
+}

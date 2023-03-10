@@ -1,0 +1,8 @@
+<config>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="set_engrave" type="Training\Engrave\Plugin\Engrave" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="Engrave_to_order_item" type="Training\Engrave\Plugin\Quote\OrderItem" sortOrder="10" disabled="false" />
+    </type>
+</config>
