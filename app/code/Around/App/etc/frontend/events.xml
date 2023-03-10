@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_cms_index_index">
+        <observer name="around_app_observer_frontend_controller_actionpredispatchcmsindexindex_controller_action_predispatch_cms_index_index" instance="Around\App\Observer\Frontend\Controller\ActionPredispatchCmsIndexIndex"/>
+    </event>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Around\Productvideo\Api\ProductvideoRepositoryInterface" type="Around\Productvideo\Model\ProductvideoRepository"/>
+	<preference for="Around\Productvideo\Api\Data\ProductvideoInterface" type="Around\Productvideo\Model\Productvideo"/>
+	<preference for="Around\Productvideo\Api\Data\ProductvideoSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Around\Productvideo\Model\ResourceModel\Productvideo\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">around_productvideo_productvideo</argument>
+			<argument name="resourceModel" xsi:type="string">Around\Productvideo\Model\ResourceModel\Productvideo\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="around_productvideo_productvideo_listing_data_source" xsi:type="string">Around\Productvideo\Model\ResourceModel\Productvideo\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

@@ -1,0 +1,72 @@
+<link rel="icon" href="ICON.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+
+<!-- demo styles -->
+<link rel="stylesheet" href="https://rawgit.com/ramon82/zuck.js/master/demo/style.css">
+
+<!-- lib styles -->
+<link rel="stylesheet" href="https://rawgit.com/ramon82/zuck.js/master/dist/zuck.min.css">
+
+<!-- lib skins -->
+<link rel="stylesheet" href="https://rawgit.com/ramon82/zuck.js/master/dist/skins/snapgram.css">
+<link rel="stylesheet" href="https://rawgit.com/ramon82/zuck.js/master/dist/skins/vemdezap.css">
+<link rel="stylesheet" href="https://rawgit.com/ramon82/zuck.js/master/dist/skins/facesnap.css">
+<link rel="stylesheet" href="https://rawgit.com/ramon82/zuck.js/master/dist/skins/snapssenger.css">
+
+<h1 id="header"></h1>
+
+
+
+<div id="stories" class="storiesWrapper"></div>
+
+<div class="skin">
+    Choose your theme:
+
+    <select id="skin" onchange="changeSkin(this.options[this.selectedIndex].value);">
+        <option value="Snapgram">Snapgram (without fullscreen)</option>
+        <option value="FaceSnap">FaceSnap (with fullscreen)</option>
+        <option value="VemDeZAP">VemDeZAP (timeline + arrows)</option>
+        <option value="Snapssenger">Snapssenger (with previews)</option>
+    </select>
+</div>
+
+<script src="https://rawgit.com/ramon82/zuck.js/master/dist/zuck.min.js"></script>
+<script src="https://rawgit.com/ramon82/zuck.js/master/demo/script.js"></script>
+
+<script>
+    var currentSkin = getCurrentSkin();
+    var stories = new Zuck('stories', {
+        backNative: true,
+        previousTap: true,
+        skin: currentSkin['name'],
+        autoFullScreen: currentSkin['params']['autoFullScreen'],
+        avatars: currentSkin['params']['avatars'],
+        paginationArrows: currentSkin['params']['paginationArrows'],
+        list: currentSkin['params']['list'],
+        cubeEffect: currentSkin['params']['cubeEffect'],
+        localStorage: true,
+        stories: [
+            <?php
+            $items=$block->getProductVideo();
+            foreach ($items as $item)
+            {
+            ?>
+            Zuck.buildTimelineItem(
+
+                "<?php echo "rayman". $item->getId(); ?>",
+                "<?php echo $item->getPreview(); ?>",
+                false,
+                "https://ramon.codes",
+                timestamp(),
+                [
+                    ["<?php echo $item->getId() ; ?>", "<?php echo $item->getType(); ?>", <?php echo $item->getLength(); ?>, "<?php echo $item->getVideosource(); ?>", "<?php echo $item->getPreview(); ?>", '', false, false, timestamp()],
+                ]
+            ),
+            <?php
+            }
+            ?>
+        ]
+    });
+</script>
+<?php //= $block->getChildHtml('', true) ?>
+

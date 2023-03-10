@@ -1,0 +1,31 @@
+<div class="container">
+    <img src="<?php echo $block->getLogoSrc();?>"><br>
+
+<div class="alert alert-success">
+    <strong>Success!</strong> your order has placed successfully.
+    your order Id is <?php  echo $block->getCheckoutSession()->getOrderId(); ?>
+
+    <p>track your order:</p>
+    <a href="<?php echo $block->geturl('account/trackorder')."?orderid=".  $block->getCheckoutSession()->getOrderId();?>" >Click here</a>
+    <?php $block->getCheckoutSession()->unsOrderId();
+    ?>
+
+</div>
+
+
+</div>
+
+<style>
+    a:link, a:visited {
+        background-color: #f44336;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    a:hover, a:active {
+        background-color: red;
+    }
+</style>

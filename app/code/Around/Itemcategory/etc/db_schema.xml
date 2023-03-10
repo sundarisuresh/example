@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="around_itemcategory_itemcategory" resource="default" engine="innodb" comment="around_itemcategory_itemcategory Table">
+		<column xsi:type="int" name="itemcategory_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="itemcategory_id"/>
+		</constraint>
+		<column name="name" nullable="true" xsi:type="text" comment="name"/>
+		<column name="image" nullable="true" xsi:type="text" comment="image"/>
+		<column name="sortorder" nullable="true" xsi:type="text" comment="sortorder"/>
+		<column name="link" nullable="true" xsi:type="text" comment="link"/>
+		<column name="offer" nullable="true" xsi:type="text" comment="offer"/>
+		<column name="enable" nullable="true" xsi:type="text" comment="enable"/>
+	</table>
+</schema>

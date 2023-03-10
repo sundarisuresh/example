@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Around_Productlist1::List1" title="List1" sortOrder="10">
+					<resource id="Around_Productlist1::List1_save" title="Save List1" sortOrder="10"/>
+					<resource id="Around_Productlist1::List1_delete" title="Delete List1" sortOrder="20"/>
+					<resource id="Around_Productlist1::List1_update" title="Update List1" sortOrder="30"/>
+					<resource id="Around_Productlist1::List1_view" title="View List1" sortOrder="40"/>
+				</resource>
+				<resource id="Magento_Backend::stores">
+					<resource id="Magento_Backend::stores_settings">
+						<resource id="Magento_Config::config">
+							<resource id="Around_Productlist1::config_around_productlist1" title="productlist"/>
+						</resource>
+					</resource>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

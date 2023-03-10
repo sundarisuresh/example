@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="training_productregistration_productregistration" resource="default" engine="innodb" comment="training_productregistration_productregistration Table">
+		<column xsi:type="int" name="productregistration_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="productregistration_id"/>
+		</constraint>
+		<column name="dop" nullable="true" xsi:type="date" comment="dop"/>
+		<column name="name" nullable="true" xsi:type="text" comment="name"/>
+		<column name="sku" nullable="true" xsi:type="text" comment="sku"/>
+		<column name="contactno" nullable="true" xsi:type="text" comment="contactno"/>
+		<column name="vendor" nullable="true" xsi:type="text" comment="vendor"/>
+		<column name="email" nullable="true" xsi:type="text" comment="email"/>
+		<column name="address" nullable="true" xsi:type="text" comment="address"/>
+	</table>
+</schema>

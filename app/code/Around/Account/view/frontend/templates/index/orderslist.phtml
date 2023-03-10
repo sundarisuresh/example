@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+    body {
+        background: #f9f9f9;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .shadow {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .profile-tab-nav {
+        min-width: 250px;
+    }
+
+    .tab-content {
+        flex: 1;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .nav-pills a.nav-link {
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        border-radius: 0;
+        color: #333;
+    }
+    .nav-pills a.nav-link i {
+        width: 20px;
+    }
+
+    .img-circle img {
+        height: 100px;
+        width: 100px;
+        border-radius: 100%;
+        border: 5px solid #fff;
+    }
+
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Account Settings UI Design</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <a href="<?php echo $block->getUrl('/');?>">
+    <img src="<?php echo $block->getLogoSrc();?>"><br>
+    </i>
+    </a>
+</head>
+<body>
+<section class="py-5 my-5">
+    <div class="container">
+<!--        <h1 class="mb-5">Account Settings</h1>-->
+        <a class="btn btn-outline-dark" href="<?php echo $block->getUrl("account/logout");?>" role="button">Logout</a>
+        <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+            <div class="profile-tab-nav border-right">
+                <div class="p-4">
+                    <div class="img-circle text-center mb-3">
+                        <img src="img/user2.jpg" alt="Image" class="shadow">
+                    </div>
+                    <?php $list= $block->getCustomer();?>
+                    <h4 class="text-center"><?php echo $list->getFirstname() . $list->getLastname();?></h4>
+                </div>
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link" id="account-tab" data-toggle="pill" href="<?php echo $block->getUrl("account");?>" role="tab" aria-controls="account" aria-selected="">
+                        <i class="fa fa-home text-center mr-1"></i>
+                        Account
+                    </a>
+                    <a class="nav-link " id="password-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/addresses");?>" role="tab" aria-controls="password" aria-selected="false">
+                        <i class="fa fa-key text-center mr-1"></i>
+                        Adresses
+                    </a>
+                    <a class="nav-link active" id="security-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/orderslist");?>" role="tab" aria-controls="security" aria-selected="false">
+                        <i class="fa fa-user text-center mr-1"></i>
+                        Orders List
+                    </a>
+                    <a class="nav-link" id="application-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/support");?>" role="tab" aria-controls="application" aria-selected="false">
+                        <i class="fa fa-tv text-center mr-1"></i>
+                        Support
+                    </a>
+                    <a class="nav-link " id="notification-tab" data-toggle="pill" href="<?php echo $block->getUrl("account/about");?>" role="tab" aria-controls="notification" aria-selected="true">
+                        <i class="fa fa-bell text-center mr-1"></i>
+                        About
+                    </a>
+                </div>
+            </div>
+            <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+                <h3 class="mb-4">Orders List</h3>
+
+                <div>
+                    <?php $list= $block->getCustomerOrder();?>
+                    <ul class="list-group">
+                        <?php
+                        foreach ($list as $value)
+                        {
+
+//                        echo "<pre>";
+//                        print_r($value->getData())  ;
+                           $items= $value->getAllVisibleItems();
+
+                            ?>
+                        <li class="list-group-item">
+                           <?php $id=$value->getId();?>
+                            <span>Order Id: <?php echo $id; ?></span><br>
+                            <span>Order Status: <?php echo $value->getStatusLabel(); ?></span><br>
+
+                            <?php
+                            $orderShippingId = $value->getShippingAddressId();
+                           $shippingaddresses= $block->getShippingAddress($orderShippingId);
+                           ?>
+                            <span>Address:
+                                <?php
+                            if( $shippingaddresses->getCustomAttribute('plot_no')) {
+                                echo $shippingaddresses->getCustomAttribute('plot_no')->getValue();
+                            }
+                            if ($shippingaddresses->getCustomAttribute('apartment_name')) {
+                                echo ',' . $shippingaddresses->getCustomAttribute('apartment_name')->getValue();
+                            }
+
+                            echo ',' . $shippingaddresses->getStreet()[0] . ',' . $shippingaddresses->getStreet()[1] . ',' . $shippingaddresses->getCity();
+
+                            ?>
+                            </span>
+                            <?php
+                            if ($value->getStatusLabel()=="Pending Approval"||$value->getStatusLabel()=="Approved"||$value->getStatusLabel()=="Processing")
+                            {?>
+<!--                                <a href="--><?php //echo $block->getUrl('account/cancel')."?orderid=". $id;?><!--" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Cancel</a>-->
+
+                                <!-- Modal -->
+                                <div>
+                                <button type="button" class="btn btn-primary" href="#" data-dismiss="modal" data-backdrop="false" aria-hidden="true"data-toggle="modal" data-target="#myModal">Cancel
+                                </button>
+
+                                    <div class="modal" id="myModal" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Reason for cancellation?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" action="<?php echo $block->getUrl("account/cancel")."?orderid=". $id; ?>">
+<!--                                                        <p><label for="w3review">Review of W3Schools:</label></p>-->
+                                                        <textarea id="w3review" name="w3review" rows="4" cols="50"></textarea>
+                                                        <br>
+                                                        <input type="submit" value="Submit">
+                                                    </form>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <p class="header-address">  <?php echo $block->getDefaultAddress(); ?> </p>
+                                </div>
+
+                                <?php
+                            }elseif ($value->getStatusLabel()=="Complete")
+                            { ?>
+                                <a href="<?php echo $block->getUrl('account/cart')."?orderid=". $id;?>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Reorder</a>
+                          <?php
+                            }
+                            ?>
+                            <ul class="list-group">
+                                <?php
+                                foreach ($items as $item)
+                                { ?>
+                                <li class="list-group-item">
+
+                                   <span>Item:<?php echo $item->getName();?></span><br>
+                                    <span>No:<?php echo $item->getQtyOrdered() ;?></span>
+                                    <a href="<?php echo $block->getUrl('account/trackorder')."?orderid=". $id;?>" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Track Order</a>
+
+                                </li>
+                                    <?php
+                                }
+                                ?>
+                            </ul>
+
+
+                        </li>
+                        <?php  }?>
+
+                    </ul>
+                </div>
+                <br>
+                <div class="save-action"
+                     style="display: none;">
+                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-light">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+            <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+                    <h3 class="mb-4">Password Settings</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Old password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>New password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Confirm new password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                    <h3 class="mb-4">Security Settings</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Login</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Two-factor auth</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="recovery">
+                                    <label class="form-check-label" for="recovery">
+                                        Recovery
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="application" role="tabpanel" aria-labelledby="application-tab">
+                    <h3 class="mb-4">Application Settings</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="app-check">
+                                    <label class="form-check-label" for="app-check">
+
+                                        App check
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" >
+                                    <label class="form-check-label" for="defaultCheck2">
+                                        Lorem ipsum dolor sit.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                    <h3 class="mb-4">Notification Settings</h3>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="notification1">
+                            <label class="form-check-label" for="notification1">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum accusantium accusamus, neque cupiditate quis
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="notification2" >
+                            <label class="form-check-label" for="notification2">
+                                hic nesciunt repellat perferendis voluptatum totam porro eligendi.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="notification3" >
+                            <label class="form-check-label" for="notification3">
+                                commodi fugiat molestiae tempora corporis. Sed dignissimos suscipit
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+<script>
+    $(".edit-info").on("click", function(){
+    // alert("The paragraph was clicked.");
+        $( ".first-name" ).prop( "disabled", false );
+        $( ".last-name" ).prop( "disabled", false );
+        $( ".phone-number" ).prop( "disabled", false );
+        $(".save-action").show("slow");
+
+    });
+</script>
+
+

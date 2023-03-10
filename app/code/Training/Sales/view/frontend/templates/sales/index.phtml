@@ -1,0 +1,43 @@
+
+<?php
+//exit('sa');
+$hash= $block->getHash();
+foreach ($hash as $value)
+{?>
+<button class="hash" data-hash=<?= $value; ?>><?= $value; ?></button>
+<?php
+}
+?>
+<div class="result">
+    <?= $block->getChildHtml('sales.products', true) ?>
+</div>
+
+
+<script>
+        require(['jquery'], function($) {
+        $(document).ready(function() {
+            $('.hash').on('click', function() {
+                var value = $(this).data('hash');
+                $.ajax({
+                    url: '/sales/ajax/',
+                    type: 'POST',
+                    data: { hash: value },
+                    dataType: 'json',
+                    success: function(response) {
+
+                        if (response.success) {
+                            $('.result').html(response.success);
+                        } else {
+                            alert('Failed');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Error: ' + error);
+                    }
+                });
+                // Your code here
+            });
+        });
+    });
+
+</script>

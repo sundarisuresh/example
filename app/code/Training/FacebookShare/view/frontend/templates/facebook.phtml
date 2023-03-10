@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** @var \Magento\Theme\Block\Html\Breadcrumbs $block */
+/** @var \Magento\Catalog\ViewModel\Product\Breadcrumbs $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+<div class="breadcrumbs"></div>
+<?php
+$widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($viewModel->getJsonConfigurationHtmlEscaped());
+$widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['breadcrumbs']);
+
+?>
+<div class="fb-share-button" data-href="<?php echo 'https://www.amazon.in/Huggies-Nature-Pants-Small-Diaper/dp/B08JVLHRZZ/ref=pd_cart_vw_sccl_1_1/262-2455825-1433628?pd_rd_w=WxtHe&content-id=amzn1.sym.dd8f6f44-b011-473a-9a16-0b724cdf3378&pf_rd_p=dd8f6f44-b011-473a-9a16-0b724cdf3378&pf_rd_r=ZR885YP74VSJB4PMBS8J&pd_rd_wg=0GA0c&pd_rd_r=2fe0354f-0d15-4e25-a826-eb8e5e9985ee&pd_rd_i=B08JVLHRZZ&psc=1'; ?>"></div>
+
+<script type="text/x-magento-init">
+    {
+        ".breadcrumbs": {
+            "breadcrumbs": <?= /* @noEscape */ $widgetOptions ?>
+        }
+    }
+</script>
+<!-- Facebook Share Button -->
+<script src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0" async defer></script>

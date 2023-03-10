@@ -1,0 +1,393 @@
+<div class="brand-wrapper">
+    <img src="
+
+		<?php echo $block->getLogoSrc(); ?>" alt="logo">
+    <br>
+</div>
+<head>
+    <title>Address form</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <script src="https://kit.fontawesome.com/af562a2a63.js" crossorigin="anonymous"></script>-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+</head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<style>
+    #map {
+        height: 400px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k&libraries=places" async defer></script>
+<div class="input-group input-group-xl">
+    <div class="input-group-prepend" id="locate" onclick="" style="cursor: pointer;">
+    <span class="input-group-text" id="inputGroup-sizing-xl" style="font-size: initial;">
+      <i class="fa fa-map-marker fa-6" aria-hidden="true" style="
+    padding-right: 7px;"></i>
+        </i>Click here to locate me </span>
+    </div>
+    <input type="text" class="form-control form-control-xl" id="searchmap" name="Location" placeholder="Search your location" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="height: 52px;">
+</div>
+<div class="form-group">
+    <br>
+    <br>
+    <div id="map"></div>
+    <div class="card" style="">
+        <div class="card-body">
+            <h5 class="card-title" style="font-size: 19px;">Selected Address</h5>
+            <p class="card-text" id="selected-address" style="font-size: 19px;"></p>
+            <a href="#" class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="font-size: 18px;">Confirm Location</a>
+        </div>
+    </div>
+</div>
+<!--<button class="location-submit btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Confirm Location </button>-->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add your address</h5>
+            </div>
+            <div class="modal-body">
+                <form action="
+														<?php echo $block->getUrl("login/location/submit"); ?>" method="POST">
+                    <input type="hidden" id="lat" name="lat" value="">
+                    <input type="hidden" id="lng" name="lng" value="">
+                    <input type="hidden" id="street1" name="street1" value="">
+                    <input type="hidden" id="street2" name="street2" value="">
+                    <input type="hidden" id="city" name="city" value="">
+                    <input type="hidden" id="state" name="state" value="">
+                    <input type="hidden" id="country" name="country" value="">
+                    <input type="hidden" id="pin" name="pin" value="">
+                    <input name="form_key" type="hidden" value="<?php echo $block->getFormKey(); ?>"> <?php if (!$block->getCustomerName()) { ?> <section>
+                        <label for="name">Name</label>
+                        <input id="name" name="name" autocomplete="name" maxlength="100" pattern="[\p{L} \-\.]+" required>
+                    </section> <?php } ?> <section>
+                        <label for="address">Plot No</label>
+                        <input id="address" name="plot_no" autocomplete="address" maxlength="50" required />
+                    </section>
+                    <section>
+                        <label for="address">Apartment name (If applicable)</label>
+                        <input id="address" name="apartment_name" autocomplete="address" maxlength="50" />
+                    </section> Save as: <div class="btn-group">
+                        <input class="btn-check" type="radio" name="type" value="home" id="dolores_ck">
+                        <label class="btn btn-outline-info" for="dolores_ck"> Home </label>
+                        <input class="btn-check" type="radio" name="type" value="office" id="bubbles_ck">
+                        <label class="btn btn-outline-info" for="bubbles_ck"> Office </label>
+                        <input class="btn-check" type="radio" name="type" value="others" id="cosmo_ck">
+                        <label class="btn btn-outline-info" for="cosmo_ck"> Others </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"> Save address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        var map, infoWindow;
+        var showMap = $('#locate');
+
+        function initMap() {
+            window.mapstarted = "s";
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 12.971599, lng: 77.594563},
+                zoom: 18,
+                draggable: true,
+                fullscreenControl: false,
+                mapTypeControl: false,
+                streetViewControl: false
+            });
+            infoWindow = new google.maps.InfoWindow;
+
+            var marker = new google.maps.Marker({
+                map: map,
+                draggable: false,
+            });
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    marker.setPosition(pos);
+                    map.setCenter(pos);
+
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+
+                });
+
+                google.maps.event.addDomListener(locate, 'click', function(){
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        marker.setPosition(pos);
+                        map.setCenter(pos);
+
+                        // currentloc(marker);
+
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+
+                    });
+
+                });
+
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+            google.maps.event.addListener(searchBox,'places_changed',function(){
+                var places = searchBox.getPlaces();
+                var bounds = new google.maps.LatLngBounds();
+                var i,place;
+                for(i=0; place=places[i]; i++){
+                    bounds.extend(place.geometry.location);
+                    marker.setPosition(place.geometry.location);
+                }
+                map.fitBounds(bounds);
+                map.setZoom(18);
+            });
+            google.maps.event.addListener(map, 'drag', function () {
+                marker.setPosition(map.getCenter());
+            });
+            google.maps.event.addListener(map, 'idle', function() {
+                if (!this.get('dragging') && this.get('oldCenter') && this.get('oldCenter') !== this.getCenter()) {
+                    console.log('weds');
+                    latlng = marker.getPosition();
+                    url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
+                    $.get(url, function(data) {
+                        if (data.status == 'OK') {
+                            var searchAddressComponents = data.results[0].address_components,
+                                searchPostalCode="";
+                            searchCountry="";
+                            searchState="";
+                            searchCity="";
+                            searchAdd2="";
+                            searchAdd1="";
+
+                            $.each(searchAddressComponents, function(){
+                                if(this.types[0]=="postal_code"){
+                                    searchPostalCode=this.short_name;
+                                }
+                                if(this.types[0]=="country"){
+                                    searchCountry=this.short_name;
+                                }
+                                if(this.types[0]=="administrative_area_level_1"){
+                                    searchState=this.long_name;
+                                }
+                                if(this.types[0]=="locality"){
+                                    searchCity=this.long_name;
+                                }
+                                if(this.types[2]=="sublocality_level_1"){
+                                    searchAdd2=this.short_name;
+                                }
+                                if(this.types[2]=="sublocality_level_2"){
+                                    searchAdd1=this.short_name;
+                                }
+                            });
+                            // console.log(searchCountry);
+                            // $('#searchmap').val(data.results[0].formatted_address);
+                            $('#selected-address').text(data.results[0].formatted_address);
+                            $('#street1').val(searchAdd1);
+                            $('#street2').val(searchAdd2);
+                            $('#city').val(searchCity);
+                            $('#state').val(searchState);
+                            $('#country').val(searchCountry);
+                            $('#pin').val(searchPostalCode);
+                            $('#lat').val(data.results[0].geometry.location.lat);
+                            $('#lng').val(data.results[0].geometry.location.lng);
+                        }
+                    });
+                }
+                if (!this.get('dragging')) {
+                    this.set('oldCenter', this.getCenter())
+                }
+            });
+
+            //
+            // google.maps.event.addListener(marker, 'dragend', function() {
+            //
+            // });
+        }
+
+        function currentloc(marker){
+
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+
+
+
+
+        function initialize() {
+// console.log("ins");
+            var map, infoWindow, marker;
+            infoWindow = new google.maps.InfoWindow;
+            window.mapstarted = "s";
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        // center: pos,
+                        zoom: 18,
+                        draggable: true,
+                        fullscreenControl: false,
+                        mapTypeControl: false,
+                        streetViewControl: false
+                    });
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        draggable: false,
+                    });
+                    marker.setPosition(pos);
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+                google.maps.event.addDomListener(locate, 'click', function() {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        marker.setPosition(pos);
+                        map.setCenter(pos);
+                        // currentloc(marker);
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
+            google.maps.event.addListener(searchBox, 'places_changed', function() {
+                var places = searchBox.getPlaces();
+                var bounds = new google.maps.LatLngBounds();
+                var i, place;
+                for (i = 0; place = places[i]; i++) {
+                    bounds.extend(place.geometry.location);
+                    marker.setPosition(place.geometry.location);
+                }
+                if(!map){
+
+                }
+                map.fitBounds(bounds);
+                map.setZoom(18);
+            });
+            google.maps.event.addListener(map, 'drag', function() {
+                marker.setPosition(map.getCenter());
+            });
+            google.maps.event.addListener(map, 'idle', function() {
+                if (!this.get('dragging') && this.get('oldCenter') && this.get('oldCenter') !== this.getCenter()) {
+                    console.log('weds');
+                    latlng = marker.getPosition();
+                    url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latlng.lat() + ',' + latlng.lng() + '&sensor=false&result_type=premise&key=AIzaSyDApbZXTuoFmUc1dJNi4Cov30wW3FXon1k';
+                    $.get(url, function(data) {
+                        if (data.status == 'OK') {
+                            var searchAddressComponents = data.results[0].address_components,
+                                searchPostalCode="";
+                            searchCountry="";
+                            searchState="";
+                            searchCity="";
+                            searchAdd2="";
+                            searchAdd1="";
+
+                            $.each(searchAddressComponents, function(){
+                                if(this.types[0]=="postal_code"){
+                                    searchPostalCode=this.short_name;
+                                }
+                                if(this.types[0]=="country"){
+                                    searchCountry=this.short_name;
+                                }
+                                if(this.types[0]=="administrative_area_level_1"){
+                                    searchState=this.long_name;
+                                }
+                                if(this.types[0]=="locality"){
+                                    searchCity=this.long_name;
+                                }
+                                if(this.types[2]=="sublocality_level_1"){
+                                    searchAdd2=this.short_name;
+                                }
+                                if(this.types[2]=="sublocality_level_2"){
+                                    searchAdd1=this.short_name;
+                                }
+                            });
+                            // console.log(searchCountry);
+                            // $('#searchmap').val(data.results[0].formatted_address);
+                            $('#selected-address').text(data.results[0].formatted_address);
+                            $('#street1').val(searchAdd1);
+                            $('#street2').val(searchAdd2);
+                            $('#city').val(searchCity);
+                            $('#state').val(searchState);
+                            $('#country').val(searchCountry);
+                            $('#pin').val(searchPostalCode);
+                            $('#lat').val(data.results[0].geometry.location.lat);
+                            $('#lng').val(data.results[0].geometry.location.lng);
+                        }
+                    });
+                }
+                if (!this.get('dragging')) {
+                    this.set('oldCenter', this.getCenter())
+                }
+            });
+
+
+        }
+
+
+
+        $(document).ready(function(){
+            $('#searchmap').on('keypress',function (){
+                if (typeof mapstarted == 'undefined') {
+                    initMap();
+                }
+            });
+            // window.mapstarted
+            // $('#locate').on('click',initialize);
+            // console.log()
+            // if (typeof map == 'undefined') {
+            //     // the variable is defined
+            //     $('#searchmap').on('keypress',search);
+            // }
+
+        });
+
+        function currentloc(marker) {}
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
+            // infoWindow.open(map);
+        }
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>

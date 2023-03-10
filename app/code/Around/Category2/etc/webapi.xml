@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/around-category2/category2" method="POST">
+		<service class="Around\Category2\Api\Category2RepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_Category2::Category2_save"/>
+		</resources>
+	</route>
+	<route url="/V1/around-category2/category2/search" method="GET">
+		<service class="Around\Category2\Api\Category2RepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Around_Category2::Category2_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-category2/category2/:category2Id" method="GET">
+		<service class="Around\Category2\Api\Category2RepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Around_Category2::Category2_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-category2/category2/:category2Id" method="PUT">
+		<service class="Around\Category2\Api\Category2RepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_Category2::Category2_update"/>
+		</resources>
+	</route>
+	<route url="/V1/around-category2/category2/:category2Id" method="DELETE">
+		<service class="Around\Category2\Api\Category2RepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Around_Category2::Category2_delete"/>
+		</resources>
+	</route>
+</routes>

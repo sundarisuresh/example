@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/around-list3/list3" method="POST">
+		<service class="Around\List3\Api\List3RepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_List3::List3_save"/>
+		</resources>
+	</route>
+	<route url="/V1/around-list3/list3/search" method="GET">
+		<service class="Around\List3\Api\List3RepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Around_List3::List3_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-list3/list3/:list3Id" method="GET">
+		<service class="Around\List3\Api\List3RepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Around_List3::List3_view"/>
+		</resources>
+	</route>
+	<route url="/V1/around-list3/list3/:list3Id" method="PUT">
+		<service class="Around\List3\Api\List3RepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Around_List3::List3_update"/>
+		</resources>
+	</route>
+	<route url="/V1/around-list3/list3/:list3Id" method="DELETE">
+		<service class="Around\List3\Api\List3RepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Around_List3::List3_delete"/>
+		</resources>
+	</route>
+</routes>

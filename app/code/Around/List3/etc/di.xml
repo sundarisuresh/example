@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Around\List3\Api\List3RepositoryInterface" type="Around\List3\Model\List3Repository"/>
+	<preference for="Around\List3\Api\Data\List3Interface" type="Around\List3\Model\List3"/>
+	<preference for="Around\List3\Api\Data\List3SearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Around\List3\Model\ResourceModel\List3\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">around_list3_list3</argument>
+			<argument name="resourceModel" xsi:type="string">Around\List3\Model\ResourceModel\List3\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="around_list3_list3_listing_data_source" xsi:type="string">Around\List3\Model\ResourceModel\List3\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

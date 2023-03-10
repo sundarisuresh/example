@@ -1,0 +1,38 @@
+<?php
+
+?>
+
+<div class="home-cat">
+
+<section class="section-products">
+    <div class="container home-cat-container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8 col-lg-6">
+
+            </div>
+        </div>
+        <div class="row home-cat-row" style="margin-bottom: 9%">
+            <!-- Single Product -->
+            <?php $item = $block->getItemcategory();
+            //                    $flag = 0;
+            foreach($item as $value){
+                if($value->getEnable())
+                {?>
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-1" class="single-product">
+                    <span class="discount"><?php if($value->getOffer()) {echo $value->getOffer() . " off"; }?>  </span>
+                    <a href="<?php echo $value->getLink(); ?>" ><img src="<?php echo $value->getImage(); ?>"></a>
+                    <div class="part-2">
+                        <h3 class="product-title"><?php echo $value->getName(); ?></h3>
+                    </div>
+                </div>
+            </div>
+
+            <?php }
+            }
+            ?>
+        </div>
+    </div>
+</section>
+</div>
+</div>

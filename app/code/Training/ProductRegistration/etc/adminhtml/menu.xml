@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Training::top_level" title="Training" module="Training_ProductRegistration" sortOrder="9999" resource="Magento_Backend::content"/>
+		<add id="Training_ProductRegistration::index_post" title="index post" module="Training_ProductRegistration" sortOrder="9999" resource="Training_ProductRegistration::index_post" parent="Training::top_level" action="registration/index/post"/>
+		<add id="Training_ProductRegistration::training_productregistration_productregistration" title="ProductRegistration" module="Training_ProductRegistration" sortOrder="9999" resource="Magento_Backend::content" parent="Training::top_level" action="training_productregistration/productregistration/index"/>
+	</menu>
+</config>

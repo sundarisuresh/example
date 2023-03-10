@@ -1,0 +1,152 @@
+
+<img src="<?php echo $block->getLogoSrc();?>"><br>
+
+
+
+
+
+
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="https://www.bootstrapdash.com/demo/login-template-free-2/assets/images/login.jpg" style="
+    width: 30%;
+" alt="login" class="login-card-img">
+                    <p class="text-white font-weight-medium text-center flex-grow align-self-end footer-link text-small">
+                        Free <a href="https://www.bootstrapdash.com/" target="_blank" class="text-white">Bootstrap dashboard templates</a> from Bootstrapdash
+                    </p>
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <div class="brand-wrapper">
+                            <img src="<?php echo $block->getLogoSrc();?>" alt="logo" ><br>
+                        </div>
+                        <?php
+                        if($block->showError()){ ?>
+                            <p>Invalid OTP. Please try again</p>
+                       <?php }
+                        ?>
+
+                        <p class="login-card-description">Your OTP was sent to <?php echo $block->getPhone();?></p>
+                        <form action="<?php echo $block->getUrl("login/verify/otp");?>" method="post"">
+                        <div class="form-group mb-4">
+                            <label for="mobile" class="sr-only"></label>
+                            <input type="tel" name="otp" id="phone" class="form-control" minlength="4"  maxlength="4" placeholder=" Your OTP" required >
+                        </div>
+
+                        <input name="continue" id="continue" class="btn btn-block login-btn mb-4" type="submit" value="Submit">
+
+
+
+
+
+                        <div class="otp-form__actions">
+
+
+                            <div class="text-center mt-5">
+                                <span class="d-block mobile-text" id="countdown"></span>
+                                <span class="d-block mobile-text" id="resend"></span>
+                            </div>
+                            <script>let timerOn = true;
+                                function timer(remaining) {
+                                    var m = Math.floor(remaining / 60);
+                                    var s = remaining % 60;
+                                    m = m < 10 ? "0" + m : m;
+                                    s = s < 10 ? "0" + s : s;
+                                    document.getElementById("countdown").innerHTML = `Time left: ${m} : ${s}`;
+                                    remaining -= 1;
+                                    if (remaining >= 0 && timerOn) {
+                                        setTimeout(function () {
+                                            timer(remaining);
+                                        }, 1000);
+                                        document.getElementById("resend").innerHTML = `
+    `;
+                                        return;
+                                    }
+                                    if (!timerOn) {
+                                        return;
+                                    }
+                                    document.getElementById("resend").innerHTML = `Don't receive the code?
+  <span class="font-weight-bold text-color cursor" onclick="timer(60)">Resend
+  </span>`;
+                                }
+                                timer(60);
+                            </script>
+<!--                            <input class="btn btn-secondary" id="submitButton" type="button" style="-->
+<!--    padding-top: 10px;-->
+<!--    padding-bottom: 10px; font-size: 14px;"  disabled="disabled"  value="Resend" onclick="--><?php //echo $block->getUrl("login/verify/sendotp");?><!--" />-->
+
+<!--                            <script type="text/javascript">-->
+<!--                                setTimeout (function(){-->
+<!--                                    document.getElementById('submitButton').disabled = null;-->
+<!--                                },5000);-->
+<!---->
+<!--                                var countdownNum = 5;-->
+<!--                                incTimer();-->
+<!---->
+<!--                                function incTimer(){-->
+<!--                                    setTimeout (function(){-->
+<!--                                        if(countdownNum != 0){-->
+<!--                                            countdownNum--;-->
+<!--                                            document.getElementById('timeLeft').innerHTML = 'Time left: ' + countdownNum + ' seconds';-->
+<!--                                            incTimer();-->
+<!--                                        } else {-->
+<!--                                            pass;-->
+<!---->
+<!--                                        }-->
+<!--                                    },1000);-->
+<!--                                }-->
+<!--                            </script>-->
+
+
+
+<!--                            <p id="timeLeft" style="margin-left: 210px; font-size: 12px">Time Left: 2 seconds</p>-->
+<!--                            <a class="pipe-sep" id="submitButton" style="font-size: 14px; pointer-events: none" href="--><?php //echo $block->getUrl("login/verify/sendotp");?><!--" >Resend OTP</a> |-->
+                            <a id="wrong-number" style="font-size: 14px" class="otp-toggle" href="<?php echo $block->getUrl("login/");?>">Entered wrong number?</a>
+
+                        </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card login-card">
+          <img src="assets/images/login.jpg" alt="login" class="login-card-img">
+          <div class="card-body">
+            <h2 class="login-card-title">Login</h2>
+            <p class="login-card-description">Sign in to your account to continue.</p>
+            <form action="#!">
+              <div class="form-group">
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+              </div>
+              <div class="form-prompt-wrapper">
+                <div class="custom-control custom-checkbox login-card-check-box">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">Remember me</label>
+                </div>
+                <a href="#!" class="text-reset">Forgot password?</a>
+              </div>
+              <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="Login">
+            </form>
+            <p class="login-card-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
+          </div>
+        </div> -->
+    </div>
+</main>
+
+
+<style >
+    .min-vh-100 {
+        min-height: 75vh!important;
+    }
+</style>

@@ -6,7 +6,7 @@ if (!$block->getIspqaEnable()) {
 
 <div>
     <h3>question</h3>
-    <form action="<?php echo $block->getUrl("pqa/index/index"); ?>" method="post">
+    <form action="<?php echo $block->getUrl("pqa/productregistration/productregistration"); ?>" method="post">
         <input type="text" id="question" name="question"><br>
         <input type="hidden" id="productid" name="productid" value="<?php echo $block->getCurrentProduct(); ?>"><br>
         <input type="submit" value="Submit">
@@ -64,7 +64,7 @@ if (!$block->getIspqaEnable()) {
         {
             "*": {
                 "Sundari_Productfaq/js/vote": {
-                    "AjaxUrl": "<?php echo $block->getUrl("pqa/index/vote"); ?>"
+                    "AjaxUrl": "<?php echo $block->getUrl("pqa/productregistration/vote"); ?>"
                 }
             }
         }
